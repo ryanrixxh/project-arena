@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://omcrpkcshvu6"]
 
-[ext_resource type="PackedScene" uid="uid://megh3xibnoe3" path="res://vine.tscn" id="1_myjpq"]
-[ext_resource type="PackedScene" uid="uid://ct17lf3jtevi4" path="res://player.tscn" id="1_yqvos"]
-[ext_resource type="Script" path="res://player.gd" id="2_vxuk0"]
+[ext_resource type="PackedScene" uid="uid://megh3xibnoe3" path="res://scenes/vine.tscn" id="1_o7d1a"]
+[ext_resource type="PackedScene" uid="uid://ct17lf3jtevi4" path="res://scenes/player.tscn" id="2_ycub7"]
+[ext_resource type="Script" path="res://scripts/player.gd" id="3_n02np"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hu420"]
 size = Vector2(1154, 20)
@@ -23,15 +23,15 @@ offset_top = -11.0
 offset_right = 577.0
 offset_bottom = 10.0
 
-[node name="Vine" parent="." instance=ExtResource("1_myjpq")]
+[node name="Vine" parent="." instance=ExtResource("1_o7d1a")]
 position = Vector2(74, -66)
 scale = Vector2(0.49, 0.49)
 
-[node name="Player" parent="." instance=ExtResource("1_yqvos")]
-position = Vector2(156, 78)
+[node name="Player" parent="." instance=ExtResource("2_ycub7")]
+position = Vector2(76, 194)
 scale = Vector2(0.49, 0.49)
-script = ExtResource("2_vxuk0")
-speed = 600
-acceleration = 3500
-jump_velocity = -900
-gravity = 1500
+script = ExtResource("3_n02np")
+
+[connection signal="body_entered" from="Vine/Interactable" to="Player" method="_on_interactable_body_entered"]
+
+[editable path="Vine"]

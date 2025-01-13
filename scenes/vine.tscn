@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://megh3xibnoe3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i8047"]
+size = Vector2(89.1249, 439)
+
+[node name="Vine" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -4.99998
+offset_right = 5.00002
+offset_bottom = 528.0
+scale = Vector2(0.990678, 0.784619)
+
+[node name="Interactable" type="Area2D" parent="."]
+scale = Vector2(1.00753, 1)
+
+[node name="InteractableShape" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(0, 209.5)
+shape = SubResource("RectangleShape2D_i8047")

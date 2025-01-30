@@ -27,11 +27,12 @@ offset_bottom = 10.0
 position = Vector2(74, -66)
 scale = Vector2(0.49, 0.49)
 
+[node name="ColorRect" parent="Vine" index="0"]
+color = Color(0.361435, 0.623346, 0.255015, 1)
+
 [node name="Player" parent="." instance=ExtResource("2_ycub7")]
 position = Vector2(76, 194)
 scale = Vector2(0.49, 0.49)
 script = ExtResource("3_n02np")
-
-[connection signal="grabbed" from="Vine/Interactable" to="Player" method="_on_interactable_grabbed"]
 
 [editable path="Vine"]

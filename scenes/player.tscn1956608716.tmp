@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://ct17lf3jtevi4"]
+
+[ext_resource type="Texture2D" uid="uid://u2103av86j7o" path="res://assets/v2.png" id="1_dqkch"]
+[ext_resource type="Texture2D" uid="uid://g1ic8qq4kp2t" path="res://assets/2D squashed character-Sheet.png" id="1_qhqgy"]
+[ext_resource type="Script" uid="uid://jb258fphxmv2" path="res://scripts/player.gd" id="1_qlg0r"]
+[ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
+radius = 100.62
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tuyoq"]
+size = Vector2(123, 151)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("1_dqkch")
+region = Rect2(400, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("1_dqkch")
+region = Rect2(440, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(80, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(120, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(160, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(200, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(0, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(40, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(240, 0, 40, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("1_qhqgy")
+region = Rect2(280, 0, 40, 40)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3v2ag"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}],
+"loop": true,
+"name": &"airborne",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
+}],
+"loop": false,
+"name": &"crouch",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqkch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}],
+"loop": false,
+"name": &"full_jump_sequence",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqkch")
+}],
+"loop": false,
+"name": &"jump",
+"speed": 25.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64qw0"]
+size = Vector2(109, 127)
+
+[node name="Player" type="CharacterBody2D" unique_id=1608990892]
+collision_layer = 5
+collision_mask = 5
+script = ExtResource("1_qlg0r")
+
+[node name="PickupTrigger" type="Area2D" parent="." unique_id=843709192]
+collision_layer = 4
+collision_mask = 4
+
+[node name="AnimationDetectionShape" type="CollisionShape2D" parent="PickupTrigger" unique_id=2060057639]
+position = Vector2(10.5, -5)
+shape = SubResource("CircleShape2D_dqkch")
+
+[node name="AnimationTriggerArea" type="Area2D" parent="." unique_id=1562431500]
+
+[node name="AnimationDetectionShape" type="CollisionShape2D" parent="AnimationTriggerArea" unique_id=1529214188]
+position = Vector2(10.5, -3.5)
+shape = SubResource("RectangleShape2D_tuyoq")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="." unique_id=999978471]
+position = Vector2(5.0000067, -10.5)
+scale = Vector2(4.7500005, 4.025)
+sprite_frames = SubResource("SpriteFrames_3v2ag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=611591813]
+position = Vector2(9.5, -1.5)
+shape = SubResource("RectangleShape2D_64qw0")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1076368847]
+scale = Vector2(0.9600007, 1)
+zoom = Vector2(0.55, 0.55)
+limit_left = 0
+limit_right = 2800
+limit_bottom = 1100
+limit_smoothed = true
+
+[node name="Equipment" type="Node2D" parent="." unique_id=936964271]
+script = ExtResource("2_qhqgy")
+
+[node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
+position = Vector2(0.95478773, 27.001635)
+scale = Vector2(1.0000001, 1.0000001)
+
+[connection signal="area_entered" from="PickupTrigger" to="." method="_on_pickup_trigger_area_entered"]
+[connection signal="body_entered" from="AnimationTriggerArea" to="." method="_on_animation_trigger_area_body_entered"]

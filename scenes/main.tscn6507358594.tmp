@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://omcrpkcshvu6"]
+
+[ext_resource type="PackedScene" uid="uid://ct17lf3jtevi4" path="res://scenes/player.tscn" id="2_ycub7"]
+[ext_resource type="Script" uid="uid://jb258fphxmv2" path="res://scripts/player.gd" id="3_n02np"]
+[ext_resource type="Script" uid="uid://b1o88cfk7oxaa" path="res://scenes/canvas_layer.gd" id="3_sugp2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(155.06314, 211.19023)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
+size = Vector2(388.75198, 37.648796)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(1059.6394, 23.38051)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(1317.6646, 28.247837)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tbgi4"]
+size = Vector2(1286.8049, 25.033009)
+
+[sub_resource type="SystemFont" id="SystemFont_0wfyh"]
+font_names = PackedStringArray("Terminal Grotesque")
+
+[sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
+font = SubResource("SystemFont_0wfyh")
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Main" type="Node2D" unique_id=922352442]
+position = Vector2(493, 401)
+
+[node name="Internal Arena Collision Blocks" type="Node2D" parent="." unique_id=2038091904]
+
+[node name="InternalBlock1" type="RigidBody2D" parent="Internal Arena Collision Blocks" unique_id=1613289125]
+position = Vector2(204, 374)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock1" unique_id=243321724]
+position = Vector2(-0.00012207031, 3.0517578e-05)
+scale = Vector2(2.6423435, 1)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock1" unique_id=2070693790]
+offset_left = -205.0
+offset_top = -102.0
+offset_right = -33.749878
+offset_bottom = 117.0
+scale = Vector2(2.3999987, 1)
+
+[node name="InternalFloatingFloor" type="RigidBody2D" parent="Internal Arena Collision Blocks" unique_id=1862058463]
+position = Vector2(808, 144)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=644956741]
+position = Vector2(141, -20.999998)
+scale = Vector2(2.202341, 1)
+shape = SubResource("RectangleShape2D_tefeu")
+
+[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=1955256971]
+offset_left = -284.99997
+offset_top = -39.0
+offset_right = 103.1821
+offset_bottom = -3.0
+scale = Vector2(2.1999986, 1)
+
+[node name="InternalBlock3" type="RigidBody2D" parent="Internal Arena Collision Blocks" unique_id=881837629]
+position = Vector2(204, -171)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock3" unique_id=2048802120]
+position = Vector2(-0.00012207031, 3.0517578e-05)
+scale = Vector2(2.6423435, 1)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock3" unique_id=327723240]
+offset_left = -205.0
+offset_top = -102.0
+offset_right = -33.749878
+offset_bottom = 117.0
+scale = Vector2(2.3999987, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="InternalBlock4" type="RigidBody2D" parent="Internal Arena Collision Blocks" unique_id=1440977623]
+position = Vector2(1706, -171)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock4" unique_id=1343185254]
+position = Vector2(-0.00012207031, 3.0517578e-05)
+scale = Vector2(2.6423435, 1)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock4" unique_id=192231669]
+offset_left = -205.0
+offset_top = -102.0
+offset_right = -33.749878
+offset_bottom = 117.0
+scale = Vector2(2.3999987, 1)
+
+[node name="InternalBlock2" type="RigidBody2D" parent="Internal Arena Collision Blocks" unique_id=299265010]
+position = Vector2(1706, 374)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock2" unique_id=573123004]
+position = Vector2(-0.00012207031, 3.0517578e-05)
+scale = Vector2(2.6423435, 1)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock2" unique_id=1092995137]
+offset_left = -205.0
+offset_top = -102.0
+offset_right = -33.749878
+offset_bottom = 117.0
+scale = Vector2(2.3999987, 1)
+
+[node name="Floor" type="RigidBody2D" parent="." unique_id=1401847025]
+position = Vector2(918, 676)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=662740018]
+position = Vector2(-20.23523, -1.2565918)
+scale = Vector2(2.6423435, 1)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=271213418]
+offset_left = -1407.0
+offset_top = -14.0
+offset_right = -250.0
+offset_bottom = 7.0
+scale = Vector2(2.3999987, 1)
+
+[node name="Ceiling" type="RigidBody2D" parent="." unique_id=1652153262]
+position = Vector2(915, -678)
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling" unique_id=1226907424]
+position = Vector2(-18.965454, -3.6902466)
+scale = Vector2(2.6423435, 1)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="ColorRect" type="ColorRect" parent="Ceiling" unique_id=1239605715]
+offset_left = -1407.0
+offset_top = -14.0
+offset_right = -244.08264
+offset_bottom = 7.0
+scale = Vector2(2.3999987, 1)
+
+[node name="RightWall" type="RigidBody2D" parent="." unique_id=447917372]
+position = Vector2(2288, 206)
+rotation = -1.5707941
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1645745782]
+position = Vector2(209, -1.0002441)
+scale = Vector2(1.0442717, 0.939981)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="ColorRect" type="ColorRect" parent="RightWall" unique_id=1550136039]
+offset_left = -477.33475
+offset_top = -10.99888
+offset_right = 960.8601
+offset_bottom = 10.00112
+scale = Vector2(0.9600035, 1)
+
+[node name="LeftWall" type="RigidBody2D" parent="." unique_id=674619335]
+position = Vector2(-481, 206)
+rotation = -1.5707941
+gravity_scale = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=241669854]
+position = Vector2(213.11325, -2.7683802)
+scale = Vector2(1.0442717, 1.0999801)
+shape = SubResource("RectangleShape2D_tbgi4")
+
+[node name="ColorRect" type="ColorRect" parent="LeftWall" unique_id=2112518223]
+offset_left = -477.33475
+offset_top = -10.99888
+offset_right = 938.2876
+offset_bottom = 10.00112
+scale = Vector2(0.9600035, 1)
+
+[node name="Player" parent="." unique_id=1414567758 instance=ExtResource("2_ycub7")]
+position = Vector2(953, -24)
+scale = Vector2(0.49, 0.49)
+script = ExtResource("3_n02np")
+speed = 800
+acceleration = 8000
+wall_jump_velocity = 1000
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2035756310]
+layer = 2
+script = ExtResource("3_sugp2")
+
+[node name="UI" type="Control" parent="CanvasLayer" unique_id=124230687]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 493.0
+offset_top = 401.0
+offset_right = 533.0
+offset_bottom = 441.0
+
+[node name="Panel" type="Panel" parent="CanvasLayer/UI" unique_id=33460347]
+layout_mode = 0
+offset_left = 415.0
+offset_top = 179.0
+offset_right = 626.0
+offset_bottom = 226.0
+
+[node name="Label" type="Label" parent="CanvasLayer/UI/Panel" unique_id=25193442]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 124.0
+offset_bottom = 56.0
+text = "SPEED: "
+label_settings = SubResource("LabelSettings_0wfyh")

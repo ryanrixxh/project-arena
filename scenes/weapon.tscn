@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://hucue7ygh848"]
+
+[ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_xasec"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3vyb7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xasec"]
+size = Vector2(182, 52)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
+radius = 40.093624
+height = 225.87892
+
+[node name="Weapon" type="Node2D" unique_id=437407813]
+script = ExtResource("1_xasec")
+
+[node name="WeaponBody" type="Node2D" parent="." unique_id=874960057]
+position = Vector2(91, 0)
+
+[node name="WeaponSprite" type="Sprite2D" parent="WeaponBody" unique_id=24669617]
+position = Vector2(3.8146973e-06, 0)
+scale = Vector2(182, -52)
+texture = SubResource("PlaceholderTexture2D_3vyb7")
+
+[node name="FiringTimer" type="Timer" parent="WeaponBody" unique_id=2082273181]
+process_callback = 0
+autostart = true
+
+[node name="BarrelMarker" type="Marker2D" parent="WeaponBody" unique_id=1471378519]
+position = Vector2(121, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponBody" unique_id=360305320]
+position = Vector2(3.8146973e-06, 0)
+shape = SubResource("RectangleShape2D_xasec")
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=1756302881]
+position = Vector2(91, 0)
+collision_layer = 4
+collision_mask = 4
+
+[node name="PickupDetectionShape" type="CollisionShape2D" parent="PickupArea" unique_id=1278733221]
+position = Vector2(0, 0.09615383)
+rotation = -1.5685139
+shape = SubResource("CapsuleShape2D_xasec")
+
+[connection signal="timeout" from="WeaponBody/FiringTimer" to="." method="_on_firing_timer_timeout"]

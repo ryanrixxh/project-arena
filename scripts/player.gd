@@ -17,6 +17,8 @@ signal trigger_pull
 @onready var weapon_marker: Marker2D = $Equipment/WeaponMarker
 var equipped_weapon: Weapon
 
+# Class for keeping track of multiple player state values.
+# Initialised immediately
 class PlayerState:
 	enum AirState {
 		GROUNDED,
@@ -115,6 +117,9 @@ func wall_jump():
 		velocity.x = direction * speed
 		state.walled = false
 
+# Speed of the player directly effects the damage multiplier of a weaopn.
+# So when we pull the trigger we pass our speed value accross the signal and the weapon
+# script handles it from there.
 func pull_trigger():
 	trigger_pull.emit(speed)
 

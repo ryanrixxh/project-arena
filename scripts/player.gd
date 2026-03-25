@@ -28,7 +28,7 @@ class PlayerState:
 	func _init() -> void:
 		air_state = AirState.GROUNDED
 		walled = false
-	
+
 	func is_grounded() -> bool:
 		return air_state == AirState.GROUNDED
 
@@ -38,15 +38,17 @@ var state = PlayerState.new()
 func _ready() -> void:
 	#if (state.weapon_equipped):
 		#trigger_pull.connect(equipped_weapon._on_trigger_pull)
-	pass # Replace with function body
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(_delta: float) -> void:
 	pass
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+# Main driver for all other player script handling, as most of it is based on input handling.
 func _physics_process(delta: float) -> void:
 	move_and_slide()
-	
+
 	get_horizontal_movement(delta)
 	handle_orientation()
 	handle_input()
@@ -65,27 +67,32 @@ func _physics_process(delta: float) -> void:
 		state.air_state = PlayerState.AirState.GROUNDED
 
 	speed_label.text = "SPEED: " + str(abs(int(velocity.x)))
-	
+
 func handle_orientation():
 	var mouse_pos = get_global_mouse_position()
 	var looking_left = mouse_pos.x < global_position.x
 	global_transform.x.x = -abs(global_transform.x.x) if looking_left else abs(global_transform.x.x)
+
 
 func get_horizontal_movement(delta: float):
 	var direction = Input.get_axis("left", "right")
 	var arial_acceleration = acceleration * 0.5
 	velocity.x = move_toward(velocity.x, direction * speed, (acceleration if state.is_grounded() else arial_acceleration) * delta)
 
+
+# Input handling:
+#  At the top level [method handle_input] handles all direct input and calls various utility function based on that input
 func handle_input():
 	if Input.is_action_just_pressed("jump"):
 		sprite.play("crouch")
-		
+
 	if Input.is_action_just_released("jump"):
 		sprite.stop()
 		handle_jump_input("jump")
-	
+
 	if Input.is_action_pressed("shoot"):
 		pull_trigger()
+
 
 func handle_jump_input(delta):
 	if state.is_grounded():
@@ -110,20 +117,25 @@ func wall_jump():
 
 func pull_trigger():
 	trigger_pull.emit(speed)
-	
+
 func _on_animation_trigger_area_body_entered(body: Node2D) -> void:
 	sprite.play("default")
-	
+
+
+# Weapon Equipping:
+# Each weapon has a "pickup area" seperate from their regular collision area. When the player enters this area
+# the weapon will be equipped.
+
 func _on_pickup_trigger_area_entered(area: Area2D) -> void:
 	var weapon = area.get_parent()
 	if not equipped_weapon:
 		equip(weapon)
-		
+
 func equip(weapon: Weapon) -> void:
 	equipped_weapon = weapon
 	var body = weapon.get_node("WeaponBody")
 	weapon.get_parent().remove_child(weapon)
 	weapon_marker.add_child(weapon)
 	weapon.global_position = weapon_marker.global_position
-	
+
 	trigger_pull.connect(equipped_weapon._on_trigger_pull)

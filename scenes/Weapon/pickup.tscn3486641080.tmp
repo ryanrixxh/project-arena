@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://fqsuqojvauds"]
+
+[ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup_component.gd" id="2_bn5xs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
+radius = 40.093624
+height = 225.87892
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vsyep"]
+size = Vector2(164, 48)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vsyep"]
+
+[node name="Pickup" type="RigidBody2D" unique_id=1888499280]
+mass = 8.166
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=729363975]
+collision_layer = 4
+collision_mask = 4
+
+[node name="PickupDetectionShape" type="CollisionShape2D" parent="PickupArea" unique_id=64364952]
+position = Vector2(0, -9.536743e-07)
+rotation = -1.5685139
+shape = SubResource("CapsuleShape2D_xasec")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945410480]
+shape = SubResource("RectangleShape2D_vsyep")
+
+[node name="Pickup" type="Node" parent="." unique_id=623044568 node_paths=PackedStringArray("pickup_body")]
+script = ExtResource("2_bn5xs")
+pickup_body = NodePath("..")
+metadata/_custom_type_script = "uid://b6u63h087idg0"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
+position = Vector2(3.8146973e-06, 0)
+scale = Vector2(163.99998, 48)
+texture = SubResource("PlaceholderTexture2D_vsyep")
+
+[connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]

@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://g1ic8qq4kp2t" path="res://assets/2D squashed character-Sheet.png" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://jb258fphxmv2" path="res://scripts/player.gd" id="1_qlg0r"]
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://hucue7ygh848" path="res://scenes/weapon.tscn" id="5_qlg0r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
 radius = 100.62
@@ -178,6 +179,10 @@ script = ExtResource("2_qhqgy")
 [node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
 position = Vector2(0.95478773, 27.001635)
 scale = Vector2(1.0000001, 1.0000001)
+
+[node name="Weapon" parent="Equipment/WeaponMarker" unique_id=437407813 instance=ExtResource("5_qlg0r")]
+position = Vector2(-0.9547876, -27.00163)
+scale = Vector2(0.9999999, 0.9999999)
 
 [connection signal="area_entered" from="PickupTrigger" to="." method="_on_pickup_trigger_area_entered"]
 [connection signal="body_entered" from="AnimationTriggerArea" to="." method="_on_animation_trigger_area_body_entered"]

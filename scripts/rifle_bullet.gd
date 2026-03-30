@@ -3,7 +3,7 @@ class_name Bullet extends Area2D
 @export var bullet_speed = 400
 @export var damage_multi = 1
 @export var damage: int = 1
-	
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -28,4 +28,3 @@ func hit(area: Area2D):
 	var target: Target = area.get_parent()
 	target.health -= damage
 	target.check_health()
-	print(target.health)

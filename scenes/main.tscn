@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://omcrpkcshvu6"]
 
 [ext_resource type="PackedScene" uid="uid://ct17lf3jtevi4" path="res://scenes/player.tscn" id="2_ycub7"]
-[ext_resource type="PackedScene" uid="uid://hucue7ygh848" path="res://scenes/weapon.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://fqsuqojvauds" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://b1o88cfk7oxaa" path="res://scripts/canvas_layer.gd" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://c87uqcthcy162" path="res://scenes/target.tscn" id="4_jyhfs"]
 
@@ -196,13 +196,6 @@ metadata/_edit_use_anchors_ = true
 [node name="Player" parent="." unique_id=1414567758 instance=ExtResource("2_ycub7")]
 position = Vector2(881, -351)
 scale = Vector2(0.65, 0.65)
-speed = 200
-min_speed = 200
-max_speed = 1000
-speed_increase_rate = 3
-speed_decrease_rate = -5
-jump_velocity = -850
-gravity = 1500
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2035756310]
 layer = 2
@@ -242,9 +235,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Pickups" type="Node2D" parent="." unique_id=927983828]
 
-[node name="Weapon" parent="Pickups" unique_id=437407813 instance=ExtResource("3_jyhfs")]
-position = Vector2(1168, -328)
-weapon_name = "Placeholder"
+[node name="Pickup" parent="Pickups" unique_id=1888499280 instance=ExtResource("3_jyhfs")]
+position = Vector2(556, -348)
 
 [node name="Target" parent="." unique_id=1871628794 instance=ExtResource("4_jyhfs")]
 position = Vector2(879, -739)

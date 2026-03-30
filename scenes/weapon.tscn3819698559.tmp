@@ -14,22 +14,22 @@ height = 225.87892
 [node name="Weapon" type="Node2D" unique_id=437407813]
 script = ExtResource("1_xasec")
 
-[node name="WeaponBody" type="Node2D" parent="." unique_id=874960057]
+[node name="RigidWeapon" type="RigidBody2D" parent="." unique_id=195857024]
 position = Vector2(91, 0)
 
-[node name="WeaponSprite" type="Sprite2D" parent="WeaponBody" unique_id=24669617]
+[node name="WeaponSprite" type="Sprite2D" parent="RigidWeapon" unique_id=24669617]
 position = Vector2(3.8146973e-06, 0)
 scale = Vector2(182, -52)
 texture = SubResource("PlaceholderTexture2D_3vyb7")
 
-[node name="FiringTimer" type="Timer" parent="WeaponBody" unique_id=2082273181]
+[node name="FiringTimer" type="Timer" parent="RigidWeapon" unique_id=2082273181]
 process_callback = 0
 autostart = true
 
-[node name="BarrelMarker" type="Marker2D" parent="WeaponBody" unique_id=1471378519]
+[node name="BarrelMarker" type="Marker2D" parent="RigidWeapon" unique_id=1471378519]
 position = Vector2(121, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponBody" unique_id=360305320]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidWeapon" unique_id=360305320]
 position = Vector2(3.8146973e-06, 0)
 shape = SubResource("RectangleShape2D_xasec")
 
@@ -43,4 +43,4 @@ position = Vector2(0, 0.09615383)
 rotation = -1.5685139
 shape = SubResource("CapsuleShape2D_xasec")
 
-[connection signal="timeout" from="WeaponBody/FiringTimer" to="." method="_on_firing_timer_timeout"]
+[connection signal="timeout" from="RigidWeapon/FiringTimer" to="." method="_on_firing_timer_timeout"]

@@ -1,9 +1,10 @@
-extends CharacterBody2D
+class_name Player extends CharacterBody2D
 
 signal trigger_pull
+signal throw
 
 
-@export var speed = 200
+@export var speed = 100
 @export var min_speed = 200
 @export var max_speed = 1000
 @export var speed_increase_rate = 3
@@ -15,7 +16,6 @@ signal trigger_pull
 @onready var speed_label: Label = $"../CanvasLayer/UI/Panel/Label"
 @onready var sprite: AnimatedSprite2D = $PlayerSprite
 @onready var weapon_marker: Marker2D = $Equipment/WeaponMarker
-var equipped_weapon: Weapon
 
 # Class for keeping track of multiple player state values.
 # Initialised immediately
@@ -38,8 +38,7 @@ var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#if (state.weapon_equipped):
-		#trigger_pull.connect(equipped_weapon._on_trigger_pull)
+	#trigger_pull.connect(equipped_weapon._on_trigger_pull)
 	pass
 
 
@@ -93,7 +92,13 @@ func handle_input():
 		handle_jump_input("jump")
 
 	if Input.is_action_pressed("shoot"):
-		pull_trigger()
+		# Speed of the player directly effects the damage multiplier of a weapon.
+		# So when we pull the trigger we pass our speed value accross the signal and the weapon
+		# script handles it from there.
+		trigger_pull.emit(speed)
+	
+	if Input.is_action_pressed("unequip"):
+		throw.emit()
 
 
 func handle_jump_input(delta):
@@ -109,7 +114,6 @@ func jump(delta):
 
 func wall_jump():
 	var collision = get_last_slide_collision()
-
 	if collision:
 		var direction = collision.get_normal()[0]
 		state.air_state = PlayerState.AirState.AIRBORN
@@ -117,30 +121,6 @@ func wall_jump():
 		velocity.x = direction * speed
 		state.walled = false
 
-# Speed of the player directly effects the damage multiplier of a weaopn.
-# So when we pull the trigger we pass our speed value accross the signal and the weapon
-# script handles it from there.
-func pull_trigger():
-	trigger_pull.emit(speed)
-
 func _on_animation_trigger_area_body_entered(body: Node2D) -> void:
 	sprite.play("default")
-
-
-# Weapon Equipping:
-# Each weapon has a "pickup area" seperate from their regular collision area. When the player enters this area
-# the weapon will be equipped.
-
-func _on_pickup_trigger_area_entered(area: Area2D) -> void:
-	var weapon = area.get_parent()
-	if not equipped_weapon:
-		equip(weapon)
-
-func equip(weapon: Weapon) -> void:
-	equipped_weapon = weapon
-	var body = weapon.get_node("WeaponBody")
-	weapon.get_parent().remove_child(weapon)
-	weapon_marker.add_child(weapon)
-	weapon.global_position = weapon_marker.global_position
-
-	trigger_pull.connect(equipped_weapon._on_trigger_pull)
+	

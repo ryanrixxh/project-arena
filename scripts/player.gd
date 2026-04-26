@@ -3,7 +3,7 @@ class_name Player extends CharacterBody2D
 signal trigger_pull
 signal throw
 
-
+# Movement stats
 @export var speed = 100
 @export var min_speed = 200
 @export var max_speed = 1000
@@ -13,7 +13,11 @@ signal throw
 @export var jump_velocity = -850
 @export var gravity = 1500
 
-@onready var speed_label: Label = $"../CanvasLayer/UI/Panel/Label"
+@onready var health_component: HealthComponent = $Health
+
+@onready var speed_label: Label = $CanvasLayer/PlayerStatus/SpeedPanel/SpeedLabel
+@onready var health_label: Label = $CanvasLayer/PlayerStatus/HealthPanel/HealthLabel
+@onready var canvas: CanvasLayer = $CanvasLayer
 @onready var sprite: AnimatedSprite2D = $PlayerSprite
 @onready var weapon_marker: Marker2D = $Equipment/WeaponMarker
 
@@ -38,8 +42,8 @@ var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#trigger_pull.connect(equipped_weapon._on_trigger_pull)
 	pass
+	health_label.text = "HEALTH: " + str(health_component.health)
 
 
 func _process(_delta: float) -> void:
@@ -99,6 +103,7 @@ func handle_input():
 	
 	if Input.is_action_pressed("unequip"):
 		throw.emit()
+		
 
 
 func handle_jump_input(delta):

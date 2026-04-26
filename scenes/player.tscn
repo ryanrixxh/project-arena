@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://g1ic8qq4kp2t" path="res://assets/2D squashed character-Sheet.png" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://jb258fphxmv2" path="res://scripts/player.gd" id="1_qlg0r"]
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="5_qlg0r"]
+[ext_resource type="Script" uid="uid://b1o88cfk7oxaa" path="res://scripts/canvas_layer.gd" id="6_tuyoq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dqkch"]
 radius = 100.62
@@ -136,6 +138,9 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64qw0"]
 size = Vector2(109, 127)
 
+[sub_resource type="LabelSettings" id="LabelSettings_qlg0r"]
+outline_color = Color(0, 0, 0, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=1608990892]
 collision_layer = 5
 collision_mask = 5
@@ -164,20 +169,105 @@ sprite_frames = SubResource("SpriteFrames_3v2ag")
 position = Vector2(9.5, -1.5)
 shape = SubResource("RectangleShape2D_64qw0")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1076368847]
-scale = Vector2(0.9600007, 1)
-zoom = Vector2(0.55, 0.55)
-limit_left = 0
-limit_right = 2800
-limit_bottom = 1100
-limit_smoothed = true
-
 [node name="Equipment" type="Node2D" parent="." unique_id=936964271]
 script = ExtResource("2_qhqgy")
 
 [node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
 position = Vector2(0.95478773, 27.001635)
 scale = Vector2(1.0000001, 1.0000001)
+
+[node name="Health" type="Node" parent="." unique_id=1476547498]
+script = ExtResource("5_qlg0r")
+metadata/_custom_type_script = "uid://5uig6yhhkjxp"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1320438639]
+layer = 2
+script = ExtResource("6_tuyoq")
+
+[node name="PlayerStatus" type="Control" parent="CanvasLayer" unique_id=1582422773]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="SpeedPanel" type="Panel" parent="CanvasLayer/PlayerStatus" unique_id=1165913150]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 33.075
+anchor_top = 23.175
+anchor_right = 33.075
+anchor_bottom = 23.175
+offset_left = 343.0
+offset_top = 77.0
+offset_right = 554.0
+offset_bottom = 124.0
+metadata/_edit_use_anchors_ = true
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/PlayerStatus/SpeedPanel" unique_id=2041791086]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.023696683
+anchor_top = 0.21276596
+anchor_right = 0.023696683
+anchor_bottom = 0.21276596
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 124.0
+offset_bottom = 56.0
+text = "SPEED: "
+label_settings = SubResource("LabelSettings_qlg0r")
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthPanel" type="Panel" parent="CanvasLayer/PlayerStatus" unique_id=868539435]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 33.05
+anchor_top = 25.825
+anchor_right = 38.1
+anchor_bottom = 26.0
+offset_left = 56.0
+offset_top = -28.0
+offset_right = 96.0
+offset_bottom = 12.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthLabel" type="Label" parent="CanvasLayer/PlayerStatus/HealthPanel" unique_id=57926073]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.045454547
+anchor_top = 0.21276563
+anchor_right = 0.045454547
+anchor_bottom = 0.21276563
+offset_right = 40.0
+offset_bottom = 23.0
+text = "HEALTH:"
+metadata/_edit_use_anchors_ = true
+
+[node name="EquipmentPanel" type="Panel" parent="CanvasLayer/PlayerStatus" unique_id=1371737743]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 1002.0
+offset_right = 313.0
+offset_bottom = 1046.0
+
+[node name="WeaponLabel" type="Label" parent="CanvasLayer/PlayerStatus/EquipmentPanel" unique_id=307023936]
+layout_mode = 0
+offset_left = 146.0
+offset_top = 10.0
+offset_right = 267.0
+offset_bottom = 33.0
+text = "None"
+
+[node name="WeaponSymbol" type="TextureRect" parent="CanvasLayer/PlayerStatus/EquipmentPanel" unique_id=978161158]
+layout_mode = 0
+offset_left = 3.0000038
+offset_top = 26.999979
+offset_right = 103.668365
+offset_bottom = 66.57542
+rotation = -0.45417586
+scale = Vector2(1.1200004, 0.91055155)
+expand_mode = 1
 
 [connection signal="area_entered" from="PickupTrigger" to="." method="_on_pickup_trigger_area_entered"]
 [connection signal="body_entered" from="AnimationTriggerArea" to="." method="_on_animation_trigger_area_body_entered"]

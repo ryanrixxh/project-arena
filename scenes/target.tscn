@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c87uqcthcy162"]
 
-[ext_resource type="Script" uid="uid://c0s8d8o4xewdq" path="res://scenes/target.gd" id="1_b37e2"]
+[ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="2_b5a2r"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2b72u"]
 radius = 77.16217
@@ -8,7 +8,6 @@ radius = 77.16217
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b37e2"]
 
 [node name="Target" type="Node2D" unique_id=1871628794]
-script = ExtResource("1_b37e2")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=780881871]
 collision_layer = 8
@@ -28,3 +27,7 @@ offset_top = 65.0
 offset_right = 55.0
 offset_bottom = 88.0
 horizontal_alignment = 1
+
+[node name="HealthComponent" type="Node" parent="." unique_id=310212054]
+script = ExtResource("2_b5a2r")
+metadata/_custom_type_script = "uid://5uig6yhhkjxp"

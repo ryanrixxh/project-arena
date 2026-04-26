@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://fqsuqojvauds"]
 
-[ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup_component.gd" id="2_bn5xs"]
+[ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
+[ext_resource type="Texture2D" uid="uid://d20pi7dxlpo2i" path="res://assets/pirate ship.png" id="2_kqu22"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
@@ -11,8 +12,6 @@ height = 225.87892
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsyep"]
 size = Vector2(164, 48)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vsyep"]
 
 [node name="Pickup" type="RigidBody2D" unique_id=1888499280]
 collision_layer = 3
@@ -32,20 +31,21 @@ shape = SubResource("CapsuleShape2D_xasec")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945410480]
 shape = SubResource("RectangleShape2D_vsyep")
 
-[node name="Pickup" type="Node" parent="." unique_id=623044568 node_paths=PackedStringArray("pickup_body")]
+[node name="PickupComponent" type="Node" parent="." unique_id=623044568 node_paths=PackedStringArray("pickup_body", "pickup_area")]
 script = ExtResource("2_bn5xs")
 pickup_body = NodePath("..")
+pickup_area = NodePath("../PickupArea")
 metadata/_custom_type_script = "uid://b6u63h087idg0"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
-position = Vector2(3.8146973e-06, 0)
-scale = Vector2(163.99998, 48)
-texture = SubResource("PlaceholderTexture2D_vsyep")
+position = Vector2(8.000003, -28)
+scale = Vector2(0.18567961, 0.17210144)
+texture = ExtResource("2_kqu22")
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=512764419]
 wait_time = 0.08
 one_shot = true
 autostart = true
 
-[connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]
-[connection signal="timeout" from="CooldownTimer" to="Pickup" method="_on_cooldown_timer_timeout"]
+[connection signal="area_entered" from="PickupArea" to="PickupComponent" method="_on_pickup_area_area_entered"]
+[connection signal="timeout" from="CooldownTimer" to="PickupComponent" method="_on_cooldown_timer_timeout"]

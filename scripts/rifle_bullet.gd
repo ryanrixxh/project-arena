@@ -25,6 +25,7 @@ func _on_area_entered(area: Area2D) -> void:
 	pass # Replace with function body.
 
 func hit(area: Area2D):
-	var target: Target = area.get_parent()
-	target.health -= damage
-	target.check_health()
+	var target = area.get_parent()
+	var health_component: HealthComponent = target.find_child("HealthComponent")
+	health_component.health -= damage
+	health_component.check_health()

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://omcrpkcshvu6"]
 
+[ext_resource type="Texture2D" uid="uid://bws8ysbhfnowp" path="res://assets/paper-line-vector-background-detailed-lined-paper-texture-599434499.jpg" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://ct17lf3jtevi4" path="res://scenes/player.tscn" id="2_ycub7"]
 [ext_resource type="PackedScene" uid="uid://fqsuqojvauds" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
-[ext_resource type="Script" uid="uid://b1o88cfk7oxaa" path="res://scripts/canvas_layer.gd" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://c87uqcthcy162" path="res://scenes/target.tscn" id="4_jyhfs"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
@@ -17,226 +17,207 @@ size = Vector2(1059.6394, 23.38051)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(1898.9309, 28.247837)
 
-[sub_resource type="SystemFont" id="SystemFont_0wfyh"]
-font_names = PackedStringArray("Terminal Grotesque")
-
-[sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
-font = SubResource("SystemFont_0wfyh")
-font_size = 40
-font_color = Color(0, 0, 0, 1)
-outline_color = Color(0, 0, 0, 1)
-
 [node name="Main" type="Node2D" unique_id=922352442]
-position = Vector2(493, 401)
 
-[node name="Internal Arena Collision Blocks" type="Node2D" parent="." unique_id=2038091904]
+[node name="Background" type="Sprite2D" parent="." unique_id=1564463435]
+position = Vector2(1546, 899.99994)
+scale = Vector2(0.835, 0.645)
+texture = ExtResource("1_jyhfs")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1240736190]
+position = Vector2(1765, 1004.0001)
+scale = Vector2(0.65, 0.65)
+zoom = Vector2(0.555, 0.555)
+
+[node name="Player" parent="." unique_id=1414567758 instance=ExtResource("2_ycub7")]
+position = Vector2(1751, 869.00006)
+scale = Vector2(0.65, 0.65)
+collision_layer = 1
+collision_mask = 1
+
+[node name="CollisionBlocks" type="Node2D" parent="." unique_id=227081774]
+position = Vector2(849, 1274)
+
+[node name="Internal Arena Collision Blocks" type="Node2D" parent="CollisionBlocks" unique_id=2038091904]
 position = Vector2(-11, -300)
 
-[node name="InternalBlock1" type="StaticBody2D" parent="Internal Arena Collision Blocks" unique_id=1903723091]
+[node name="InternalBlock1" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1903723091]
 position = Vector2(132, 550)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock1" unique_id=243321724]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock1" unique_id=243321724]
 position = Vector2(-0.00012207031, 3.0517578e-05)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock1" unique_id=2070693790]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock1" unique_id=2070693790]
 offset_left = -205.0
 offset_top = -205.0
 offset_right = -33.749924
 offset_bottom = 205.0
 scale = Vector2(2.3999987, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="InternalFloatingFloor" type="StaticBody2D" parent="Internal Arena Collision Blocks" unique_id=1320817427]
+[node name="InternalFloatingFloor" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1320817427]
 position = Vector2(736, 42)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=644956741]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=644956741]
 position = Vector2(141, -20.999998)
 scale = Vector2(2.202341, 1)
 shape = SubResource("RectangleShape2D_tefeu")
 
-[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=1955256971]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=1955256971]
 offset_left = -284.99997
 offset_top = -39.0
 offset_right = 103.1821
 offset_bottom = -3.0
 scale = Vector2(2.1999986, 1)
+color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="InternalBlock3" type="StaticBody2D" parent="Internal Arena Collision Blocks" unique_id=1563056164]
+[node name="InternalBlock3" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1563056164]
 position = Vector2(132, -549)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock3" unique_id=2048802120]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock3" unique_id=2048802120]
 position = Vector2(-0.00012207031, 3.0517578e-05)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock3" unique_id=327723240]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock3" unique_id=327723240]
 offset_left = -205.0
 offset_top = -211.0
 offset_right = -32.91658
 offset_bottom = 207.0
 scale = Vector2(2.3999987, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="InternalBlock4" type="StaticBody2D" parent="Internal Arena Collision Blocks" unique_id=1004442450]
+[node name="InternalBlock4" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1004442450]
 position = Vector2(1634, -549)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock4" unique_id=1343185254]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock4" unique_id=1343185254]
 position = Vector2(-0.00012207031, 3.0517578e-05)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock4" unique_id=192231669]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock4" unique_id=192231669]
 offset_left = -211.0
 offset_top = -205.0
 offset_right = -38.083252
 offset_bottom = 151.29315
 scale = Vector2(2.3999987, 1.1563512)
+color = Color(0, 0, 0, 1)
 
-[node name="InternalBlock2" type="StaticBody2D" parent="Internal Arena Collision Blocks" unique_id=2055019475]
+[node name="InternalBlock2" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=2055019475]
 position = Vector2(1634, 450)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Internal Arena Collision Blocks/InternalBlock2" unique_id=573123004]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock2" unique_id=573123004]
 position = Vector2(0, 100.20245)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="ColorRect" type="ColorRect" parent="Internal Arena Collision Blocks/InternalBlock2" unique_id=1092995137]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock2" unique_id=1092995137]
 offset_left = -205.0
 offset_top = -102.0
 offset_right = -33.749878
 offset_bottom = 117.0
 scale = Vector2(2.3999987, 1.8799994)
+color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="Ceiling" type="StaticBody2D" parent="." unique_id=149673681]
+[node name="Ceiling" type="StaticBody2D" parent="CollisionBlocks" unique_id=149673681]
 position = Vector2(915, -1255)
 scale = Vector2(1.2399988, 1)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ceiling" unique_id=1226907424]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Ceiling" unique_id=1226907424]
 position = Vector2(-18.965454, -3.6902466)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_sugp2")
 
-[node name="ColorRect" type="ColorRect" parent="Ceiling" unique_id=1239605715]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Ceiling" unique_id=1239605715]
 offset_left = -1407.0
 offset_top = -14.0
 offset_right = -244.08264
 offset_bottom = 7.0
 scale = Vector2(2.3999987, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="Floor" type="StaticBody2D" parent="." unique_id=1664418200]
+[node name="Floor" type="StaticBody2D" parent="CollisionBlocks" unique_id=1664418200]
 position = Vector2(915, 693)
 scale = Vector2(1.2399988, 1)
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Floor" unique_id=878233118]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Floor" unique_id=878233118]
 position = Vector2(-18.965454, -3.6902466)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_sugp2")
 
-[node name="ColorRect" type="ColorRect" parent="Floor" unique_id=391451422]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Floor" unique_id=391451422]
 offset_left = -1407.0
 offset_top = -14.0
 offset_right = -244.08264
 offset_bottom = 7.0
 scale = Vector2(2.3999987, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="RightWall" type="StaticBody2D" parent="." unique_id=214115925]
+[node name="RightWall" type="StaticBody2D" parent="CollisionBlocks" unique_id=214115925]
 position = Vector2(2643, 219)
 rotation = -1.5707941
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1645745782]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/RightWall" unique_id=1645745782]
 position = Vector2(505.50003, -1.0002441)
 scale = Vector2(1.0442717, 0.939981)
 shape = SubResource("RectangleShape2D_jyhfs")
 
-[node name="ColorRect" type="ColorRect" parent="RightWall" unique_id=1550136039]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/RightWall" unique_id=1550136039]
 offset_left = -480.00006
 offset_top = -13.998879
 offset_right = 958.19476
 offset_bottom = 7.0011206
 scale = Vector2(1.3646933, 1.1509922)
+color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
-[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1159844434]
+[node name="LeftWall" type="StaticBody2D" parent="CollisionBlocks" unique_id=1159844434]
 position = Vector2(-828, 215)
 rotation = -1.5707941
 collision_layer = 3
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=1955397509]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/LeftWall" unique_id=1955397509]
 position = Vector2(505.50003, -1.0002441)
 scale = Vector2(1.0442717, 0.939981)
 shape = SubResource("RectangleShape2D_jyhfs")
 
-[node name="ColorRect" type="ColorRect" parent="LeftWall" unique_id=628736328]
+[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/LeftWall" unique_id=628736328]
 offset_left = -480.00006
 offset_top = -13.998879
 offset_right = 958.19476
 offset_bottom = 7.0011206
 scale = Vector2(1.3646933, 1.1509922)
-metadata/_edit_use_anchors_ = true
-
-[node name="Player" parent="." unique_id=1414567758 instance=ExtResource("2_ycub7")]
-position = Vector2(881, -351)
-scale = Vector2(0.65, 0.65)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2035756310]
-layer = 2
-script = ExtResource("3_sugp2")
-
-[node name="UI" type="Control" parent="CanvasLayer" unique_id=124230687]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 493.0
-offset_top = 401.0
-offset_right = 533.0
-offset_bottom = 441.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Panel" type="Panel" parent="CanvasLayer/UI" unique_id=33460347]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 20.525
-anchor_top = 13.075
-anchor_right = 20.525
-anchor_bottom = 13.075
-offset_left = 343.0
-offset_top = 77.0
-offset_right = 554.0
-offset_bottom = 124.0
-metadata/_edit_use_anchors_ = true
-
-[node name="Label" type="Label" parent="CanvasLayer/UI/Panel" unique_id=25193442]
-layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 124.0
-offset_bottom = 56.0
-text = "SPEED: "
-label_settings = SubResource("LabelSettings_0wfyh")
+color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Pickups" type="Node2D" parent="." unique_id=927983828]
+position = Vector2(930, 1223)
 
 [node name="Pickup" parent="Pickups" unique_id=1888499280 instance=ExtResource("3_jyhfs")]
-position = Vector2(556, -348)
+position = Vector2(485, -338)
+collision_layer = 2
+collision_mask = 2
 
 [node name="Target" parent="." unique_id=1871628794 instance=ExtResource("4_jyhfs")]
-position = Vector2(879, -739)
+position = Vector2(1718, 509)

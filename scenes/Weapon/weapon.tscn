@@ -1,16 +1,16 @@
 [gd_scene format=3 uid="uid://hucue7ygh848"]
 
 [ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_e2o24"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_3vyb7"]
+[ext_resource type="Texture2D" uid="uid://d20pi7dxlpo2i" path="res://assets/pirate ship.png" id="2_uf51t"]
 
 [node name="Weapon" type="Node2D" unique_id=437407813]
 script = ExtResource("1_e2o24")
 
 [node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
-position = Vector2(91, 1)
-scale = Vector2(182, -52)
-texture = SubResource("PlaceholderTexture2D_3vyb7")
+position = Vector2(97, -18)
+scale = Vector2(0.20273757, -0.15859024)
+texture = ExtResource("2_uf51t")
+flip_v = true
 
 [node name="FiringTimer" type="Timer" parent="." unique_id=2082273181]
 process_callback = 0

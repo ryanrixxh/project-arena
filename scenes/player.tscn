@@ -61,7 +61,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_4r5pv")
 }],
-"loop": true,
+"loop": false,
 "name": &"crouch",
 "speed": 5.0
 }, {
@@ -112,7 +112,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_i4ail")
 }],
-"loop": true,
+"loop": false,
 "name": &"jump",
 "speed": 5.0
 }]
@@ -249,7 +249,6 @@ radius = 202.0099
 outline_color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D" unique_id=1608990892]
-position = Vector2(5, 1)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_qlg0r")
@@ -286,16 +285,17 @@ position = Vector2(-4, -1)
 shape = SubResource("RectangleShape2D_64qw0")
 
 [node name="Equipment" type="Node2D" parent="." unique_id=936964271]
+position = Vector2(-3, 0)
 script = ExtResource("2_qhqgy")
 
 [node name="Area2D" type="Area2D" parent="Equipment" unique_id=35284940]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Equipment/Area2D" unique_id=907572108]
-position = Vector2(-3, 0)
+position = Vector2(3, -7)
 shape = SubResource("CircleShape2D_tuyoq")
 
 [node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
-position = Vector2(93, 0)
+position = Vector2(-5, 96)
 scale = Vector2(1.0000001, 1.0000001)
 
 [node name="Health" type="Node" parent="." unique_id=1476547498]
@@ -383,10 +383,10 @@ text = "None"
 
 [node name="WeaponSymbol" type="TextureRect" parent="CanvasLayer/PlayerStatus/EquipmentPanel" unique_id=978161158]
 layout_mode = 0
-offset_left = 3.0000038
-offset_top = 26.999979
-offset_right = 103.668365
-offset_bottom = 66.57542
+offset_left = 15.999999
+offset_top = 9.999981
+offset_right = 84.639984
+offset_bottom = 88.76866
 rotation = -0.45417586
 scale = Vector2(1.1200004, 0.91055155)
 expand_mode = 1

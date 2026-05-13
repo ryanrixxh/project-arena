@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://omcrpkcshvu6"]
 
-[ext_resource type="Texture2D" uid="uid://bws8ysbhfnowp" path="res://assets/paper-line-vector-background-detailed-lined-paper-texture-599434499.jpg" id="1_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://bkhrd1lci42gy" path="res://assets/aseprite/pre-alpha-cave.png" id="1_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://ct17lf3jtevi4" path="res://scenes/player.tscn" id="2_ycub7"]
 [ext_resource type="PackedScene" uid="uid://fqsuqojvauds" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://c87uqcthcy162" path="res://scenes/target.tscn" id="4_jyhfs"]
@@ -20,8 +20,8 @@ size = Vector2(1898.9309, 28.247837)
 [node name="Main" type="Node2D" unique_id=922352442]
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1564463435]
-position = Vector2(1546, 899.99994)
-scale = Vector2(0.835, 0.645)
+position = Vector2(1754.4376, 989.37506)
+scale = Vector2(3.5865884, 3.5615742)
 texture = ExtResource("1_jyhfs")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1240736190]

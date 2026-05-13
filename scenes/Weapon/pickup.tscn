@@ -1,18 +1,17 @@
 [gd_scene format=3 uid="uid://fqsuqojvauds"]
 
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
+[ext_resource type="Texture2D" uid="uid://bu4b4agq8u3jl" path="res://assets/aseprite/electric-ball.png" id="2_kqu22"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
-radius = 66.977005
-height = 225.87892
+radius = 83.99979
+height = 171.98131
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsyep"]
 size = Vector2(126, 113)
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vsyep"]
 
 [node name="Pickup" type="RigidBody2D" unique_id=1888499280]
 collision_layer = 3
@@ -40,9 +39,9 @@ pickup_area = NodePath("../PickupArea")
 metadata/_custom_type_script = "uid://b6u63h087idg0"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
-position = Vector2(5.9604645e-08, 1)
-scale = Vector2(119.999985, 107.04302)
-texture = SubResource("PlaceholderTexture2D_vsyep")
+position = Vector2(1, 0)
+scale = Vector2(2.4023433, 2.142951)
+texture = ExtResource("2_kqu22")
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=512764419]
 wait_time = 0.08

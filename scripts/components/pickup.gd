@@ -26,7 +26,7 @@ func equip(player: Player) -> void:
 func show_equipped_on_canvas(weapon: Weapon, player: Player):
 	var label: Label = player.canvas.find_child("WeaponLabel")
 	var sprite: TextureRect = player.canvas.find_child("WeaponSymbol")
-	label.text = weapon.name
+	label.text = weapon.get_meta("name")
 	sprite.texture = weapon.sprite.texture
 
 func remove_equipped_from_canvas(player: Player):

@@ -100,11 +100,9 @@ func handle_input():
 		# So when we pull the trigger we pass our speed value accross the signal and the weapon
 		# script handles it from there.
 		trigger_pull.emit(speed)
-	
+
 	if Input.is_action_pressed("unequip"):
 		throw.emit()
-		
-
 
 func handle_jump_input(delta):
 	if state.is_grounded():
@@ -128,4 +126,3 @@ func wall_jump():
 
 func _on_animation_trigger_area_body_entered(body: Node2D) -> void:
 	sprite.play("default")
-	

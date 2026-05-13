@@ -18,7 +18,7 @@ signal throw
 @onready var speed_label: Label = $CanvasLayer/PlayerStatus/SpeedPanel/SpeedLabel
 @onready var health_label: Label = $CanvasLayer/PlayerStatus/HealthPanel/HealthLabel
 @onready var canvas: CanvasLayer = $CanvasLayer
-@onready var sprite: AnimatedSprite2D = $PlayerSprite
+@onready var sprite: AnimatedSprite2D = $WizardSprite
 @onready var weapon_marker: Marker2D = $Equipment/WeaponMarker
 
 # Class for keeping track of multiple player state values.
@@ -62,7 +62,6 @@ func _physics_process(delta: float) -> void:
 		state.walled = true
 
 	if not is_on_floor():
-		sprite.play("airborne")
 		speed = speed + speed_increase_rate if speed < max_speed else max_speed
 		state.air_state = PlayerState.AirState.AIRBORN
 		velocity.y += gravity * delta
@@ -95,13 +94,7 @@ func handle_input():
 		sprite.stop()
 		handle_jump_input("jump")
 
-	if Input.is_action_pressed("shoot"):
-		# Speed of the player directly effects the damage multiplier of a weapon.
-		# So when we pull the trigger we pass our speed value accross the signal and the weapon
-		# script handles it from there.
-		trigger_pull.emit(speed)
-
-	if Input.is_action_pressed("unequip"):
+	if Input.is_action_pressed("throw"):
 		throw.emit()
 
 func handle_jump_input(delta):

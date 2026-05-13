@@ -1,17 +1,18 @@
 [gd_scene format=3 uid="uid://fqsuqojvauds"]
 
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
-[ext_resource type="Texture2D" uid="uid://d20pi7dxlpo2i" path="res://assets/pirate ship.png" id="2_kqu22"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
-radius = 40.093624
+radius = 66.977005
 height = 225.87892
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vsyep"]
-size = Vector2(164, 48)
+size = Vector2(126, 113)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_vsyep"]
 
 [node name="Pickup" type="RigidBody2D" unique_id=1888499280]
 collision_layer = 3
@@ -29,6 +30,7 @@ rotation = -1.5685139
 shape = SubResource("CapsuleShape2D_xasec")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945410480]
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_vsyep")
 
 [node name="PickupComponent" type="Node" parent="." unique_id=623044568 node_paths=PackedStringArray("pickup_body", "pickup_area")]
@@ -38,9 +40,9 @@ pickup_area = NodePath("../PickupArea")
 metadata/_custom_type_script = "uid://b6u63h087idg0"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
-position = Vector2(8.000003, -28)
-scale = Vector2(0.18567961, 0.17210144)
-texture = ExtResource("2_kqu22")
+position = Vector2(5.9604645e-08, 1)
+scale = Vector2(119.999985, 107.04302)
+texture = SubResource("PlaceholderTexture2D_vsyep")
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=512764419]
 wait_time = 0.08

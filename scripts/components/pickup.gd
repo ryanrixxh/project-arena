@@ -20,7 +20,6 @@ func equip(player: Player) -> void:
 	player.weapon_marker.add_child(weapon)
 	weapon.global_transform = player.weapon_marker.global_transform
 	player.throw.connect(weapon._on_throw)
-	player.trigger_pull.connect(weapon._on_trigger_pull)
 	
 	show_equipped_on_canvas(weapon, player)
 

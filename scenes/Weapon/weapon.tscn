@@ -1,15 +1,16 @@
 [gd_scene format=3 uid="uid://hucue7ygh848"]
 
 [ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_e2o24"]
-[ext_resource type="Texture2D" uid="uid://d20pi7dxlpo2i" path="res://assets/pirate ship.png" id="2_uf51t"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_e2o24"]
 
 [node name="Weapon" type="Node2D" unique_id=437407813]
 script = ExtResource("1_e2o24")
 
 [node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
-position = Vector2(97, -18)
-scale = Vector2(0.20273757, -0.15859024)
-texture = ExtResource("2_uf51t")
+position = Vector2(217.00003, -5.684342e-14)
+scale = Vector2(-185.65729, -168.34044)
+texture = SubResource("PlaceholderTexture2D_e2o24")
 flip_v = true
 
 [node name="FiringTimer" type="Timer" parent="." unique_id=2082273181]
@@ -17,6 +18,6 @@ process_callback = 0
 autostart = true
 
 [node name="BarrelMarker" type="Marker2D" parent="." unique_id=1471378519]
-position = Vector2(212, 1)
+position = Vector2(218, 0)
 
 [connection signal="timeout" from="FiringTimer" to="." method="_on_firing_timer_timeout"]

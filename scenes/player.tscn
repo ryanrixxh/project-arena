@@ -295,7 +295,7 @@ position = Vector2(3, -7)
 shape = SubResource("CircleShape2D_tuyoq")
 
 [node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
-position = Vector2(-5, 96)
+position = Vector2(3, -7.6293945e-06)
 scale = Vector2(1.0000001, 1.0000001)
 
 [node name="Health" type="Node" parent="." unique_id=1476547498]

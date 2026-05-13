@@ -8,7 +8,7 @@ script = ExtResource("1_e2o24")
 metadata/name = "Lightning Ball"
 
 [node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
-position = Vector2(174.00002, 1.4210855e-14)
+position = Vector2(190.37836, 0.9072074)
 scale = Vector2(-2.1680737, -1.9658502)
 texture = ExtResource("2_uf51t")
 flip_v = true
@@ -18,7 +18,7 @@ process_callback = 0
 autostart = true
 
 [node name="BarrelMarker" type="Marker2D" parent="." unique_id=1471378519]
-position = Vector2(254, 0)
+position = Vector2(279.37836, 0.9072075)
 rotation = 4.359054e-05
 
 [connection signal="timeout" from="FiringTimer" to="." method="_on_firing_timer_timeout"]

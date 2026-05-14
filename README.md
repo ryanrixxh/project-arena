@@ -7,20 +7,20 @@ The game is a multiplayer PvP arena game where players play as wizard who levita
 ## Architecture
 Project Arena uses a combination of class nodes and a component system for its core game logic.
 The main scene holds the arena itself all of the other classes that an instantiated on startup:
-	- The environment and collidable objects
-	- A dummy target (in place of another player)
-	- Several pickup scenes: Each pickup is an interactable, RigidBody version of a weapon
-		- A collision shape
-		- Pickup Area: The area which a Pickup Trigger Area must be entered into before a pickup can occur on the player
-		- A sprite
-		- Pickup Component (see Components)
-		- Damage Component (see Components)
-	- The Player scene: The playable character. A CharacterBody2D that contains the player attributes:
-		- Player sprite
-		- Animation Trigger Area: A collision area that is used for pre-triggering animations as players come close to objects (e.g. a wall jump pre-animation)
-		- Pickup Trigger Area: The area used for logic involving picking up objects to throw them
-		- Player collision: the actual collision hitbox for the player
-		- Equipment node/ Weapon Marker: The node which the player "equips" a weapon, weapons are added as a child of this node at runtime.
+- The environment and collidable objects
+- A dummy target (in place of another player)
+- Several pickup scenes: Each pickup is an interactable, RigidBody version of a weapon
+	- A collision shape
+	- Pickup Area: The area which a Pickup Trigger Area must be entered into before a pickup can occur on the player
+	- A sprite
+	- Pickup Component (see Components)
+	- Damage Component (see Components)
+- The Player scene: The playable character. A CharacterBody2D that contains the player attributes:
+	- Player sprite
+	- Animation Trigger Area: A collision area that is used for pre-triggering animations as players come close to objects (e.g. a wall jump pre-animation)
+	- Pickup Trigger Area: The area used for logic involving picking up objects to throw them
+	- Player collision: the actual collision hitbox for the player
+	- Equipment node/ Weapon Marker: The node which the player "equips" a weapon, weapons are added as a child of this node at runtime.
 
 ### Components
 The game uses several components that are added to scenes to provide them with a set of logic. Right now, the scene/component relationship is

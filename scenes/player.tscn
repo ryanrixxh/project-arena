@@ -252,6 +252,7 @@ outline_color = Color(0, 0, 0, 1)
 collision_layer = 5
 collision_mask = 5
 script = ExtResource("1_qlg0r")
+metadata/current_weapon = NodePath("")
 
 [node name="PickupTrigger" type="Area2D" parent="." unique_id=843709192]
 collision_layer = 4

@@ -1,15 +1,66 @@
 [gd_scene format=3 uid="uid://hucue7ygh848"]
 
 [ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_e2o24"]
-[ext_resource type="Texture2D" uid="uid://bu4b4agq8u3jl" path="res://assets/aseprite/electric-ball.png" id="2_uf51t"]
+[ext_resource type="Texture2D" uid="uid://b0cabb0k173rp" path="res://assets/aseprite/boulder.png" id="2_uf51t"]
+[ext_resource type="Texture2D" uid="uid://dgfjmjt5yxl12" path="res://assets/aseprite/pre-alpha-levitate-effect-sprite-sheet.png" id="3_s8wmu"]
+[ext_resource type="Script" uid="uid://be2446nbk7mr5" path="res://scripts/magic_effect.gd" id="4_4u1sj"]
 
-[node name="Weapon" type="Node2D" unique_id=437407813]
+[sub_resource type="CircleShape2D" id="CircleShape2D_uf51t"]
+radius = 54.037025
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u1sj"]
+atlas = ExtResource("3_s8wmu")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0rb6"]
+atlas = ExtResource("3_s8wmu")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbkki"]
+atlas = ExtResource("3_s8wmu")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fga68"]
+atlas = ExtResource("3_s8wmu")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtv7c"]
+atlas = ExtResource("3_s8wmu")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tn26n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u1sj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0rb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbkki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fga68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtv7c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Weapon" type="StaticBody2D" unique_id=37846156]
+collision_layer = 3
+collision_mask = 3
 script = ExtResource("1_e2o24")
-metadata/name = "Lightning Ball"
+metadata/name = "Boulder"
 
 [node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
-position = Vector2(190.37836, 0.9072074)
-scale = Vector2(-2.1680737, -1.9658502)
+position = Vector2(190, 1)
+rotation = 3.1415925
+scale = Vector2(1.6441709, 1.6262834)
 texture = ExtResource("2_uf51t")
 flip_v = true
 
@@ -21,4 +72,13 @@ autostart = true
 position = Vector2(279.37836, 0.9072075)
 rotation = 4.359054e-05
 
-[connection signal="timeout" from="FiringTimer" to="." method="_on_firing_timer_timeout"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=876896301]
+position = Vector2(189, 1)
+shape = SubResource("CircleShape2D_uf51t")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1514821363]
+position = Vector2(190, -19)
+scale = Vector2(6.8203135, 7.226509)
+sprite_frames = SubResource("SpriteFrames_tn26n")
+frame_progress = 0.09358984
+script = ExtResource("4_4u1sj")

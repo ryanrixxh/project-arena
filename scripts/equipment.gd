@@ -8,6 +8,7 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	# TODO: look_at doesnt respect collision, because it overrides the position of the object too quickly. Need a different method
 	follow_mouse()
 	
 func follow_mouse():

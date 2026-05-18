@@ -1,7 +1,7 @@
 class_name Weapon extends Node2D
 
 @onready var timer: Timer = $FiringTimer
-@onready var barrel_marker: Marker2D = $BarrelMarker
+@onready var barrel_marker: Marker2D = %BarrelMarker
 @onready var sprite: Sprite2D = $WeaponSprite
 @onready var effect_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
@@ -28,13 +28,15 @@ func setup(player: Player):
 func _on_throw():
 	if is_multiplayer_authority():
 		server_spawn.rpc(randi() % 10000)
-		
 		# Remove instance of this node from Players state and then delete
 		player_holding.released.emit()
 
 @rpc("any_peer", "call_local", "reliable")
 func server_spawn(id: int):
 	if multiplayer.is_server():
+		print(global_position)
+		print(barrel_marker.global_position)
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
-		spawner.spawn(id)
+		var direction = (barrel_marker.global_position - global_position).normalized()
+		spawner.spawn([id, barrel_marker.global_position, throw_force, direction])
 	

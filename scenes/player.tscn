@@ -394,6 +394,7 @@ position = Vector2(3, -7)
 shape = SubResource("CircleShape2D_tuyoq")
 
 [node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
+unique_name_in_owner = true
 position = Vector2(3, -7.6293945e-06)
 scale = Vector2(1.0000001, 1.0000001)
 

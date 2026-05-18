@@ -55,6 +55,7 @@ func _process(_delta: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Main driver for all other player script handling, as most of it is based on input handling.
 func _physics_process(delta: float) -> void:
+	print(global_position)
 	if not is_multiplayer_authority(): return # Processing of player should only run client side and then be synced after the fact
 	move_and_slide()
 

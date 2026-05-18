@@ -3,12 +3,12 @@ extends Node2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
-
+	set_multiplayer_authority(get_parent().name.to_int())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# TODO: look_at doesnt respect collision, because it overrides the position of the object too quickly. Need a different method
+	if not is_multiplayer_authority(): return
 	follow_mouse()
 	
 func follow_mouse():

@@ -1,4 +1,4 @@
-[gd_scene format=3 uid="uid://fqsuqojvauds"]
+[gd_scene format=3 uid="uid://df01s271qlbxd"]
 
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
 [ext_resource type="Texture2D" uid="uid://b0cabb0k173rp" path="res://assets/aseprite/boulder.png" id="2_kqu22"]
@@ -34,9 +34,9 @@ position = Vector2(0, -1.0000001)
 rotation = -1.5685139
 shape = SubResource("CapsuleShape2D_xasec")
 
-[node name="PickupComponent" type="Node" parent="." unique_id=623044568 node_paths=PackedStringArray("pickup_body", "pickup_area")]
+[node name="Pickup" type="Node" parent="." unique_id=36309700 node_paths=PackedStringArray("pickup", "pickup_area")]
 script = ExtResource("2_bn5xs")
-pickup_body = NodePath("..")
+pickup = NodePath("..")
 pickup_area = NodePath("../PickupArea")
 metadata/_custom_type_script = "uid://b6u63h087idg0"
 
@@ -57,5 +57,5 @@ one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="." to="Damage" method="_on_pickup_body_entered"]
-[connection signal="area_entered" from="PickupArea" to="PickupComponent" method="_on_pickup_area_area_entered"]
-[connection signal="timeout" from="CooldownTimer" to="PickupComponent" method="_on_cooldown_timer_timeout"]
+[connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]
+[connection signal="timeout" from="CooldownTimer" to="Pickup" method="_on_cooldown_timer_timeout"]

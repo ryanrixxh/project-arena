@@ -9,6 +9,6 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 
-func show_equipped_weapon() -> void:
-	print
-	pass
+#func show_equipped_weapon() -> void:
+	#print
+	#pass

@@ -10,5 +10,5 @@ func _on_server_button_pressed() -> void:
 
 
 func _on_pickup_spawner_spawned(node: Node) -> void:
-	print("spawned!!")
-	
+	pass
+	#print(node)

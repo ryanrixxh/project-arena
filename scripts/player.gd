@@ -47,7 +47,7 @@ func _ready() -> void:
 	global_position = Vector2(1500, 500)
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(name.to_int())
+	set_multiplayer_authority(str(name).to_int())
 
 func _process(_delta: float) -> void:
 	pass
@@ -130,11 +130,13 @@ func _on_equip(weapon_scene: PackedScene) -> void:
 	if is_multiplayer_authority():
 		var weapon: Weapon = weapon_scene.instantiate()
 		weapon.setup(self)
-		weapon_marker.add_child(weapon)	
-		weapon.global_transform = weapon_marker.global_transform
+		weapon_marker.add_child.call_deferred(weapon)	
+		#weapon.global_transform = weapon_marker.global_transform
 		throw.connect(weapon._on_throw)
 
 func _on_released() -> void:
-	weapon_marker.remove_child(state.equipped_weapon)
-	state.equipped_weapon.call_deferred("queue_free")
-	state.equipped_weapon = null
+
+	if is_multiplayer_authority():
+		weapon_marker.remove_child(state.equipped_weapon)
+		state.equipped_weapon.call_deferred("queue_free")
+		state.equipped_weapon = null

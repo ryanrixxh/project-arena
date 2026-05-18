@@ -26,33 +26,15 @@ func setup(player: Player):
 	player.state.equipped_weapon = self
 
 func _on_throw():
-	#var spawner: MultiplayerSpawner = get_node("../../../../PickupSpawner")
-	#print(spawner.is_inside_tree())
-	#print(spawner.is_multiplayer_authority())
-	#spawner.spawn([pickup_scene, global_position, barrel_marker.global_position, throw_force])
-	
-	# Spawn a new pickup and apply force to it
-	# TODO: This cant happen on the server. Because the authority to throw at all is on the client
-	# The way around this might be to make an RPC call? On throw, request server to spawn a pickup? 
-	# MultiplayerSpawner should be doing this for us though, since it tracks instantians (but its broken...)
-	
-	# It COULD be because the resources arent dynamic in the first place. They need to all be spawned in and out dynamically?
-	# Try to spawn in a Pickup immediately without any interaction and see if that works, similar to players currently
 	if is_multiplayer_authority():
-		print("Creating server side projectile")
-		# FIXME: There is a multiplayerSpawner that should be picking up this instantiate and propogating but its not and I dont know why
-		#var pickup: RigidBody2D = pickup_scene.instantiate()
-
-		authority_spawn.rpc_id(1)
-		#print(pickups_node.get_children().map(func(child): return child.name))
-		#
-		#pickup.global_position = barrel_marker.global_position
-		#var direction = (barrel_marker.global_position - global_position).normalized()
-		#pickup.apply_impulse(Vector2.ONE * throw_force * direction)
-		#player_holding.released.emit()
+		server_spawn.rpc(randi() % 10000)
+		
+		# Remove instance of this node from Players state and then delete
+		player_holding.released.emit()
 
 @rpc("any_peer", "call_local", "reliable")
-func authority_spawn():
+func server_spawn(id: int):
 	if multiplayer.is_server():
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
-		spawner.spawn(randi() % 100)
+		spawner.spawn(id)
+	

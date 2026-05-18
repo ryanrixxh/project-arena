@@ -7,7 +7,6 @@ func _init() -> void:
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	print("Player spawner authority: ", get_multiplayer_authority())
 	multiplayer.peer_connected.connect(spawn_player)
 
 func spawn_player(id: int) -> void:

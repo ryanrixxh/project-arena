@@ -219,8 +219,9 @@ metadata/_edit_use_anchors_ = true
 position = Vector2(930, 1223)
 
 [node name="PickupSpawner" type="MultiplayerSpawner" parent="." unique_id=1632642983]
-_spawnable_scenes = PackedStringArray("uid://df01s271qlbxd")
+unique_name_in_owner = true
 spawn_path = NodePath("../Pickups")
+spawn_limit = 10
 script = ExtResource("4_tefeu")
 network_pickup = ExtResource("3_jyhfs")
 

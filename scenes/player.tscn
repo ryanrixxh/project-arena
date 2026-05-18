@@ -405,6 +405,7 @@ metadata/_custom_type_script = "uid://5uig6yhhkjxp"
 replication_config = SubResource("SceneReplicationConfig_fjrip")
 
 [node name="WeaponSpawner" type="MultiplayerSpawner" parent="." unique_id=1691348452]
+unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
 spawn_path = NodePath("../Equipment/WeaponMarker")
 spawn_limit = 1

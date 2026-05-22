@@ -18,7 +18,6 @@ func _on_peer_connected(_peer_id: int) -> void:
 	%PickupSpawner.spawn([unique_projectile_id, Vector2(500, 200), 1000, Vector2(1,1)])
 
 func spawn_pickup(data):
-	print(data)
 	var id = data[0]
 	var spawn_position = data[1]
 	var throw_force = data[2]

@@ -4,6 +4,8 @@ signal throw
 signal released
 signal equip
 
+var spawn_position = Vector2(1500, 500)
+
 # Movement stats
 @export var speed = 100
 @export var min_speed = 200
@@ -44,10 +46,13 @@ var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	global_position = Vector2(1500, 500)
+	global_position = spawn_position
+	pass
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
+	$IDLabelDebug.text = str(name)
+	print("Multiplayer Authority: ", get_multiplayer_authority())
 
 func _process(_delta: float) -> void:
 	pass
@@ -55,7 +60,6 @@ func _process(_delta: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Main driver for all other player script handling, as most of it is based on input handling.
 func _physics_process(delta: float) -> void:
-	print(global_position)
 	if not is_multiplayer_authority(): return # Processing of player should only run client side and then be synced after the fact
 	move_and_slide()
 

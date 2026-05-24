@@ -45,7 +45,7 @@ func start_game():
 	var player_scene = load("res://scenes/player.tscn")
 	var spawn_position = Vector2(1000,500)
 	
-	# The server wont see any connection from itself, so we need to add it as a player manually
+	# The host wont see any incoming connection from itself, so we need to add it as a player manually
 	players.push_front(str(1))
 	
 	for p in players:

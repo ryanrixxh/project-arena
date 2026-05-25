@@ -23,11 +23,10 @@ func spawn_pickup(data):
 	var throw_force = data[2]
 	var throw_direction = data[3]
 	var pickup: RigidBody2D = network_pickup.instantiate()
-	
+
 	# Configure unique name and starting data
 	pickup.name = str(id)
- #FIXME: For some reason the projectile sits in a super random spot outside the map?
-	
+
 	# Note: Physics impulses on RigidBodies must happen AFTER they enter the tree.
 	# We defer the impulse using a lambda so it fires on the next frame.
 	var apply_force = func(): pickup.apply_impulse(Vector2.ONE * throw_force * throw_direction)

@@ -9,6 +9,5 @@ func _ready() -> void:
 	check_health()
 
 func check_health():
-	print("checking health: ", health)
 	if health <= 0 and free_on_death:
 		get_parent().queue_free()

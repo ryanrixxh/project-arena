@@ -69,6 +69,7 @@ process_callback = 0
 autostart = true
 
 [node name="BarrelMarker" type="Marker2D" parent="." unique_id=1471378519]
+unique_name_in_owner = true
 position = Vector2(279.37836, 0.9072075)
 rotation = 4.359054e-05
 

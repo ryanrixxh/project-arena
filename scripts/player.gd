@@ -1,6 +1,10 @@
 class_name Player extends CharacterBody2D
 
 signal throw
+signal released
+signal equip
+
+var spawn_position = Vector2(1500, 500)
 
 # Movement stats
 @export var speed = 100
@@ -42,9 +46,13 @@ var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	global_position = spawn_position
 	pass
-	health_label.text = "HEALTH: " + str(health_component.health)
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(str(name).to_int())
+	$IDLabelDebug.text = str(name)
+	print("Multiplayer Authority: ", get_multiplayer_authority())
 
 func _process(_delta: float) -> void:
 	pass
@@ -52,10 +60,12 @@ func _process(_delta: float) -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Main driver for all other player script handling, as most of it is based on input handling.
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority(): return # Processing of player should only run client side and then be synced after the fact
 	move_and_slide()
 
 	get_horizontal_movement(delta)
-	handle_orientation()
+	# FIXME: Orientation handler isnt really syncing correctly in network multiplayer
+	#handle_orientation()
 	handle_input()
 
 	if is_on_wall_only():
@@ -117,5 +127,21 @@ func wall_jump():
 		velocity.x = direction * speed
 		state.walled = false
 
-func _on_animation_trigger_area_body_entered(body: Node2D) -> void:
+func _on_animation_trigger_area_body_entered(_body: Node2D) -> void:
 	sprite.play("default")
+	
+# WEAPON EQUIPPING
+func _on_equip(weapon_scene: PackedScene) -> void:
+	if is_multiplayer_authority():
+		var weapon: Weapon = weapon_scene.instantiate()
+		weapon.setup(self)
+		weapon_marker.add_child.call_deferred(weapon)	
+		#weapon.global_transform = weapon_marker.global_transform
+		throw.connect(weapon._on_throw)
+
+func _on_released() -> void:
+
+	if is_multiplayer_authority():
+		weapon_marker.remove_child(state.equipped_weapon)
+		state.equipped_weapon.call_deferred("queue_free")
+		state.equipped_weapon = null

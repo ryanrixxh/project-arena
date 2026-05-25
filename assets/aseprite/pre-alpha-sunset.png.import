@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bws8ysbhfnowp"
-path="res://.godot/imported/paper-line-vector-background-detailed-lined-paper-texture-599434499.jpg-2d08071dabd58951bb26affb2e80e9d8.ctex"
+uid="uid://dc31px5uwqrny"
+path="res://.godot/imported/pre-alpha-sunset.png-e2a87158b425a86a4c1ced1bc9b7e601.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/paper-line-vector-background-detailed-lined-paper-texture-599434499.jpg"
-dest_files=["res://.godot/imported/paper-line-vector-background-detailed-lined-paper-texture-599434499.jpg-2d08071dabd58951bb26affb2e80e9d8.ctex"]
+source_file="res://assets/aseprite/pre-alpha-sunset.png"
+dest_files=["res://.godot/imported/pre-alpha-sunset.png-e2a87158b425a86a4c1ced1bc9b7e601.ctex"]
 
 [params]
 

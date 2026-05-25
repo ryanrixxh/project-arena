@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://btgy0y7de3w23"
-path="res://.godot/imported/proto_rifle.png-b78fad3c6897a81a5a3e3ce21a6ee136.ctex"
+uid="uid://bu4b4agq8u3jl"
+path="res://.godot/imported/electric-ball.png-e8c2332544ba7f5af564cb2c5a314c17.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/proto_rifle.png"
-dest_files=["res://.godot/imported/proto_rifle.png-b78fad3c6897a81a5a3e3ce21a6ee136.ctex"]
+source_file="res://assets/aseprite/electric-ball.png"
+dest_files=["res://.godot/imported/electric-ball.png-e8c2332544ba7f5af564cb2c5a314c17.ctex"]
 
 [params]
 

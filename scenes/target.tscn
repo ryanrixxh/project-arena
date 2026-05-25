@@ -7,16 +7,14 @@ radius = 77.16217
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b37e2"]
 
-[node name="Target" type="Node2D" unique_id=1871628794]
+[node name="Target" type="StaticBody2D" unique_id=1622533020]
+collision_layer = 9
+collision_mask = 9
 
-[node name="Area2D" type="Area2D" parent="." unique_id=780881871]
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1826165790]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1826165790]
 shape = SubResource("CircleShape2D_2b72u")
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D" unique_id=1640050638]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1640050638]
 position = Vector2(2.3841858e-07, 0)
 scale = Vector2(111.99999, 111)
 texture = SubResource("PlaceholderTexture2D_b37e2")

@@ -1,6 +1,5 @@
 class_name Player extends CharacterBody2D
 
-signal trigger_pull
 signal throw
 
 # Movement stats
@@ -9,16 +8,16 @@ signal throw
 @export var max_speed = 1000
 @export var speed_increase_rate = 3
 @export var speed_decrease_rate = -5
-@onready var acceleration = 2000
+@onready var acceleration: float = 2000
 @export var jump_velocity = -850
 @export var gravity = 1500
 
-@onready var health_component: HealthComponent = $Health
+@onready var health_component: Health = $Health
 
 @onready var speed_label: Label = $CanvasLayer/PlayerStatus/SpeedPanel/SpeedLabel
 @onready var health_label: Label = $CanvasLayer/PlayerStatus/HealthPanel/HealthLabel
 @onready var canvas: CanvasLayer = $CanvasLayer
-@onready var sprite: AnimatedSprite2D = $PlayerSprite
+@onready var sprite: AnimatedSprite2D = $WizardSprite
 @onready var weapon_marker: Marker2D = $Equipment/WeaponMarker
 
 # Class for keeping track of multiple player state values.
@@ -30,6 +29,7 @@ class PlayerState:
 	}
 	var air_state: AirState # You can never be airborn and grounded at the same time. This structure ensures that.
 	var walled: bool
+	var equipped_weapon: Weapon
 
 	func _init() -> void:
 		air_state = AirState.GROUNDED
@@ -62,7 +62,6 @@ func _physics_process(delta: float) -> void:
 		state.walled = true
 
 	if not is_on_floor():
-		sprite.play("airborne")
 		speed = speed + speed_increase_rate if speed < max_speed else max_speed
 		state.air_state = PlayerState.AirState.AIRBORN
 		velocity.y += gravity * delta
@@ -81,7 +80,7 @@ func handle_orientation():
 
 func get_horizontal_movement(delta: float):
 	var direction = Input.get_axis("left", "right")
-	var arial_acceleration = acceleration * 0.5
+	var arial_acceleration: float = acceleration * 0.5
 	velocity.x = move_toward(velocity.x, direction * speed, (acceleration if state.is_grounded() else arial_acceleration) * delta)
 
 
@@ -95,13 +94,7 @@ func handle_input():
 		sprite.stop()
 		handle_jump_input("jump")
 
-	if Input.is_action_pressed("shoot"):
-		# Speed of the player directly effects the damage multiplier of a weapon.
-		# So when we pull the trigger we pass our speed value accross the signal and the weapon
-		# script handles it from there.
-		trigger_pull.emit(speed)
-
-	if Input.is_action_pressed("unequip"):
+	if Input.is_action_pressed("throw"):
 		throw.emit()
 
 func handle_jump_input(delta):

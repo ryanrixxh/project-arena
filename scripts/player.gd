@@ -2,7 +2,15 @@ class_name Player extends CharacterBody2D
 
 signal throw
 signal released
+
+## Emitted by the pickups themselves when pickup zone collision occurs, used to set the available pickup and allow input for equipping
+signal allow_equip
+
+## Used to signal when the weapon should be equipped by the player 
 signal equip
+## Used to make sure the weapon does not despawn to early before being equipped properly
+signal done_equipping 
+
 
 var spawn_position = Vector2(1500, 500)
 
@@ -33,6 +41,8 @@ class PlayerState:
 	}
 	var air_state: AirState # You can never be airborn and grounded at the same time. This structure ensures that.
 	var walled: bool
+	
+	var available_pickup: Pickup
 	var equipped_weapon: Weapon
 
 	func _init() -> void:
@@ -52,7 +62,6 @@ func _ready() -> void:
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
 	$IDLabelDebug.text = str(name)
-	print("Multiplayer Authority: ", get_multiplayer_authority())
 
 func _process(_delta: float) -> void:
 	pass
@@ -94,8 +103,7 @@ func get_horizontal_movement(delta: float):
 	velocity.x = move_toward(velocity.x, direction * speed, (acceleration if state.is_grounded() else arial_acceleration) * delta)
 
 
-# Input handling:
-#  At the top level [method handle_input] handles all direct input and calls various utility function based on that input
+## Input handling: At the top level [method handle_input] handles all direct input and calls various utility function based on that input
 func handle_input():
 	if Input.is_action_just_pressed("jump"):
 		sprite.play("crouch")
@@ -106,6 +114,11 @@ func handle_input():
 
 	if Input.is_action_pressed("throw"):
 		throw.emit()
+	
+	if Input.is_action_pressed("equip"):
+		if state.available_pickup:
+			equip.emit(state.available_pickup.weapon_scene)
+			
 
 func handle_jump_input(delta):
 	if state.is_grounded():
@@ -130,7 +143,11 @@ func wall_jump():
 func _on_animation_trigger_area_body_entered(_body: Node2D) -> void:
 	sprite.play("default")
 	
+
 # WEAPON EQUIPPING
+func _on_allow_equip(pickup: Pickup = null) -> void:
+	state.available_pickup = pickup
+
 func _on_equip(weapon_scene: PackedScene) -> void:
 	if is_multiplayer_authority():
 		var weapon: Weapon = weapon_scene.instantiate()
@@ -138,9 +155,12 @@ func _on_equip(weapon_scene: PackedScene) -> void:
 		weapon_marker.add_child.call_deferred(weapon)	
 		#weapon.global_transform = weapon_marker.global_transform
 		throw.connect(weapon._on_throw)
+		
+		# Tell the server to despawn the pickup after we have equipped it and forget about it
+		state.available_pickup.server_despawn.rpc_id(1)
+		state.available_pickup = null
 
 func _on_released() -> void:
-
 	if is_multiplayer_authority():
 		weapon_marker.remove_child(state.equipped_weapon)
 		state.equipped_weapon.call_deferred("queue_free")

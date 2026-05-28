@@ -10,4 +10,5 @@ func _ready() -> void:
 
 func check_health():
 	if health <= 0 and free_on_death:
+		# FIXME: Server should be responsible for freeing players otherwise it wont sync
 		get_parent().queue_free()

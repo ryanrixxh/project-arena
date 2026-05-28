@@ -1,39 +1,61 @@
 class_name Pickup extends Node
 
+#TODO: Its worth reconsidering this component structure. Seems like its not actually providing much benefit? 
+# Hard to tell though, will need to make more pickups to see
+
 @export var pickup: RigidBody2D
 @export var pickup_area: Area2D
+@export var pickup_light: PointLight2D
+@export var cooldown_timer: Timer
 @export var weapon_scene_address: String = "res://scenes/Weapon/weapon.tscn"
+
 var weapon_scene: PackedScene = load(weapon_scene_address) # Can't preload this because its called from an export var
-var can_pickup = false
+var pickup_blocked = true
+var player_in_range = false
 
 func _on_pickup_area_area_entered(area: Area2D) -> void:
 	# Only players should trigger pickup logic
-	if area.get_parent() is not Player or not can_pickup:
+	if area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
 		return
 
-	if (area.get_parent() as Player).state.equipped_weapon is Weapon:
-		print("A weapon is already equipped, skipping equip logic")
+	if (area.owner as Player).state.equipped_weapon is Weapon:
 		return
 
-	var player: Player = area.get_parent()
-	print(str(multiplayer.get_unique_id()) + ": Is emitting equip signal")
-	player.equip.emit(weapon_scene)
-	server_despawn.rpc()
+	var player: Player = area.owner
+	player_in_range = true
+	toggle_light.rpc_id(player.get_multiplayer_authority())
+	
+	#Tell the player this pickup can be equipped
+	player.allow_equip.emit(self)
+
+func _on_pickup_area_area_exited(area: Area2D) -> void:	
+	# Only players should trigger pickup logic
+	if area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
+		return
+	
+	var player: Player = area.owner
+	player_in_range = false
+	
+	# FIXME: This signal is triggered, and the below line produces an error, when equipping happens and the pickup despawns.
+	# It doesnt seem to effect anything, but its red and in big capital letter, so it could be bad later.
+	toggle_light.rpc_id(player.get_multiplayer_authority())
+	
+	#Tell the player that this is no longer available to equip
+	player.allow_equip.emit(null)
 
 func _on_cooldown_timer_timeout() -> void:
-	can_pickup = true
+	pickup_blocked = false
 
+## Despawns 	
 @rpc("any_peer", "call_local", "reliable")
 func server_despawn():
 	if multiplayer.is_server():
-		var callable_pickup_destroy = pickup.queue_free.bind()
-		#get_tree().process_frame.connect()
+		pickup.queue_free()
 
-		#FIXME: Unless this delay is added, the Main trees PickupSpawner may delete a Pickup on the server side, before the player script has a chance
-		# to see and equip it. This means that once colliding with the players hitbox, it will effectively vanish into thin air.
-
-		# The fix for this is probably just signal ordering. Instead of emitting, and then immediately despawning the item. We should emit a signal,
-		# and then somehow await some kind of response from the equip (another signal maybe?) before executing the server_despawn.rpc() call.
-
-		# Manual pickup events will need to implement this signal waiting anyway, so maybe the fix is just to make that happen
-		get_tree().create_timer(0.2).timeout.connect(callable_pickup_destroy, CONNECT_ONE_SHOT)
+## Toggles a pickup light. Should only be called on the client which is interacting it by using the multiplayer authority of the player body
+@rpc("any_peer", "call_local")
+func toggle_light():	
+	if player_in_range:
+		pickup_light.show()
+	else:
+		pickup_light.hide()

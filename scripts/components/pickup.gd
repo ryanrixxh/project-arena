@@ -30,7 +30,7 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 
 func _on_pickup_area_area_exited(area: Area2D) -> void:	
 	# Only players should trigger pickup logic
-	if area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
+	if !area.owner or area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
 		return
 	
 	var player: Player = area.owner

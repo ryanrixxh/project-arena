@@ -34,8 +34,6 @@ func _on_throw():
 @rpc("any_peer", "call_local", "reliable")
 func server_spawn(id: int):
 	if multiplayer.is_server():
-		print(global_position)
-		print(barrel_marker.global_position)
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
 		var direction = (barrel_marker.global_position - global_position).normalized()
 		spawner.spawn([id, barrel_marker.global_position, throw_force, direction])

@@ -57,11 +57,12 @@ var state = PlayerState.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	global_position = spawn_position
+	%HealthLabelDebug.text = str(health_component.health)
 	pass
 
 func _enter_tree() -> void:
 	set_multiplayer_authority(str(name).to_int())
-	$IDLabelDebug.text = str(name)
+	%IDLabelDebug.text = str(name)
 
 func _process(_delta: float) -> void:
 	pass

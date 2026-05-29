@@ -256,6 +256,9 @@ properties/1/replication_mode = 1
 [sub_resource type="LabelSettings" id="LabelSettings_fjrip"]
 font_size = 33
 
+[sub_resource type="LabelSettings" id="LabelSettings_smehm"]
+font_size = 32
+
 [node name="Player" type="CharacterBody2D" unique_id=1946755356]
 collision_layer = 13
 collision_mask = 13
@@ -416,13 +419,31 @@ _spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
 spawn_path = NodePath("../Equipment/WeaponMarker")
 spawn_limit = 1
 
-[node name="IDLabelDebug" type="Label" parent="." unique_id=355546185]
+[node name="DebugLabels" type="Control" parent="." unique_id=1147184146]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="IDLabelDebug" type="Label" parent="DebugLabels" unique_id=355546185]
+unique_name_in_owner = true
+visible = false
+layout_mode = 0
 offset_left = -77.0
 offset_top = -134.0
 offset_right = 74.0
-offset_bottom = -90.0
+offset_bottom = -88.0
 label_settings = SubResource("LabelSettings_fjrip")
 horizontal_alignment = 1
+
+[node name="HealthLabelDebug" type="Label" parent="DebugLabels" unique_id=314795252]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -28.0
+offset_top = -94.0
+offset_right = 12.0
+offset_bottom = -71.0
+label_settings = SubResource("LabelSettings_smehm")
 
 [connection signal="allow_equip" from="." to="." method="_on_allow_equip"]
 [connection signal="done_equipping" from="." to="." method="_on_done_equipping"]

@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://sfu1htmg1wk1"]
+
+[ext_resource type="Script" uid="uid://bocfjhsn6g2ui" path="res://scripts/end_round.gd" id="1_lnikl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_4g7rr"]
+font_size = 50
+
+[node name="EndRoundScreen" type="Control" unique_id=1249589289]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lnikl")
+
+[node name="EndRoundLabel" type="Label" parent="." unique_id=365133115]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -142.0
+offset_top = -109.0
+offset_right = 144.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Round Over"
+label_settings = SubResource("LabelSettings_4g7rr")
+
+[node name="NextRoundButton" type="Button" parent="." unique_id=349351380]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -50.0
+offset_top = -15.5
+offset_right = 50.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Next Round"
+
+[connection signal="pressed" from="NextRoundButton" to="." method="_on_next_round_button_pressed"]

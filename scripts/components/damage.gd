@@ -2,6 +2,7 @@ class_name Damage extends Node
 
 @export var pickup_body: RigidBody2D
 @export var damage_multiplier: int
+@export var damage_minimum: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +14,12 @@ func _process(_delta: float) -> void:
 	pass
 
 func calculate_damage() -> int:
-	return (abs(pickup_body.linear_velocity[0]) + abs(pickup_body.linear_velocity[1])) / 10
+	var damage = (abs(pickup_body.linear_velocity[0]) + abs(pickup_body.linear_velocity[1])) * damage_multiplier / 10
+	if damage < damage_minimum:
+		return 0
+	else:
+		print(damage)
+		return damage
 
 func _on_pickup_body_entered(body: Node) -> void:
 	var index = body.get_children().find_custom(func(child: Node): return child is Health)

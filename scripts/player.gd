@@ -12,7 +12,7 @@ signal equip
 signal done_equipping 
 
 
-var spawn_position = Vector2(1500, 500)
+var spawn_position
 
 # Movement stats
 @export var speed = 100
@@ -56,7 +56,6 @@ var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	global_position = spawn_position
 	%HealthLabelDebug.text = str(health_component.health)
 	pass
 

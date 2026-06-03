@@ -29,4 +29,4 @@ func _on_join_button_pressed() -> void:
 
 
 func _on_start_game_button_pressed() -> void:
-	Gamestate.start_game()
+	Gamestate.start_game(Gamestate.StartSource.LOBBY)

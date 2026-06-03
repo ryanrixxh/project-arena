@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://diy600i6l8j23" path="res://assets/aseprite/wizard-idle-sprite-sheet.png" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="5_qlg0r"]
-[ext_resource type="Script" uid="uid://b1o88cfk7oxaa" path="res://scripts/canvas_layer.gd" id="6_tuyoq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
 atlas = ExtResource("2_fjrip")
@@ -247,7 +246,7 @@ radius = 202.0099
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fjrip"]
 properties/0/path = NodePath(".:position")
-properties/0/spawn = false
+properties/0/spawn = true
 properties/0/replication_mode = 1
 properties/1/path = NodePath("Equipment/WeaponMarker:rotation")
 properties/1/spawn = false
@@ -274,7 +273,6 @@ sprite_frames = SubResource("SpriteFrames_a38lo")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1320438639]
 layer = 2
 visible = false
-script = ExtResource("6_tuyoq")
 
 [node name="PlayerStatus" type="Control" parent="CanvasLayer" unique_id=1582422773]
 layout_mode = 3

@@ -14,4 +14,11 @@ func check_health():
 	get_parent().get_node("DebugLabels/HealthLabelDebug").text = str(health)
 	if health <= 0 and free_on_death:
 		# FIXME: Server should be responsible for freeing players otherwise it wont sync
-		get_parent().queue_free()
+		die.rpc_id(Gamestate.SERVER_AUTHORITY)
+
+## Tells the server to free the player
+# TODO: This should call some kind of main method so main can keep track of player numbers on the server side only and then end round.
+# We could just use get_tree.root.get_child("Main")? But would that be scuffed?
+@rpc("call_local")
+func die():
+	get_parent().queue_free()

@@ -6,6 +6,7 @@ const MAX_PEERS = 4
 
 const SERVER_AUTHORITY = 1
 
+# TODO: This needs to be a dictionary that it updated on the server side 
 signal players_changed
 var players = []
 
@@ -27,12 +28,10 @@ func join():
 	multiplayer.multiplayer_peer = peer
 
 func player_connected(id: int):
-	print(id, " connected!")
 	register_player.rpc_id(id)
 
 @rpc("any_peer")
 func register_player():
-	print("Registering player: ", multiplayer.get_remote_sender_id())
 	var id = multiplayer.get_remote_sender_id()
 	players.push_front(str(id))
 	players_changed.emit()
@@ -86,5 +85,6 @@ func load_main(start_source: StartSource):
 func load_end_round():
 	var end_round_screen = load("res://scenes/end_round_screen.tscn").instantiate()
 	get_tree().root.add_child(end_round_screen)
+	print(multiplayer.get_unique_id(), ": ", get_tree().root.get_children().map(func(child): return child.name))
 	get_tree().root.get_node("Main").queue_free()
 	

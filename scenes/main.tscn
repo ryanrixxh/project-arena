@@ -318,6 +318,8 @@ position = Vector2(2473, 1170)
 [node name="Spawn4" type="Marker2D" parent="SpawnPositions" unique_id=1379916054]
 position = Vector2(960, 1186)
 
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="spawned" from="PickupSpawner" to="." method="_on_pickup_spawner_spawned"]
 [connection signal="despawned" from="PlayerSpawner" to="." method="_on_player_spawner_despawned"]
 [connection signal="spawned" from="PlayerSpawner" to="." method="_on_player_spawner_spawned"]

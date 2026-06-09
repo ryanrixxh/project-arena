@@ -12,7 +12,8 @@ var player_ids = []
 var current_round = 0
 var current_round_winner: Player = null
 
-var total_rounds = 3
+var winning_rounds_required = 1
+var win_tally = {}
 var game_winner: Player = null
 
 func _ready() -> void:
@@ -39,6 +40,7 @@ func player_connected(id: int):
 func register_player():
 	var id = multiplayer.get_remote_sender_id()
 	player_ids.push_front(str(id))
+	win_tally[str(id)] = 0
 	players_changed.emit()
 
 enum StartSource {
@@ -62,6 +64,7 @@ func start_game(start_source: StartSource):
 	# The host wont see any incoming connection from itself, so we need to add it as a player manually
 	if !player_ids.has(str(1)):
 		player_ids.push_front(str(1))
+		win_tally[str(1)] = 0
 	
 	
 	for i in player_ids.size():
@@ -74,7 +77,11 @@ func start_game(start_source: StartSource):
 @rpc("any_peer", "call_local")
 func end_round(player: Player):
 	assert(multiplayer.is_server())
-	load_end_round.rpc(player.name)
+	win_tally[player.name] += 1
+	#if win_tally[player.name] >= winning_rounds_required:
+		#load_lobby.rpc()
+	#else:
+	load_end_round.rpc(player.name, win_tally[player.name] >= winning_rounds_required)
 
 @rpc("call_local")
 func load_main(start_source: StartSource):
@@ -88,18 +95,29 @@ func load_main(start_source: StartSource):
 			get_tree().root.get_node("EndRoundScreen").queue_free()
 
 @rpc("call_local")
-func load_end_round(winner_id):
-	var end_round_screen: Control = load("res://scenes/end_round_screen.tscn").instantiate()
+func load_end_round(winner_id, game_over: bool):
+	var end_round_screen: EndRound = load("res://scenes/end_round_screen.tscn").instantiate()
+	end_round_screen.game_over = game_over
 	var main = get_tree().root.get_node("Main")
 	var winner: Player = main.find_child(winner_id, true, false) 
 	var winner_sprite: AnimatedSprite2D = winner.find_child("WizardSprite").duplicate() # Duplicate here to remove any chance of trying to reparent a freed node
 	
 	get_tree().root.add_child(end_round_screen)
 	end_round_screen.add_child(winner_sprite)
-	end_round_screen.find_child("WinnerLabel").text = winner_id + " has won the round"
+	
+	# TODO: This can be moved to end_round.gd script 
+	end_round_screen.find_child("WinnerLabel").text = winner_id + " has won the " + ("game!" if game_over else "round")
 	winner_sprite.global_position = end_round_screen.find_child("SpriteMarker").global_position
 	winner_sprite.scale = Vector2(0.8, 0.8)
-	
+
 	main.queue_free()
+
+@rpc("call_local")
+func load_lobby():
+	var lobby = load("res://scenes/lobby.tscn").instantiate()
+	var end_round_screen = get_tree().root.get_node("EndRoundScreen")
+	
+	get_tree().root.add_child(lobby)
+	end_round_screen.queue_free()
 
 	

@@ -31,6 +31,7 @@ text = "Round Over"
 label_settings = SubResource("LabelSettings_4g7rr")
 
 [node name="NextRoundButton" type="Button" parent="." unique_id=349351380]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -64,4 +65,21 @@ horizontal_alignment = 1
 [node name="SpriteMarker" type="Marker2D" parent="." unique_id=1812777614]
 position = Vector2(577, 324)
 
+[node name="ReturnToLobbyButton" type="Button" parent="." unique_id=2116883138]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = 65.0
+offset_right = 69.0
+offset_bottom = 96.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Return to Lobby"
+
 [connection signal="pressed" from="NextRoundButton" to="." method="_on_next_round_button_pressed"]
+[connection signal="pressed" from="ReturnToLobbyButton" to="." method="_on_return_to_lobby_button_pressed"]

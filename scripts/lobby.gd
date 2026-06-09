@@ -6,11 +6,11 @@ func _ready() -> void:
 	Gamestate.players_changed.connect(load_player_list)
 
 func load_player_list():
-	var players = Gamestate.players
-	players.sort()
+	var player_ids = Gamestate.player_ids
+	player_ids.sort()
 	$PlayerPanel/PlayerList.clear()
 	$PlayerPanel/PlayerList.add_item(str(multiplayer.get_unique_id()) + "(You)")
-	for p in players:
+	for p in player_ids:
 		$PlayerPanel/PlayerList.add_item(str(p))
 
 func _on_host_button_pressed() -> void:

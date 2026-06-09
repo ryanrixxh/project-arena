@@ -38,7 +38,8 @@ func _on_pickup_area_area_exited(area: Area2D) -> void:
 	
 	# FIXME: This signal is triggered, and the below line produces an error, when equipping happens and the pickup despawns.
 	# It doesnt seem to effect anything, but its red and in big capital letter, so it could be bad later.
-	toggle_light.rpc_id(player.get_multiplayer_authority())
+	if area.is_inside_tree() and area.multiplayer.get_unique_id() == player.get_multiplayer_authority():
+		toggle_light()
 	
 	#Tell the player that this is no longer available to equip
 	player.allow_equip.emit(null)

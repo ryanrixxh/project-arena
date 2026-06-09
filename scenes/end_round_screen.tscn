@@ -21,17 +21,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -142.0
-offset_top = -109.0
-offset_right = 144.0
-offset_bottom = -40.0
+offset_left = -143.0
+offset_top = -165.0
+offset_right = 143.0
+offset_bottom = -96.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Round Over"
 label_settings = SubResource("LabelSettings_4g7rr")
 
 [node name="NextRoundButton" type="Button" parent="." unique_id=349351380]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -39,11 +38,30 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -50.0
-offset_top = -15.5
+offset_top = 66.0
 offset_right = 50.0
-offset_bottom = 15.5
+offset_bottom = 97.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Next Round"
+
+[node name="WinnerLabel" type="Label" parent="." unique_id=2066360974]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -112.0
+offset_top = -80.0
+offset_right = 115.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "<nobody> has won the round"
+horizontal_alignment = 1
+
+[node name="SpriteMarker" type="Marker2D" parent="." unique_id=1812777614]
+position = Vector2(577, 324)
 
 [connection signal="pressed" from="NextRoundButton" to="." method="_on_next_round_button_pressed"]

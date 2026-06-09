@@ -18,7 +18,6 @@ func calculate_damage() -> int:
 	if damage < damage_minimum:
 		return 0
 	else:
-		print(damage)
 		return damage
 
 func _on_pickup_body_entered(body: Node) -> void:

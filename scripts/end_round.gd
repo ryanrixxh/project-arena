@@ -1,4 +1,6 @@
-extends Control
+class_name EndRound extends Control
+
+@export var round_winner: Player
 
 func _ready() -> void:
 	if multiplayer.is_server():

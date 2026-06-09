@@ -7,7 +7,7 @@ var pickup_count = 0
 # TODO: Dictionary of players to keep track of winners and losers
 # TODO: Spawn logic should be in here so then we can keep track of despawning it aswell
 var player_count = 0
-var players = {}
+var players_alive = {}
 var spawn_positions
 
 func _ready() -> void:
@@ -30,7 +30,8 @@ func _on_player_spawner_spawned(player: Player) -> void:
 func _on_child_entered_tree(node: Node) -> void:
 	if !node.get_script() or node.get_script().get_global_name() != "Player": return
 	if multiplayer.is_server():
-		player_count += 1
+		players_alive[node.name] = node
+		#player_count += 1
 
 ## Keep track of when a child is exiting the tree. Only perform actions on this when we are the server, to prevent repeat handling of state changes
 func _on_child_exiting_tree(node: Node) -> void:
@@ -40,7 +41,6 @@ func _on_child_exiting_tree(node: Node) -> void:
 		$DeathScreen.show()
 	
 	if multiplayer.is_server():
-		player_count -= 1
-		print(player_count)
-		if player_count == 1:
-			Gamestate.end_round()
+		players_alive.erase(node.name)
+		if players_alive.size() == 1:
+			Gamestate.end_round(players_alive.values()[0])

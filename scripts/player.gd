@@ -1,14 +1,17 @@
 class_name Player extends CharacterBody2D
 
 signal throw
+@warning_ignore("unused_signal")
 signal released
 
 ## Emitted by the pickups themselves when pickup zone collision occurs, used to set the available pickup and allow input for equipping
+@warning_ignore("unused_signal")
 signal allow_equip
 
 ## Used to signal when the weapon should be equipped by the player 
 signal equip
 ## Used to make sure the weapon does not despawn to early before being equipped properly
+@warning_ignore("unused_signal")
 signal done_equipping 
 
 
@@ -126,7 +129,7 @@ func handle_jump_input(delta):
 	elif state.walled:
 		wall_jump()
 
-func jump(delta):
+func jump(_delta):
 	sprite.play("jump")
 	state.air_state = PlayerState.AirState.AIRBORN
 	velocity.y = jump_velocity - (speed * 0.5)

@@ -12,7 +12,7 @@ var player_ids = []
 var current_round = 0
 var current_round_winner: Player = null
 
-var winning_rounds_required = 1
+var winning_rounds_required = 3
 var win_tally = {}
 var game_winner: Player = null
 
@@ -78,9 +78,6 @@ func start_game(start_source: StartSource):
 func end_round(player: Player):
 	assert(multiplayer.is_server())
 	win_tally[player.name] += 1
-	#if win_tally[player.name] >= winning_rounds_required:
-		#load_lobby.rpc()
-	#else:
 	load_end_round.rpc(player.name, win_tally[player.name] >= winning_rounds_required)
 
 @rpc("call_local")

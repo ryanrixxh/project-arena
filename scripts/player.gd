@@ -1,18 +1,21 @@
 class_name Player extends CharacterBody2D
 
 signal throw
+@warning_ignore("unused_signal")
 signal released
 
 ## Emitted by the pickups themselves when pickup zone collision occurs, used to set the available pickup and allow input for equipping
+@warning_ignore("unused_signal")
 signal allow_equip
 
 ## Used to signal when the weapon should be equipped by the player 
 signal equip
 ## Used to make sure the weapon does not despawn to early before being equipped properly
+@warning_ignore("unused_signal")
 signal done_equipping 
 
 
-var spawn_position = Vector2(1500, 500)
+var spawn_position
 
 # Movement stats
 @export var speed = 100
@@ -56,7 +59,6 @@ var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	global_position = spawn_position
 	%HealthLabelDebug.text = str(health_component.health)
 	pass
 
@@ -127,7 +129,7 @@ func handle_jump_input(delta):
 	elif state.walled:
 		wall_jump()
 
-func jump(delta):
+func jump(_delta):
 	sprite.play("jump")
 	state.air_state = PlayerState.AirState.AIRBORN
 	velocity.y = jump_velocity - (speed * 0.5)

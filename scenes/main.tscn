@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://c3wlgb262wcu4" path="res://scripts/main.gd" id="1_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
-[ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scenes/pickup_spawner.gd" id="4_tefeu"]
+[ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]
+[ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scenes/spectate.gd" id="7_o6xl0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(155.06314, 411.59503)
@@ -18,6 +19,19 @@ size = Vector2(1059.6394, 23.38051)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
 size = Vector2(1898.9309, 28.247837)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tefeu"]
+bg_color = Color(0.6, 0.17254902, 0.1882353, 0.38431373)
+
+[sub_resource type="SystemFont" id="SystemFont_o6xl0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
+font = SubResource("SystemFont_o6xl0")
+font_size = 161
+font_color = Color(1, 0, 0.06666667, 1)
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 0.9764706)
+shadow_offset = Vector2(0.72, 1)
 
 [node name="Main" type="Node2D" unique_id=922352442]
 script = ExtResource("1_o6xl0")
@@ -38,7 +52,7 @@ metadata/_edit_lock_ = true
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1240736190]
 position = Vector2(1765, 1004.0001)
 scale = Vector2(0.65, 0.65)
-zoom = Vector2(0.335, 0.335)
+zoom = Vector2(0.33, 0.33)
 
 [node name="CollisionBlocks" type="Node2D" parent="." unique_id=227081774]
 position = Vector2(849, 1274)
@@ -65,7 +79,7 @@ scale = Vector2(2.3999987, 1)
 color = Color(0, 0, 0, 1)
 
 [node name="InternalFloatingFloor" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1320817427]
-position = Vector2(736, 42)
+position = Vector2(795, 95)
 collision_layer = 3
 collision_mask = 3
 
@@ -84,7 +98,7 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="InternalBlock3" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1563056164]
-position = Vector2(132, -549)
+position = Vector2(138, -433)
 collision_layer = 3
 collision_mask = 3
 
@@ -100,9 +114,10 @@ offset_right = -32.91658
 offset_bottom = 207.0
 scale = Vector2(2.3999987, 1)
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="InternalBlock4" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1004442450]
-position = Vector2(1634, -549)
+position = Vector2(1640, -433)
 collision_layer = 3
 collision_mask = 3
 
@@ -217,7 +232,7 @@ color = Color(0, 0, 0, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="Pickups" type="Node2D" parent="." unique_id=927983828]
-position = Vector2(930, 1223)
+position = Vector2(1755, 749)
 
 [node name="PickupSpawner" type="MultiplayerSpawner" parent="." unique_id=1632642983]
 unique_name_in_owner = true
@@ -232,5 +247,80 @@ _spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")
 spawn_path = NodePath("..")
 script = ExtResource("5_tbgi4")
 
+[node name="DeathScreen" type="Control" parent="." unique_id=524318542]
+unique_name_in_owner = true
+visible = false
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="DeathScreen" unique_id=1860824556]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 16.0
+offset_right = 3527.0
+offset_bottom = 1994.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_tefeu")
+
+[node name="DeathLabel" type="Label" parent="DeathScreen/Panel" unique_id=1126809580]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -400.0
+offset_right = 552.2583
+offset_bottom = -178.99951
+grow_horizontal = 2
+grow_vertical = 2
+text = "YOU HAVE DIED"
+label_settings = SubResource("LabelSettings_tefeu")
+
+[node name="Button" type="Button" parent="DeathScreen/Panel" unique_id=1659251996]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -190.0
+offset_top = 93.0
+offset_right = 195.0
+offset_bottom = 178.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 38
+text = "Spectate"
+script = ExtResource("7_o6xl0")
+
+[node name="SpawnPositions" type="Node2D" parent="." unique_id=1869859226]
+
+[node name="Spawn1" type="Marker2D" parent="SpawnPositions" unique_id=1289833079]
+position = Vector2(982, 207)
+
+[node name="Spawn2" type="Marker2D" parent="SpawnPositions" unique_id=336859761]
+position = Vector2(2495, 216)
+
+[node name="Spawn3" type="Marker2D" parent="SpawnPositions" unique_id=1545398204]
+position = Vector2(2473, 1170)
+
+[node name="Spawn4" type="Marker2D" parent="SpawnPositions" unique_id=1379916054]
+position = Vector2(960, 1186)
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
 [connection signal="spawned" from="PickupSpawner" to="." method="_on_pickup_spawner_spawned"]
+[connection signal="despawned" from="PlayerSpawner" to="." method="_on_player_spawner_despawned"]
 [connection signal="spawned" from="PlayerSpawner" to="." method="_on_player_spawner_spawned"]
+[connection signal="pressed" from="DeathScreen/Panel/Button" to="DeathScreen/Panel/Button" method="_on_pressed"]

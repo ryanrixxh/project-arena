@@ -71,6 +71,8 @@ metadata/_custom_type_script = "uid://b6u63h087idg0"
 [node name="Damage" type="Node" parent="." unique_id=246605701 node_paths=PackedStringArray("pickup_body")]
 script = ExtResource("3_kqu22")
 pickup_body = NodePath("..")
+damage_multiplier = 12
+damage_minimum = 100
 metadata/_custom_type_script = "uid://cbkfrsu3q3345"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scenes/spectate.gd" id="7_o6xl0"]
+[ext_resource type="PackedScene" path="res://scenes/ui/score_display.tscn" id="8_dnf3v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(155.06314, 411.59503)
@@ -246,6 +247,11 @@ unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")
 spawn_path = NodePath("..")
 script = ExtResource("5_tbgi4")
+
+[node name="ScoreCanvasLayer" type="CanvasLayer" parent="." unique_id=604127493]
+layer = 10
+
+[node name="ScoreDisplay" parent="ScoreCanvasLayer" instance=ExtResource("8_dnf3v")]
 
 [node name="DeathScreen" type="Control" parent="." unique_id=524318542]
 unique_name_in_owner = true

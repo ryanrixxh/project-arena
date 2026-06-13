@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://sfu1htmg1wk1"]
 
 [ext_resource type="Script" uid="uid://bocfjhsn6g2ui" path="res://scripts/end_round.gd" id="1_lnikl"]
+[ext_resource type="PackedScene" path="res://scenes/ui/score_display.tscn" id="2_pgqm4"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_4g7rr"]
 font_size = 50
@@ -39,9 +40,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -50.0
-offset_top = 66.0
+offset_top = 255.0
 offset_right = 50.0
-offset_bottom = 97.0
+offset_bottom = 286.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Next Round"
@@ -62,8 +63,22 @@ grow_vertical = 2
 text = "<nobody> has won the round"
 horizontal_alignment = 1
 
+[node name="ScoreDisplay" parent="." instance=ExtResource("2_pgqm4")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = 0.0
+offset_right = 420.0
+offset_bottom = 220.0
+grow_horizontal = 2
+grow_vertical = 2
+presentation = 1
+
 [node name="SpriteMarker" type="Marker2D" parent="." unique_id=1812777614]
-position = Vector2(577, 324)
+position = Vector2(380, 420)
 
 [node name="ReturnToLobbyButton" type="Button" parent="." unique_id=2116883138]
 visible = false
@@ -74,9 +89,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -64.0
-offset_top = 65.0
+offset_top = 255.0
 offset_right = 69.0
-offset_bottom = 96.0
+offset_bottom = 286.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Return to Lobby"

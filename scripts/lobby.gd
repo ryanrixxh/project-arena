@@ -11,10 +11,13 @@ func load_player_list():
 	var player_ids = Gamestate.player_ids
 	player_ids.sort()
 	$PlayerPanel/PlayerList.clear()
-	# FIXME: This causes a bug that automatically adds a second entry for the host. Doesn't effect the actual amount of players, just the UI
-	$PlayerPanel/PlayerList.add_item(str(multiplayer.get_unique_id()) + "(You)")
+	var own_id = str(multiplayer.get_unique_id())
+	$PlayerPanel/PlayerList.add_item(own_id + " (You)")
 	for p in player_ids:
-		$PlayerPanel/PlayerList.add_item(str(p))
+		var label = str(p)
+		if label == own_id:
+			continue
+		$PlayerPanel/PlayerList.add_item(label)
 
 func _on_host_button_pressed() -> void:
 	Gamestate.host()

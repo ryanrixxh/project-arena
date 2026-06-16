@@ -18,6 +18,9 @@ var winning_rounds_required = 3
 var win_tally = {}
 var game_winner: Player = null
 
+## CLIENT SIDE
+var local_players: int = 0
+
 func _ready() -> void:
 	multiplayer.peer_connected.connect(player_connected)
 	multiplayer.connected_to_server.connect(connected_to_server)
@@ -60,12 +63,18 @@ func register_connected_peers() -> void:
 func connected_to_server() -> void:
 	request_registration.rpc_id(SERVER_AUTHORITY)
 
-@rpc("any_peer", "reliable")
-func request_registration() -> void:
+func local_join() -> void:
+	local_players += 1
+	request_registration(true)
+
+@rpc("any_peer", "call_local", "reliable")
+func request_registration(local: bool = false) -> void:
 	if not multiplayer.is_server():
 		return
+	print(multiplayer.get_unique_id() + local_players)
+	
+	register_player(multiplayer.get_remote_sender_id() if !local else multiplayer.get_unique_id() + local_players)
 
-	register_player(multiplayer.get_remote_sender_id())
 
 func register_player(id: int):
 	var player_id = str(id)
@@ -114,16 +123,21 @@ func start_game(start_source: StartSource):
 	# Tell all other clients to load the game world
 	load_main.rpc(start_source)
 	var main = get_tree().root.get_node("Main")
+	var player_spawner: MultiplayerSpawner = main.get_node("PlayerSpawner")
 	
 	# Load all players into the game world
-	var player_scene = load("res://scenes/player.tscn")
 	var spawn_positions = main.get_node("SpawnPositions").get_children().map(func(marker: Marker2D): return marker.global_position)
 	
+	var latest_remote_index = null
 	for i in player_ids.size():
-		var player: Player = player_scene.instantiate()
-		player.name = str(player_ids[i])
-		player.global_position = spawn_positions[i]
-		main.add_child(player)
+		var authority
+		if int(player_ids[i]) == int(player_ids[i-1]) + 1:
+			authority = player_ids[latest_remote_index].to_int()
+		else:
+			authority = player_ids[i].to_int()
+			latest_remote_index = i
+		player_spawner.spawn({"id": i, "position": spawn_positions[i], "authority": authority})
+		
 
 ## Ends the round for all players. Called by whichever peer is the last to day when player count is tracked to one by their Main client.
 @rpc("any_peer", "call_local")

@@ -37,3 +37,7 @@ func show_lobby():
 	if multiplayer.is_server():
 		$StartGameButton.show()
 	load_player_list()
+
+
+func _on_add_local_player_button_pressed() -> void:
+	Gamestate.local_join()

@@ -63,7 +63,7 @@ func _ready() -> void:
 	pass
 
 func _enter_tree() -> void:
-	set_multiplayer_authority(str(name).to_int())
+	#set_multiplayer_authority(1)
 	%IDLabelDebug.text = str(name)
 
 func _process(_delta: float) -> void:

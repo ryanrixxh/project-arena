@@ -7,6 +7,14 @@
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="5_qlg0r"]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fjrip"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Equipment/WeaponMarker:rotation")
+properties/1/spawn = false
+properties/1/replication_mode = 1
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
 atlas = ExtResource("2_fjrip")
 region = Rect2(128, 0, 64, 64)
@@ -244,14 +252,6 @@ size = Vector2(109, 124.5)
 [sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
 radius = 202.0099
 
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fjrip"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath("Equipment/WeaponMarker:rotation")
-properties/1/spawn = false
-properties/1/replication_mode = 1
-
 [sub_resource type="LabelSettings" id="LabelSettings_fjrip"]
 font_size = 33
 
@@ -264,6 +264,15 @@ collision_mask = 13
 script = ExtResource("1_qlg0r")
 metadata/_custom_type_script = "uid://jb258fphxmv2"
 metadata/current_weapon = NodePath("")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=129066829]
+replication_config = SubResource("SceneReplicationConfig_fjrip")
+
+[node name="WeaponSpawner" type="MultiplayerSpawner" parent="." unique_id=1691348452]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
+spawn_path = NodePath("../Equipment/WeaponMarker")
+spawn_limit = 1
 
 [node name="WizardSprite" type="AnimatedSprite2D" parent="." unique_id=338670132]
 position = Vector2(-3.8146973e-06, 0)
@@ -407,15 +416,6 @@ polygon = PackedVector2Array(0, 0, 144, -146, 203, -2)
 [node name="Health" type="Node" parent="." unique_id=1476547498]
 script = ExtResource("5_qlg0r")
 metadata/_custom_type_script = "uid://5uig6yhhkjxp"
-
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=129066829]
-replication_config = SubResource("SceneReplicationConfig_fjrip")
-
-[node name="WeaponSpawner" type="MultiplayerSpawner" parent="." unique_id=1691348452]
-unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
-spawn_path = NodePath("../Equipment/WeaponMarker")
-spawn_limit = 1
 
 [node name="DebugLabels" type="Control" parent="." unique_id=1147184146]
 layout_mode = 3

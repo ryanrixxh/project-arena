@@ -34,9 +34,9 @@ func _on_start_game_button_pressed() -> void:
 func show_lobby():
 	$ButtonContainer.hide()
 	$PlayerPanel.show()
+	$AddLocalPlayerButton.show()
 	if multiplayer.is_server():
 		$StartGameButton.show()
-		$AddLocalPlayerButton.show()
 	load_player_list()
 
 

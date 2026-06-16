@@ -25,7 +25,6 @@ func duplicateInputs(local_input_id: int):
 		var events = InputMap.action_get_events(input)
 		InputMap.action_erase_events(new_action)
 		for event in events:
-			print(input, ": ", event)
 			var new_event = event.duplicate(true)
 			new_event.device = local_input_id
 			InputMap.action_add_event(new_action, new_event)

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
 [ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]
-[ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scenes/spectate.gd" id="7_o6xl0"]
+[ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scripts/spectate.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/score_display.tscn" id="8_dnf3v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]

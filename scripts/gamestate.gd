@@ -38,7 +38,8 @@ func _process(delta: float) -> void:
 		return
 
 	peer_sync_elapsed = 0.0
-	register_connected_peers()
+	# FIXME: Registering on a loop seems strange. Is this due to connection issues / ping?
+	#register_connected_peers()
 
 func host():
 	print("Starting game server")
@@ -53,6 +54,7 @@ func join():
 	multiplayer.multiplayer_peer = peer
 
 func player_connected(id: int):
+	print(id, " connected.")
 	if multiplayer.is_server():
 		register_player(id)
 
@@ -61,19 +63,19 @@ func register_connected_peers() -> void:
 		register_player(id)
 
 func connected_to_server() -> void:
+	print("Running connected to server")
 	request_registration.rpc_id(SERVER_AUTHORITY)
 
 func local_join() -> void:
 	local_players += 1
-	request_registration(true)
+	request_registration.rpc_id(1, true, multiplayer.get_unique_id() + local_players)
 
 @rpc("any_peer", "call_local", "reliable")
-func request_registration(local: bool = false) -> void:
+func request_registration(local: bool = false, id = multiplayer.get_remote_sender_id()) -> void:
 	if not multiplayer.is_server():
 		return
-	print(multiplayer.get_unique_id() + local_players)
 	
-	register_player(multiplayer.get_remote_sender_id() if !local else multiplayer.get_unique_id() + local_players)
+	register_player(multiplayer.get_remote_sender_id() if !local else id)
 
 
 func register_player(id: int):
@@ -128,7 +130,12 @@ func start_game(start_source: StartSource):
 	# Load all players into the game world
 	var spawn_positions = main.get_node("SpawnPositions").get_children().map(func(marker: Marker2D): return marker.global_position)
 	
-	var latest_remote_index = null
+	# For each player:
+	# If they are the primary player for that given client, then set their spawned player name to that client ID
+	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID + 
+	# however many secondary local players we have on that client
+	
+	var latest_remote_index = null # Keep track of the most recent primary player, so that we can set secondary local player ids off of that one
 	for i in player_ids.size():
 		var authority
 		var local = false
@@ -138,7 +145,13 @@ func start_game(start_source: StartSource):
 		else:
 			authority = player_ids[i].to_int()
 			latest_remote_index = i
-		player_spawner.spawn({"id": i, "position": spawn_positions[i], "authority": authority, "local": local})
+		
+		# FIXME: Using i for id assignment doesnt work for local players that arent local to the host I think? 
+		# Might be something else, but controller isnt working for secondary local players in any case
+		
+		# There needs to be another id here seperate from the normal id property which denotes the players "local id" purely for 
+		# control assignment
+		player_spawner.spawn({"id": player_ids[i].to_int(), "position": spawn_positions[i], "authority": authority, "local": local, "local_id": i - latest_remote_index})
 		
 
 ## Ends the round for all players. Called by whichever peer is the last to day when player count is tracked to one by their Main client.

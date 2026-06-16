@@ -19,7 +19,7 @@ func _ready() -> void:
 
 func setup(player: Player):	
 	name = name + player.name
-	set_multiplayer_authority(player.name.to_int())
+	#set_multiplayer_authority(player.name.to_int())
 	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding. 
 	# To help with conditional logic
 	player_holding = player

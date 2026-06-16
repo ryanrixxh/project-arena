@@ -131,12 +131,14 @@ func start_game(start_source: StartSource):
 	var latest_remote_index = null
 	for i in player_ids.size():
 		var authority
+		var local = false
 		if int(player_ids[i]) == int(player_ids[i-1]) + 1:
+			local = true
 			authority = player_ids[latest_remote_index].to_int()
 		else:
 			authority = player_ids[i].to_int()
 			latest_remote_index = i
-		player_spawner.spawn({"id": i, "position": spawn_positions[i], "authority": authority})
+		player_spawner.spawn({"id": i, "position": spawn_positions[i], "authority": authority, "local": local})
 		
 
 ## Ends the round for all players. Called by whichever peer is the last to day when player count is tracked to one by their Main client.

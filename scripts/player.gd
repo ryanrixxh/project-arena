@@ -17,6 +17,13 @@ signal done_equipping
 
 var spawn_position
 
+# Control assignments
+@export var jump_control = "jump"
+@export var left_control = "left"
+@export var right_control = "right"
+@export var throw_control = "throw"
+@export var equip_control = "equip"
+
 # Movement stats
 @export var speed = 100
 @export var min_speed = 200
@@ -63,7 +70,6 @@ func _ready() -> void:
 	pass
 
 func _enter_tree() -> void:
-	#set_multiplayer_authority(1)
 	%IDLabelDebug.text = str(name)
 
 func _process(_delta: float) -> void:
@@ -101,24 +107,24 @@ func handle_orientation():
 
 
 func get_horizontal_movement(delta: float):
-	var direction = Input.get_axis("left", "right")
+	var direction = Input.get_axis(left_control, right_control)
 	var arial_acceleration: float = acceleration * 0.5
 	velocity.x = move_toward(velocity.x, direction * speed, (acceleration if state.is_grounded() else arial_acceleration) * delta)
 
 
 ## Input handling: At the top level [method handle_input] handles all direct input and calls various utility function based on that input
 func handle_input():
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed(jump_control):
 		sprite.play("crouch")
 
-	if Input.is_action_just_released("jump"):
+	if Input.is_action_just_released(jump_control):
 		sprite.stop()
-		handle_jump_input("jump")
+		handle_jump_input(jump_control)
 
-	if Input.is_action_pressed("throw"):
+	if Input.is_action_pressed(throw_control):
 		throw.emit()
 	
-	if Input.is_action_pressed("equip"):
+	if Input.is_action_pressed(equip_control):
 		if state.available_pickup:
 			equip.emit(state.available_pickup.weapon_scene)
 			

@@ -15,13 +15,20 @@ func _ready() -> void:
 
 ## Duplicates all inputs and changes their device ID to the ID specified. 
 func duplicateInputs(local_input_id: int):
+	var new_actions = []
 	for input in inputs:
-		var events = InputMap.action_get_events(input)
-		
 		var new_action = input + "_" + str(local_input_id)
 		InputMap.add_action(new_action)
+		new_actions.push_back(new_action)
 		
+		var new_events = []
+		var events = InputMap.action_get_events(input)
+		InputMap.action_erase_events(new_action)
 		for event in events:
+			print(input, ": ", event)
 			var new_event = event.duplicate(true)
 			new_event.device = local_input_id
 			InputMap.action_add_event(new_action, new_event)
+			new_events.push_back(new_event)
+	
+	return new_actions

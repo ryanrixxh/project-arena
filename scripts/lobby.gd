@@ -36,6 +36,7 @@ func show_lobby():
 	$PlayerPanel.show()
 	if multiplayer.is_server():
 		$StartGameButton.show()
+		$AddLocalPlayerButton.show()
 	load_player_list()
 
 

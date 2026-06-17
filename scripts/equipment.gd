@@ -8,25 +8,30 @@ var device_id = 0
 @export var deadzone = 0.2
 @export var rotation_speed = 5.0
 var target_angle = 0
-
+						
 func _input(event: InputEvent) -> void:
 	if(event is InputEventKey or event is InputEventMouse):
+		if input_mode == InputMode.MNK: return
 		input_mode = InputMode.MNK
+		aim_area.global_rotation = 0
+		aim_area.rotation = 0
 	
-	if(event is InputEventJoypadButton or event is InputEventJoypadMotion):
+	if(event is InputEventJoypadButton):
+		if input_mode == InputMode.CONTROLLER: return
 		input_mode = InputMode.CONTROLLER
+		aim_area.global_rotation = 0
+		aim_area.rotation = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	input_mode = InputMode.MNK
+	#input_mode = InputMode.MNK
 	device_id = get_parent().controller_device_id or 0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	# TODO: look_at doesnt respect collision, because it overrides the position of the object too quickly. Need a different method
+func _process(delta: float) -> void:    
 	if not is_multiplayer_authority(): return
 	if input_mode == InputMode.MNK:	
-		follow_mouse()
+		follow_mouse()             
 	else:
 		follow_joystick(delta)
 
@@ -39,9 +44,9 @@ func follow_joystick(delta):
 										Input.get_joy_axis(device_id, JOY_AXIS_RIGHT_Y))
 	
 	if input_vector.length() >= deadzone:
-		target_angle = input_vector.angle() + deg_to_rad(90.0)
+		target_angle = input_vector.angle()
 	
-	if rotation != target_angle:
+	if aim_area.global_rotation != target_angle:
 		var lerp_weight = 1.0 - exp(-rotation_speed * delta)
 		rotation = lerp_angle(rotation, target_angle, lerp_weight)
 

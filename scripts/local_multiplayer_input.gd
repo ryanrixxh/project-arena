@@ -18,6 +18,7 @@ func duplicateInputs(local_input_id: int):
 	var new_actions = []
 	for input in inputs:
 		var new_action = input + "_" + str(local_input_id)
+		# FIXME: InputMap is recieving duplicate actions. Its ignoring them because its a Dictionary, so nothing breaks. But should be fixed.
 		InputMap.add_action(new_action)
 		new_actions.push_back(new_action)
 		

@@ -18,6 +18,7 @@ signal done_equipping
 var spawn_position
 
 # Control assignments
+var controller_device_id
 @export var jump_control = "jump"
 @export var left_control = "left"
 @export var right_control = "right"

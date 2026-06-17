@@ -10,6 +10,7 @@ func spawn_player(data) -> Player:
 
 	player.set_multiplayer_authority(data.authority)
 	if data.local:
+		player.controller_device_id = data.local_id
 		var new_controller_assignments = LocalMultiplayerInput.duplicateInputs(data.local_id)
 		for assignment in new_controller_assignments:
 			match assignment:

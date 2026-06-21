@@ -73,6 +73,7 @@ autostart = true
 unique_name_in_owner = true
 position = Vector2(90.94086, -0.28071976)
 rotation = 4.359054e-05
+scale = Vector2(1, 1.2399148)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=876896301]
 position = Vector2(0.5625, -0.18792725)

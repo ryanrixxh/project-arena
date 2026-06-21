@@ -18,16 +18,16 @@ var can_fire: bool = true
 func _ready() -> void:
 	$MagicEffect.play("default")
 	global_position = player_holding.reticle_marker.global_position + POSITION_OFFSET
-	print(player_holding.reticle_marker.global_position)
-	print(global_position)
+
+
 
 func _process(delta: float) -> void:
 	$WeaponSprite.global_rotation = 0
 	$MagicEffect.global_rotation = 0
 	
 	if player_holding:
+		global_rotation = player_holding.reticle_marker.global_rotation
 		var velocity = ((player_holding.reticle_marker.global_position + POSITION_OFFSET) - global_position) * delta * FOLLOW_SPEED
-		#print(velocity)
 		move_and_collide(velocity)
 		
 func setup(player: Player):	
@@ -50,6 +50,9 @@ func _on_throw():
 func server_spawn(id: int):
 	if multiplayer.is_server():
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
+		# FIXME: Since we are no longer use barrel marker, this is colliding with the thrower
+		# Two options: Fix barrel marker to set its position to be properly relative
+		# 			   Find another way to do it
 		var direction = (barrel_marker.global_position - global_position).normalized()
 		spawner.spawn([id, barrel_marker.global_position, throw_force, direction])
 	

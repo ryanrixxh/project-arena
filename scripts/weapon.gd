@@ -32,15 +32,13 @@ func _process(delta: float) -> void:
 		
 func setup(player: Player):	
 	name = name + player.name
-	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding. 
+	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding. aa
 	# To help with conditional logic
 	player_holding = player
 	player.state.equipped_weapon = self
 	set_multiplayer_authority(player.get_multiplayer_authority(), true)
 
 func _on_throw():
-	print(multiplayer.get_unique_id(), "_on_throw")
-	print(get_multiplayer_authority())
 	if is_multiplayer_authority():
 		server_spawn.rpc(randi() % 10000)
 		# Remove instance of this node from Players state and then delete
@@ -50,9 +48,6 @@ func _on_throw():
 func server_spawn(id: int):
 	if multiplayer.is_server():
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
-		# FIXME: Since we are no longer use barrel marker, this is colliding with the thrower
-		# Two options: Fix barrel marker to set its position to be properly relative
-		# 			   Find another way to do it
 		var direction = (barrel_marker.global_position - global_position).normalized()
 		spawner.spawn([id, barrel_marker.global_position, throw_force, direction])
 	

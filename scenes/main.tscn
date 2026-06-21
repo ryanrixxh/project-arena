@@ -2,18 +2,15 @@
 
 [ext_resource type="Texture2D" uid="uid://bkhrd1lci42gy" path="res://assets/aseprite/pre-alpha-cave.png" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c3wlgb262wcu4" path="res://scripts/main.gd" id="1_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="1_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
+[ext_resource type="Texture2D" uid="uid://d16a6o62y58ag" path="res://assets/aseprite/grass terrain.png" id="3_tipki"]
 [ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]
 [ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scripts/spectate.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/score_display.tscn" id="8_dnf3v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
-size = Vector2(155.06314, 411.59503)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_tefeu"]
-size = Vector2(388.75198, 37.648796)
+size = Vector2(360.66467, 388.99988)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(1059.6394, 23.38051)
@@ -37,13 +34,6 @@ shadow_offset = Vector2(0.72, 1)
 [node name="Main" type="Node2D" unique_id=922352442]
 script = ExtResource("1_o6xl0")
 
-[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1769116865]
-position = Vector2(1680.0001, 1875.125)
-scale = Vector2(11.609375, 9.454102)
-shadow_color = Color(0, 0, 0, 0.8784314)
-texture = ExtResource("1_tbgi4")
-metadata/_edit_lock_ = true
-
 [node name="Background" type="Sprite2D" parent="." unique_id=1564463435]
 position = Vector2(1754.4376, 989.37506)
 scale = Vector2(3.5865884, 3.5615742)
@@ -61,64 +51,22 @@ position = Vector2(849, 1274)
 [node name="Internal Arena Collision Blocks" type="Node2D" parent="CollisionBlocks" unique_id=2038091904]
 position = Vector2(-11, -300)
 
-[node name="InternalBlock1" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1903723091]
-position = Vector2(132, 550)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock1" unique_id=243321724]
-position = Vector2(-0.00012207031, 3.0517578e-05)
-scale = Vector2(2.6423435, 1)
-shape = SubResource("RectangleShape2D_0wfyh")
-
-[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock1" unique_id=2070693790]
-offset_left = -205.0
-offset_top = -205.0
-offset_right = -33.749924
-offset_bottom = 205.0
-scale = Vector2(2.3999987, 1)
-color = Color(0, 0, 0, 1)
-
-[node name="InternalFloatingFloor" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1320817427]
-position = Vector2(795, 95)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=644956741]
-position = Vector2(141, -20.999998)
-scale = Vector2(2.202341, 1)
-shape = SubResource("RectangleShape2D_tefeu")
-
-[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalFloatingFloor" unique_id=1955256971]
-offset_left = -284.99997
-offset_top = -39.0
-offset_right = 103.1821
-offset_bottom = -3.0
-scale = Vector2(2.1999986, 1)
-color = Color(0, 0, 0, 1)
-metadata/_edit_use_anchors_ = true
-
 [node name="InternalBlock3" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1563056164]
-position = Vector2(138, -433)
+position = Vector2(138, 92)
 collision_layer = 3
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock3" unique_id=2048802120]
-position = Vector2(-0.00012207031, 3.0517578e-05)
+position = Vector2(46.5, -26.5)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock3" unique_id=327723240]
-offset_left = -205.0
-offset_top = -211.0
-offset_right = -32.91658
-offset_bottom = 207.0
-scale = Vector2(2.3999987, 1)
-color = Color(0, 0, 0, 1)
-metadata/_edit_use_anchors_ = true
+[node name="GrassTerrain" type="Sprite2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock3" unique_id=1702827700]
+position = Vector2(47, 100)
+texture = ExtResource("3_tipki")
 
 [node name="InternalBlock4" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=1004442450]
-position = Vector2(1640, -433)
+position = Vector2(1640, 89)
 collision_layer = 3
 collision_mask = 3
 
@@ -127,32 +75,9 @@ position = Vector2(-0.00012207031, 3.0517578e-05)
 scale = Vector2(2.6423435, 1)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock4" unique_id=192231669]
-offset_left = -211.0
-offset_top = -205.0
-offset_right = -38.083252
-offset_bottom = 151.29315
-scale = Vector2(2.3999987, 1.1563512)
-color = Color(0, 0, 0, 1)
-
-[node name="InternalBlock2" type="StaticBody2D" parent="CollisionBlocks/Internal Arena Collision Blocks" unique_id=2055019475]
-position = Vector2(1634, 450)
-collision_layer = 3
-collision_mask = 3
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock2" unique_id=573123004]
-position = Vector2(0, 100.20245)
-scale = Vector2(2.6423435, 1)
-shape = SubResource("RectangleShape2D_0wfyh")
-
-[node name="ColorRect" type="ColorRect" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock2" unique_id=1092995137]
-offset_left = -205.0
-offset_top = -102.0
-offset_right = -33.749878
-offset_bottom = 117.0
-scale = Vector2(2.3999987, 1.8799994)
-color = Color(0, 0, 0, 1)
-metadata/_edit_use_anchors_ = true
+[node name="GrassTerrain" type="Sprite2D" parent="CollisionBlocks/Internal Arena Collision Blocks/InternalBlock4" unique_id=1362342417]
+position = Vector2(2, 109)
+texture = ExtResource("3_tipki")
 
 [node name="Ceiling" type="StaticBody2D" parent="CollisionBlocks" unique_id=149673681]
 position = Vector2(915, -1255)

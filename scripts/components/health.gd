@@ -17,7 +17,6 @@ func _ready() -> void:
 
 func _process(_delta) -> void:
 	if invicible:
-		print("IM INVINCIBLE!!")
 		current_iframe += 1
 		if current_iframe >= iframes:
 			invicible = false
@@ -37,7 +36,6 @@ func die():
 func _on_damaged(damage: int) -> void:
 	if invicible: return
 	
-	print(damage)
 	health -= damage
 	check_health()
 	invicible = true

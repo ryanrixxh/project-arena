@@ -160,6 +160,7 @@ func _on_allow_equip(pickup: Pickup = null) -> void:
 	state.available_pickup = pickup
 
 func _on_equip(weapon_scene: PackedScene) -> void:
+	%ReticleMarker.hide()
 	if is_multiplayer_authority():
 		var weapon: Weapon = weapon_scene.instantiate()
 		weapon.setup(self)
@@ -170,11 +171,10 @@ func _on_equip(weapon_scene: PackedScene) -> void:
 		# Tell the server to despawn the pickup after we have equipped it and forget about it
 		state.available_pickup.server_despawn.rpc_id(1)
 		state.available_pickup = null
-		%ReticleMarker.hide()
 
 func _on_released() -> void:
+	%ReticleMarker.show()
 	if is_multiplayer_authority():
 		weapon_marker.remove_child(state.equipped_weapon)
 		state.equipped_weapon.call_deferred("queue_free")
 		state.equipped_weapon = null
-		%ReticleMarker.show()

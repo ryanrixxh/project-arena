@@ -63,7 +63,6 @@ func register_connected_peers() -> void:
 		register_player(id)
 
 func connected_to_server() -> void:
-	print("Running connected to server")
 	request_registration.rpc_id(SERVER_AUTHORITY)
 
 func local_join() -> void:

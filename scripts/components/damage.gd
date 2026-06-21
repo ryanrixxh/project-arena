@@ -26,5 +26,4 @@ func _on_pickup_body_entered(body: Node) -> void:
 		do_damage(calculate_damage(), body.get_child(index))
 
 func do_damage(damage: int, health_component: Health) -> void:
-	health_component.health -= damage
-	health_component.check_health()
+	health_component.damaged.emit(damage)

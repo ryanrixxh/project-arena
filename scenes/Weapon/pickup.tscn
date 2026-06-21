@@ -49,6 +49,7 @@ color = Color(0.15686275, 1, 0.9019608, 1)
 texture = ExtResource("1_lu1qc")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945410480]
+visible = false
 shape = SubResource("CircleShape2D_lu1qc")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=729363975]

@@ -75,7 +75,12 @@ func _enter_tree() -> void:
 	%IDLabelDebug.text = str(name)
 
 func _process(_delta: float) -> void:
-	pass
+	if state.is_grounded() and abs(velocity) > Vector2(0,0):
+		sprite.play("walk")
+	elif not state.is_grounded():
+		sprite.play("airborn")
+	else:
+		sprite.play("default")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 # Main driver for all other player script handling, as most of it is based on input handling.
@@ -85,7 +90,7 @@ func _physics_process(delta: float) -> void:
 
 	get_horizontal_movement.call_deferred(delta)
 	# FIXME: Orientation handler isnt really syncing correctly in network multiplayer
-	#handle_orientation()
+	handle_orientation()
 	handle_input()
 
 	if is_on_wall_only():
@@ -105,7 +110,7 @@ func _physics_process(delta: float) -> void:
 func handle_orientation():
 	var mouse_pos = get_global_mouse_position()
 	var looking_left = mouse_pos.x < global_position.x
-	global_transform.x.x = -abs(global_transform.x.x) if looking_left else abs(global_transform.x.x)
+	$WizardSprite.global_transform.x.x = -abs($WizardSprite.global_transform.x.x) if looking_left else abs($WizardSprite.global_transform.x.x)
 
 
 func get_horizontal_movement(delta: float):
@@ -116,8 +121,8 @@ func get_horizontal_movement(delta: float):
 
 ## Input handling: At the top level [method handle_input] handles all direct input and calls various utility function based on that input
 func handle_input():
-	if Input.is_action_just_pressed(jump_control):
-		sprite.play("crouch")
+	#if Input.is_action_just_pressed(jump_control):
+		##sprite.play("crouch")
 
 	if Input.is_action_just_released(jump_control):
 		sprite.stop()
@@ -138,7 +143,7 @@ func handle_jump_input(delta):
 		wall_jump()
 
 func jump(_delta):
-	sprite.play("jump")
+	#sprite.play("jump")
 	state.air_state = PlayerState.AirState.AIRBORN
 	velocity.y = jump_velocity - (speed * 0.5)
 
@@ -160,12 +165,10 @@ func _on_allow_equip(pickup: Pickup = null) -> void:
 	state.available_pickup = pickup
 
 func _on_equip(weapon_scene: PackedScene) -> void:
-	%ReticleMarker.hide()
 	if is_multiplayer_authority():
 		var weapon: Weapon = weapon_scene.instantiate()
 		weapon.setup(self)
-		weapon_marker.add_child.call_deferred(weapon)	
-		#weapon.global_transform = weapon_marker.global_transform
+		$Equipment.add_child.call_deferred(weapon)	
 		throw.connect(weapon._on_throw)
 		
 		# Tell the server to despawn the pickup after we have equipped it and forget about it
@@ -173,8 +176,7 @@ func _on_equip(weapon_scene: PackedScene) -> void:
 		state.available_pickup = null
 
 func _on_released() -> void:
-	%ReticleMarker.show()
 	if is_multiplayer_authority():
-		weapon_marker.remove_child(state.equipped_weapon)
+		$Equipment.remove_child(state.equipped_weapon)
 		state.equipped_weapon.call_deferred("queue_free")
 		state.equipped_weapon = null

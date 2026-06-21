@@ -58,7 +58,7 @@ script = ExtResource("1_e2o24")
 metadata/name = "Boulder"
 
 [node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
-position = Vector2(190, 1)
+position = Vector2(174.5625, -1.1879272)
 rotation = 3.1415925
 scale = Vector2(1.6441709, 1.6262834)
 texture = ExtResource("2_uf51t")
@@ -70,15 +70,15 @@ autostart = true
 
 [node name="BarrelMarker" type="Marker2D" parent="." unique_id=1471378519]
 unique_name_in_owner = true
-position = Vector2(279.37836, 0.9072075)
+position = Vector2(263.94086, -1.2807198)
 rotation = 4.359054e-05
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=876896301]
-position = Vector2(189, 1)
+position = Vector2(173.5625, -1.1879272)
 shape = SubResource("CircleShape2D_uf51t")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1514821363]
-position = Vector2(190, -19)
+[node name="MagicEffect" type="AnimatedSprite2D" parent="." unique_id=1514821363]
+position = Vector2(174.5625, -21.187927)
 scale = Vector2(6.8203135, 7.226509)
 sprite_frames = SubResource("SpriteFrames_tn26n")
 frame_progress = 0.09358984

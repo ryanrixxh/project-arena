@@ -262,6 +262,7 @@ font_size = 32
 [node name="Player" type="CharacterBody2D" unique_id=1946755356]
 collision_layer = 13
 collision_mask = 13
+safe_margin = 3.228
 script = ExtResource("1_qlg0r")
 metadata/_custom_type_script = "uid://jb258fphxmv2"
 metadata/current_weapon = NodePath("")

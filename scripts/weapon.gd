@@ -3,7 +3,6 @@ class_name Weapon extends Node2D
 @onready var timer: Timer = $FiringTimer
 @onready var barrel_marker: Marker2D = %BarrelMarker
 @onready var sprite: Sprite2D = $WeaponSprite
-@onready var effect_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var pickup_address = "res://scenes/Weapon/pickup.tscn"
 @export var throw_force = 1500
@@ -15,7 +14,11 @@ var can_fire: bool = true
 @export var player_holding: Player
 
 func _ready() -> void:
-	effect_sprite.play("default")
+	$MagicEffect.play("default")
+
+func _process(_delta: float) -> void:
+	$WeaponSprite.global_rotation = 0
+	$MagicEffect.global_rotation = 0
 
 func setup(player: Player):	
 	name = name + player.name
@@ -23,7 +26,6 @@ func setup(player: Player):
 	# To help with conditional logic
 	player_holding = player
 	player.state.equipped_weapon = self
-	#global_position = player.reticle_marker.global_position
 
 func _on_throw():
 	if is_multiplayer_authority():

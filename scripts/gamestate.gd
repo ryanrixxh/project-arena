@@ -14,8 +14,8 @@ var player_ids = []
 var current_round = 0
 var current_round_winner: Player = null
 
-var winning_rounds_required = 3
-var win_tally = {}
+var winning_rounds_required = 1
+var win_tally: Dictionary = {}
 var game_winner: Player = null
 
 ## CLIENT SIDE
@@ -189,6 +189,12 @@ func load_end_round(winner_id, game_over: bool):
 	end_round_screen.find_child("WinnerLabel").text = winner_id + " has won the " + ("game!" if game_over else "round")
 	winner_sprite.global_position = end_round_screen.find_child("SpriteMarker").global_position
 	winner_sprite.scale = Vector2(0.8, 0.8)
+	
+	if game_over:
+		# Set all players to have zero score again
+		win_tally.keys().map(func(key): win_tally.set(key, 0))
+		current_round = 0
+		current_round_winner = null
 
 	main.queue_free()
 

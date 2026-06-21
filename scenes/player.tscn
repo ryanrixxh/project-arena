@@ -270,7 +270,7 @@ position = Vector2(0, 9.536743e-07)
 scale = Vector2(1.5401205, 1.4105778)
 sprite_frames = SubResource("SpriteFrames_oprun")
 animation = &"airborn"
-frame_progress = 0.72409666
+frame_progress = 0.7002902
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1320438639]
 layer = 2

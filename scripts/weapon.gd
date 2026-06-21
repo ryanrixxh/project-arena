@@ -32,7 +32,7 @@ func _process(delta: float) -> void:
 		
 func setup(player: Player):	
 	name = name + player.name
-	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding. aa
+	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding.
 	# To help with conditional logic
 	player_holding = player
 	player.state.equipped_weapon = self

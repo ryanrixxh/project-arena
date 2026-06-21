@@ -3,9 +3,6 @@ extends Node
 var player_controls = ["left", "right", "jump", "down", "throw", "equip"]
 var inputs
 
-# TODO: For each player: Duplicate all input actions, assign them an action name that matches the device number
-# When a player is created, if created locally, assign input handling to check for the duplicated input actions. 
-
 # IMPORTANT: This is client side, these IDs can and should conflict with each other on the client end.
 # How the actual networked IDs of these players is resolved, or if they even need to be resolved is another question entirely
 
@@ -13,7 +10,7 @@ func _ready() -> void:
 	# Filter all the inputs we care about
 	inputs = InputMap.get_actions().filter(func(input: String): return player_controls.has(input))
 
-## Duplicates all inputs and changes their device ID to the ID specified. 
+## Duplicates all inputs by creating a new set of actions. These actions are then wiped of their original input events, and assigned events with a device id that matches the local_input_id argument.
 func duplicateInputs(local_input_id: int):
 	var new_actions = []
 	for input in inputs:

@@ -41,7 +41,8 @@ var controller_device_id
 @onready var health_label: Label = $CanvasLayer/PlayerStatus/HealthPanel/HealthLabel
 @onready var canvas: CanvasLayer = $CanvasLayer
 @onready var sprite: AnimatedSprite2D = $WizardSprite
-@onready var weapon_marker: Marker2D = $Equipment/WeaponMarker
+@onready var weapon_marker: Marker2D = %WeaponMarker
+@onready var reticle_marker: Marker2D = %ReticleMarker
 
 # Class for keeping track of multiple player state values.
 # Initialised immediately
@@ -82,7 +83,7 @@ func _physics_process(delta: float) -> void:
 	if not is_multiplayer_authority(): return # Processing of player should only run client side and then be synced after the fact
 	move_and_slide()
 
-	get_horizontal_movement(delta)
+	get_horizontal_movement.call_deferred(delta)
 	# FIXME: Orientation handler isnt really syncing correctly in network multiplayer
 	#handle_orientation()
 	handle_input()

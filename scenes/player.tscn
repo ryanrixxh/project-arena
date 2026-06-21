@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://diy600i6l8j23" path="res://assets/aseprite/wizard-idle-sprite-sheet.png" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="5_qlg0r"]
+[ext_resource type="Texture2D" uid="uid://dlbfuwxja1nmk" path="res://assets/aseprite/aim_reticle.png" id="6_fjrip"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fjrip"]
 properties/0/path = NodePath(".:position")
@@ -404,6 +405,16 @@ unique_name_in_owner = true
 position = Vector2(3, -7.6293945e-06)
 scale = Vector2(1.0000001, 1.0000001)
 
+[node name="ReticleMarker" type="Marker2D" parent="Equipment/WeaponMarker" unique_id=231483056]
+unique_name_in_owner = true
+position = Vector2(118.99998, 7.6293927e-06)
+scale = Vector2(0.38444585, 0.4120245)
+
+[node name="Sprite2D" type="Sprite2D" parent="Equipment/WeaponMarker/ReticleMarker" unique_id=1950793497]
+position = Vector2(-9.536743e-06, 1.8613875e-06)
+scale = Vector2(1.4062499, 1.2812496)
+texture = ExtResource("6_fjrip")
+
 [node name="PickupTrigger" type="Area2D" parent="Equipment/WeaponMarker" unique_id=843709192]
 position = Vector2(0, 7.6293936e-06)
 scale = Vector2(0.9999999, 0.9999999)
@@ -411,7 +422,8 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="AnimationDetectionShape" type="CollisionPolygon2D" parent="Equipment/WeaponMarker/PickupTrigger" unique_id=1119736113]
-polygon = PackedVector2Array(0, 0, 144, -146, 203, -2)
+visible = false
+polygon = PackedVector2Array(0, -37, 73, -153, 169, -43, 51, 0, 0, 0)
 
 [node name="Health" type="Node" parent="." unique_id=1476547498]
 script = ExtResource("5_qlg0r")

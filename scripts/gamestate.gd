@@ -14,9 +14,12 @@ var player_ids = []
 var current_round = 0
 var current_round_winner: Player = null
 
-var winning_rounds_required = 3
-var win_tally = {}
+var winning_rounds_required = 1
+var win_tally: Dictionary = {}
 var game_winner: Player = null
+
+## CLIENT SIDE
+var local_players: int = 0
 
 func _ready() -> void:
 	multiplayer.peer_connected.connect(player_connected)
@@ -35,7 +38,8 @@ func _process(delta: float) -> void:
 		return
 
 	peer_sync_elapsed = 0.0
-	register_connected_peers()
+	# FIXME: Registering on a loop seems strange. Is this due to connection issues / ping?
+	#register_connected_peers()
 
 func host():
 	print("Starting game server")
@@ -50,6 +54,7 @@ func join():
 	multiplayer.multiplayer_peer = peer
 
 func player_connected(id: int):
+	print(id, " connected.")
 	if multiplayer.is_server():
 		register_player(id)
 
@@ -58,14 +63,20 @@ func register_connected_peers() -> void:
 		register_player(id)
 
 func connected_to_server() -> void:
+	print("Running connected to server")
 	request_registration.rpc_id(SERVER_AUTHORITY)
 
-@rpc("any_peer", "reliable")
-func request_registration() -> void:
+func local_join() -> void:
+	local_players += 1
+	request_registration.rpc_id(1, true, multiplayer.get_unique_id() + local_players)
+
+@rpc("any_peer", "call_local", "reliable")
+func request_registration(local: bool = false, id = multiplayer.get_remote_sender_id()) -> void:
 	if not multiplayer.is_server():
 		return
+	
+	register_player(multiplayer.get_remote_sender_id() if !local else id)
 
-	register_player(multiplayer.get_remote_sender_id())
 
 func register_player(id: int):
 	var player_id = str(id)
@@ -114,16 +125,34 @@ func start_game(start_source: StartSource):
 	# Tell all other clients to load the game world
 	load_main.rpc(start_source)
 	var main = get_tree().root.get_node("Main")
+	var player_spawner: MultiplayerSpawner = main.get_node("PlayerSpawner")
 	
 	# Load all players into the game world
-	var player_scene = load("res://scenes/player.tscn")
 	var spawn_positions = main.get_node("SpawnPositions").get_children().map(func(marker: Marker2D): return marker.global_position)
 	
+	# For each player:
+	# If they are the primary player for that given client, then set their spawned player name to that client ID
+	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID + 
+	# however many secondary local players we have on that client
+	
+	var latest_remote_index = null # Keep track of the most recent primary player, so that we can set secondary local player ids off of that one
 	for i in player_ids.size():
-		var player: Player = player_scene.instantiate()
-		player.name = str(player_ids[i])
-		player.global_position = spawn_positions[i]
-		main.add_child(player)
+		var authority
+		var local = false
+		if int(player_ids[i]) == int(player_ids[i-1]) + 1:
+			local = true
+			authority = player_ids[latest_remote_index].to_int()
+		else:
+			authority = player_ids[i].to_int()
+			latest_remote_index = i
+		
+		# FIXME: Using i for id assignment doesnt work for local players that arent local to the host I think? 
+		# Might be something else, but controller isnt working for secondary local players in any case
+		
+		# There needs to be another id here seperate from the normal id property which denotes the players "local id" purely for 
+		# control assignment
+		player_spawner.spawn({"id": player_ids[i].to_int(), "position": spawn_positions[i], "authority": authority, "local": local, "local_id": i - latest_remote_index})
+		
 
 ## Ends the round for all players. Called by whichever peer is the last to day when player count is tracked to one by their Main client.
 @rpc("any_peer", "call_local")
@@ -160,6 +189,12 @@ func load_end_round(winner_id, game_over: bool):
 	end_round_screen.find_child("WinnerLabel").text = winner_id + " has won the " + ("game!" if game_over else "round")
 	winner_sprite.global_position = end_round_screen.find_child("SpriteMarker").global_position
 	winner_sprite.scale = Vector2(0.8, 0.8)
+	
+	if game_over:
+		# Set all players to have zero score again
+		win_tally.keys().map(func(key): win_tally.set(key, 0))
+		current_round = 0
+		current_round_winner = null
 
 	main.queue_free()
 

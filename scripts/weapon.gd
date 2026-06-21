@@ -3,7 +3,6 @@ class_name Weapon extends Node2D
 @onready var timer: Timer = $FiringTimer
 @onready var barrel_marker: Marker2D = %BarrelMarker
 @onready var sprite: Sprite2D = $WeaponSprite
-@onready var effect_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 @export var pickup_address = "res://scenes/Weapon/pickup.tscn"
 @export var throw_force = 1500
@@ -15,11 +14,14 @@ var can_fire: bool = true
 @export var player_holding: Player
 
 func _ready() -> void:
-	effect_sprite.play("default")
+	$MagicEffect.play("default")
+
+func _process(_delta: float) -> void:
+	$WeaponSprite.global_rotation = 0
+	$MagicEffect.global_rotation = 0
 
 func setup(player: Player):	
 	name = name + player.name
-	set_multiplayer_authority(player.name.to_int())
 	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding. 
 	# To help with conditional logic
 	player_holding = player

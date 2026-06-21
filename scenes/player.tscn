@@ -250,9 +250,6 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_64qw0"]
 size = Vector2(109, 124.5)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_tuyoq"]
-radius = 202.0099
-
 [sub_resource type="LabelSettings" id="LabelSettings_fjrip"]
 font_size = 33
 
@@ -393,13 +390,6 @@ shape = SubResource("RectangleShape2D_64qw0")
 [node name="Equipment" type="Node2D" parent="." unique_id=936964271]
 position = Vector2(-3, 0)
 script = ExtResource("2_qhqgy")
-
-[node name="Area2D" type="Area2D" parent="Equipment" unique_id=35284940]
-visible = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Equipment/Area2D" unique_id=907572108]
-position = Vector2(3, -7)
-shape = SubResource("CircleShape2D_tuyoq")
 
 [node name="WeaponMarker" type="Marker2D" parent="Equipment" unique_id=1716661968]
 unique_name_in_owner = true

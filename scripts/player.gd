@@ -160,11 +160,11 @@ func _on_allow_equip(pickup: Pickup = null) -> void:
 	state.available_pickup = pickup
 
 func _on_equip(weapon_scene: PackedScene) -> void:
-	%ReticleMarker.hide()
+	#%ReticleMarker.hide()
 	if is_multiplayer_authority():
 		var weapon: Weapon = weapon_scene.instantiate()
 		weapon.setup(self)
-		weapon_marker.add_child.call_deferred(weapon)	
+		$Equipment.add_child.call_deferred(weapon)	
 		#weapon.global_transform = weapon_marker.global_transform
 		throw.connect(weapon._on_throw)
 		
@@ -173,8 +173,8 @@ func _on_equip(weapon_scene: PackedScene) -> void:
 		state.available_pickup = null
 
 func _on_released() -> void:
-	%ReticleMarker.show()
+	#%ReticleMarker.show()
 	if is_multiplayer_authority():
-		weapon_marker.remove_child(state.equipped_weapon)
+		$Equipment.remove_child(state.equipped_weapon)
 		state.equipped_weapon.call_deferred("queue_free")
 		state.equipped_weapon = null

@@ -1,4 +1,4 @@
-class_name Weapon extends Node2D
+class_name Weapon extends RigidBody2D
 
 @onready var timer: Timer = $FiringTimer
 @onready var barrel_marker: Marker2D = %BarrelMarker
@@ -7,6 +7,8 @@ class_name Weapon extends Node2D
 @export var pickup_address = "res://scenes/Weapon/pickup.tscn"
 @export var throw_force = 1500
 const weapon_scene: PackedScene = preload("res://scenes/Weapon/weapon.tscn")
+const FOLLOW_SPEED = 10
+const POSITION_OFFSET = Vector2(10,10)
 var pickup_scene: PackedScene = load(pickup_address)
 
 
@@ -15,11 +17,19 @@ var can_fire: bool = true
 
 func _ready() -> void:
 	$MagicEffect.play("default")
+	global_position = player_holding.reticle_marker.global_position + POSITION_OFFSET
+	print(player_holding.reticle_marker.global_position)
+	print(global_position)
 
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	$WeaponSprite.global_rotation = 0
 	$MagicEffect.global_rotation = 0
-
+	
+	if player_holding:
+		var velocity = ((player_holding.reticle_marker.global_position + POSITION_OFFSET) - global_position) * delta * FOLLOW_SPEED
+		#print(velocity)
+		move_and_collide(velocity)
+		
 func setup(player: Player):	
 	name = name + player.name
 	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding. 

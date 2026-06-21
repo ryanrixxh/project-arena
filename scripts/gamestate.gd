@@ -135,6 +135,7 @@ func start_game(start_source: StartSource):
 	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID + 
 	# however many secondary local players we have on that client
 	
+	player_ids.sort()
 	var latest_remote_index = null # Keep track of the most recent primary player, so that we can set secondary local player ids off of that one
 	for i in player_ids.size():
 		var authority
@@ -146,11 +147,6 @@ func start_game(start_source: StartSource):
 			authority = player_ids[i].to_int()
 			latest_remote_index = i
 		
-		# FIXME: Using i for id assignment doesnt work for local players that arent local to the host I think? 
-		# Might be something else, but controller isnt working for secondary local players in any case
-		
-		# There needs to be another id here seperate from the normal id property which denotes the players "local id" purely for 
-		# control assignment
 		player_spawner.spawn({"id": player_ids[i].to_int(), "position": spawn_positions[i], "authority": authority, "local": local, "local_id": i - latest_remote_index})
 		
 

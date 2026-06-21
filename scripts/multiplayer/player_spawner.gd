@@ -8,7 +8,7 @@ func spawn_player(data) -> Player:
 	player.name = str(data.id)
 	player.global_position = data.position
 
-	player.set_multiplayer_authority(data.authority)
+	player.set_multiplayer_authority(data.authority, true)
 	if data.local:
 		player.controller_device_id = data.local_id
 		var new_controller_assignments = LocalMultiplayerInput.duplicateInputs(data.local_id)

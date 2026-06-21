@@ -26,8 +26,11 @@ func setup(player: Player):
 	# To help with conditional logic
 	player_holding = player
 	player.state.equipped_weapon = self
+	set_multiplayer_authority(player.get_multiplayer_authority(), true)
 
 func _on_throw():
+	print(multiplayer.get_unique_id(), "_on_throw")
+	print(get_multiplayer_authority())
 	if is_multiplayer_authority():
 		server_spawn.rpc(randi() % 10000)
 		# Remove instance of this node from Players state and then delete

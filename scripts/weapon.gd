@@ -17,8 +17,7 @@ var can_fire: bool = true
 
 func _ready() -> void:
 	$MagicEffect.play("default")
-	#print(player_holding)
-	#global_position = player_holding.reticle_marker.global_position + POSITION_OFFSET
+	global_position = player_holding.reticle_marker.global_position + POSITION_OFFSET
 
 func _process(delta: float) -> void:
 	$WeaponSprite.global_rotation = 0

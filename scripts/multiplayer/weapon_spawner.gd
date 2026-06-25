@@ -11,5 +11,8 @@ func spawn_weapon(data):
 	player_equipping.state.equipped_weapon = weapon
 	player_equipping.throw.connect(weapon._on_throw)
 	
+	# FIXME: This still doesnt work lol
+	#weapon.global_position = player_equipping.reticle_marker.global_position + weapon.POSITION_OFFSET
+	
 	weapon.set_multiplayer_authority(player_equipping.get_multiplayer_authority(), true)
 	return weapon

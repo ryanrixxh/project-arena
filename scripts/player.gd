@@ -34,7 +34,9 @@ var controller_device_id
 @onready var acceleration: float = 2000
 @export var jump_velocity = -850
 @export var gravity = 1500
-@export var hover_energy = 100
+@export var hover_energy = 500
+@export var max_hover_energy = 500
+var energy_bar: ProgressBar
 
 @onready var health_component: Health = $Health
 
@@ -73,8 +75,8 @@ var state = PlayerState.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%HealthLabelDebug.text = str(health_component.health)
-	print(get_multiplayer_authority())
-	pass
+	$HoverEffect.animation_finished.connect(func(): $HoverEffect.play("default"))
+	energy_bar = get_node("/root/Main/ScoreCanvasLayer/HoverEnergyBar")
 
 func _enter_tree() -> void:
 	%IDLabelDebug.text = str(name)
@@ -103,10 +105,13 @@ func _physics_process(delta: float) -> void:
 	
 	if state.hovering:
 		$HoverEffect.show()
-		$HoverEffect.play()
+		if not $HoverEffect.is_playing(): $HoverEffect.play("buildup")
 	else:
 		$HoverEffect.hide()
 		$HoverEffect.stop()
+	if hover_energy != max_hover_energy:
+		hover_energy += 3
+	energy_bar.value = hover_energy
 
 	if not is_on_floor():
 		speed = speed + speed_increase_rate if speed < max_speed else max_speed
@@ -173,10 +178,16 @@ func wall_jump():
 		state.walled = false
 
 func handle_hover_input():
-	if state.air_state == PlayerState.AirState.GROUNDED:
+	if state.air_state == PlayerState.AirState.GROUNDED: 
+		state.hovering = false
 		return
+	if hover_energy == 0: 
+		state.hovering = false
+		return
+	
 	state.hovering = true
-	if velocity.y > -1000:
+	if hover_energy > 0: hover_energy -= 10 
+	if velocity.y > -1000 and hover_energy > 0:
 		velocity.y -= (speed * 0.1) 
 
 func _on_animation_trigger_area_body_entered(_body: Node2D) -> void:

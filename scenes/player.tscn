@@ -17,21 +17,24 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("Equipment/WeaponMarker:rotation")
 properties/1/spawn = false
 properties/1/replication_mode = 1
-properties/2/path = NodePath("WizardSprite:flip_h")
+properties/2/path = NodePath("Health:health")
 properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Health:health")
+properties/2/replication_mode = 2
+properties/3/path = NodePath("HoverEffect:visible")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("HoverEffect:visible")
+properties/4/path = NodePath("HoverEffect:animation")
 properties/4/spawn = true
-properties/4/replication_mode = 1
-properties/5/path = NodePath("HoverEffect:animation")
+properties/4/replication_mode = 2
+properties/5/path = NodePath("HoverEffect:frame")
 properties/5/spawn = true
 properties/5/replication_mode = 1
-properties/6/path = NodePath("HoverEffect:frame")
+properties/6/path = NodePath("WizardSprite:animation")
 properties/6/spawn = true
-properties/6/replication_mode = 1
+properties/6/replication_mode = 2
+properties/7/path = NodePath("WizardSprite:frame")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("2_fjrip")
@@ -265,6 +268,22 @@ font_size = 33
 [sub_resource type="LabelSettings" id="LabelSettings_smehm"]
 font_size = 32
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
+atlas = ExtResource("8_smehm")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
+atlas = ExtResource("8_smehm")
+region = Rect2(160, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
+atlas = ExtResource("8_smehm")
+region = Rect2(320, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
+atlas = ExtResource("8_smehm")
+region = Rect2(480, 0, 160, 160)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
 atlas = ExtResource("8_smehm")
 region = Rect2(640, 0, 160, 160)
@@ -297,6 +316,23 @@ region = Rect2(1600, 0, 160, 160)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_gl8cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_487ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md1ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj30b")
+}],
+"loop": false,
+"name": &"buildup",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_ke2ow")
 }, {
 "duration": 1.0,
@@ -319,7 +355,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 30.0
 }]
 
 [node name="Player" type="CharacterBody2D" unique_id=1946755356]
@@ -516,10 +552,10 @@ offset_bottom = -49.0
 label_settings = SubResource("LabelSettings_smehm")
 
 [node name="HoverEffect" type="AnimatedSprite2D" parent="." unique_id=1296900378]
-visible = false
-position = Vector2(1, 110)
-scale = Vector2(0.5125, 0.575)
+position = Vector2(-2.9999998, 104)
+scale = Vector2(0.9820312, 0.57180476)
 sprite_frames = SubResource("SpriteFrames_gl8cc")
+animation = &"buildup"
 
 [connection signal="allow_equip" from="." to="." method="_on_allow_equip"]
 [connection signal="done_equipping" from="." to="." method="_on_done_equipping"]

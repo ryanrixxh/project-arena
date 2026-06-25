@@ -15,6 +15,12 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("Equipment/WeaponMarker:rotation")
 properties/1/spawn = false
 properties/1/replication_mode = 1
+properties/2/path = NodePath("WizardSprite:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Health:health")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("2_fjrip")
@@ -262,7 +268,7 @@ replication_config = SubResource("SceneReplicationConfig_fjrip")
 [node name="WeaponSpawner" type="MultiplayerSpawner" parent="." unique_id=1691348452]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
-spawn_path = NodePath("../Equipment/WeaponMarker")
+spawn_path = NodePath("../Equipment")
 spawn_limit = 1
 
 [node name="WizardSprite" type="AnimatedSprite2D" parent="." unique_id=338670132]
@@ -270,7 +276,7 @@ position = Vector2(0, 9.536743e-07)
 scale = Vector2(1.5401205, 1.4105778)
 sprite_frames = SubResource("SpriteFrames_oprun")
 animation = &"airborn"
-frame_progress = 0.7002902
+frame_progress = 0.38671392
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1320438639]
 layer = 2

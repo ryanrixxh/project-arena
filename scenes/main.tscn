@@ -244,10 +244,10 @@ position = Vector2(982, 207)
 position = Vector2(2495, 216)
 
 [node name="Spawn3" type="Marker2D" parent="SpawnPositions" unique_id=1545398204]
-position = Vector2(2473, 1170)
+position = Vector2(2530, 1581)
 
 [node name="Spawn4" type="Marker2D" parent="SpawnPositions" unique_id=1379916054]
-position = Vector2(960, 1186)
+position = Vector2(1000, 1585)
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]

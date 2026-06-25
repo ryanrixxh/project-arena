@@ -51,6 +51,11 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4u1sj"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="Weapon" type="RigidBody2D" unique_id=808686165]
 collision_layer = 2
 collision_mask = 2
@@ -85,3 +90,6 @@ scale = Vector2(6.8203135, 7.226509)
 sprite_frames = SubResource("SpriteFrames_tn26n")
 frame_progress = 0.09358984
 script = ExtResource("4_4u1sj")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=615145170]
+replication_config = SubResource("SceneReplicationConfig_4u1sj")

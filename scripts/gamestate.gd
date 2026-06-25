@@ -14,7 +14,7 @@ var player_ids = []
 var current_round = 0
 var current_round_winner: Player = null
 
-var winning_rounds_required = 1
+var winning_rounds_required = 3
 var win_tally: Dictionary = {}
 var game_winner: Player = null
 

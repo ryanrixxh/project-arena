@@ -28,7 +28,7 @@ func check_health():
 		die.rpc_id(Gamestate.SERVER_AUTHORITY)
 
 ## Tells the server to free the player
-@rpc("call_local")
+@rpc("call_local", "any_peer")
 func die():
 	get_parent().queue_free()
 

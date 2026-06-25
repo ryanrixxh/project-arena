@@ -18,7 +18,7 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 	if area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
 		return
 
-	if (area.owner as Player).state.equipped_weapon is Weapon:
+	if (area.owner as Player).state.equipped_weapon and (area.owner as Player).state.equipped_weapon is Weapon:
 		return
 
 	var player: Player = area.owner

@@ -17,7 +17,7 @@ var can_fire: bool = true
 
 func _ready() -> void:
 	$MagicEffect.play("default")
-	global_position = player_holding.reticle_marker.global_position + POSITION_OFFSET
+	# global_position = player_holding.reticle_marker.global_position + POSITION_OFFSET
 
 func _process(delta: float) -> void:
 	$WeaponSprite.global_rotation = 0
@@ -30,11 +30,11 @@ func _process(delta: float) -> void:
 		
 func setup(player: Player):	
 	name = name + player.name
+	print(player)
 	# Two way tracking: Weapon knows whos holding it, player knows what weapon its holding.
 	# To help with conditional logic
 	player_holding = player
 	player.state.equipped_weapon = self
-	set_multiplayer_authority(player.get_multiplayer_authority(), true)
 
 func _on_throw():
 	if is_multiplayer_authority():

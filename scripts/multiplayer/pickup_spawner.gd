@@ -1,28 +1,26 @@
 extends MultiplayerSpawner
 
-@export var network_pickup: PackedScene
+@export var boulder: PackedScene
+@export var poison_dagger: PackedScene
+
+var pickup_map: Dictionary
 var spawn_count: int = 0
 
 func _init() -> void:
 	spawn_function = spawn_pickup
 
 func _ready() -> void:
-	# Only the server should handle peer connections and trigger spawns
-	if multiplayer.is_server():
-		multiplayer.peer_connected.connect(_on_peer_connected)
-
-func _on_peer_connected(_peer_id: int) -> void:
-	if not multiplayer.is_server(): return
-	# Call the spawner's built-in spawn method, passing a unique ID as an argument
-	var unique_projectile_id = randi() % 10000
-	%PickupSpawner.spawn([unique_projectile_id, Vector2(500, 200), 1000, Vector2(1,1)])
+	pickup_map = {
+		"boulder": boulder,
+		"poison_dagger": poison_dagger
+	}
 
 func spawn_pickup(data):
-	var id = data[0]
-	var spawn_position = data[1]
-	var throw_force = data[2]
-	var throw_direction = data[3]
-	var pickup: RigidBody2D = network_pickup.instantiate()
+	var id = data.id
+	var spawn_position = data.spawn_position
+	var throw_force = data.throw_force
+	var throw_direction = data.throw_direction
+	var pickup: RigidBody2D = pickup_map.get(data.type).instantiate()
 
 	# Configure unique name and starting data
 	pickup.name = str(id)

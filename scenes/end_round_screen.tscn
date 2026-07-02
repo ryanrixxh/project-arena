@@ -63,7 +63,8 @@ grow_vertical = 2
 text = "<nobody> has won the round"
 horizontal_alignment = 1
 
-[node name="ScoreDisplay" parent="." instance=ExtResource("2_pgqm4")]
+[node name="ScoreDisplay" parent="." unique_id=1457189922 instance=ExtResource("2_pgqm4")]
+layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5

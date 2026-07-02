@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://d16a6o62y58ag" path="res://assets/aseprite/grass terrain.png" id="3_tipki"]
 [ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bl06tqvdfpa3h" path="res://scenes/PoisonDagger/poison_dagger_pickup.tscn" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scripts/spectate.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/score_display.tscn" id="8_dnf3v"]
 
@@ -167,7 +168,8 @@ unique_name_in_owner = true
 spawn_path = NodePath("../Pickups")
 spawn_limit = 10
 script = ExtResource("4_tefeu")
-network_pickup = ExtResource("3_jyhfs")
+boulder = ExtResource("3_jyhfs")
+poison_dagger = ExtResource("6_85g3d")
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
 unique_name_in_owner = true

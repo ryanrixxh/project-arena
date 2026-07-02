@@ -38,5 +38,9 @@ func server_spawn(id: int):
 	if multiplayer.is_server():
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
 		var direction = (barrel_marker.global_position - global_position).normalized()
-		spawner.spawn([id, barrel_marker.global_position, throw_force, direction])
+		spawner.spawn({"id": id, 
+			"type": "boulder",
+			"spawn_position": barrel_marker.global_position, 
+			"throw_force": throw_force, 
+			"throw_direction": direction})
 	

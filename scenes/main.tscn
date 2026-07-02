@@ -168,8 +168,10 @@ unique_name_in_owner = true
 spawn_path = NodePath("../Pickups")
 spawn_limit = 10
 script = ExtResource("4_tefeu")
-boulder = ExtResource("3_jyhfs")
-poison_dagger = ExtResource("6_85g3d")
+pickup_map = Dictionary[String, PackedScene]({
+"boulder": ExtResource("3_jyhfs"),
+"poison_dagger": ExtResource("6_85g3d")
+})
 
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
 unique_name_in_owner = true

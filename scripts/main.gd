@@ -1,7 +1,5 @@
 extends Node2D
 
-@export var pickup_scene = preload("res://scenes/Weapon/pickup.tscn")
-
 var pickup_count = 0
 
 # TODO: Dictionary of players to keep track of winners and losers
@@ -21,6 +19,11 @@ func spawn_initial_pickups():
 					"spawn_position": Vector2(500, 200), 
 					"throw_force": 1000, 
 					"throw_direction": Vector2(1,1)})
+	%PickupSpawner.spawn({"id": "Pickup" + str(pickup_count),
+				"type": "poison_dagger", 
+				"spawn_position": Vector2(1100, 200), 
+				"throw_force": 500, 
+				"throw_direction": Vector2(1,0)})
 	
 	
 

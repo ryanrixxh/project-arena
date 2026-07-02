@@ -1,3 +1,4 @@
+# TODO: Get rid of this component & script. All weapons damage differently
 class_name Damage extends Node
 
 @export var pickup_body: RigidBody2D

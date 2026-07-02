@@ -60,7 +60,7 @@ class PlayerState:
 	var hovering: bool
 	
 	var available_pickup: Pickup
-	var equipped_weapon: Weapon
+	var equipped_weapon
 
 	func _init() -> void:
 		air_state = AirState.GROUNDED
@@ -200,7 +200,7 @@ func _on_allow_equip(pickup: Pickup = null) -> void:
 
 func _on_equip(weapon_scene: PackedScene) -> void:
 	if is_multiplayer_authority():
-		weapon_spawner.spawn({"player_name": name})
+		weapon_spawner.spawn({"player_name": name, "weapon_scene": weapon_scene})
 		
 		# Tell the server to despawn the pickup after we have equipped it and forget about it
 		state.available_pickup.server_despawn.rpc_id(1)

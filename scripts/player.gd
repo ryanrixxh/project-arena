@@ -34,6 +34,9 @@ var controller_device_id
 @onready var acceleration: float = 2000
 @export var jump_velocity = -850
 @export var gravity = 1500
+@export var hover_energy = 500
+@export var max_hover_energy = 500
+var energy_bar: ProgressBar
 
 @onready var health_component: Health = $Health
 
@@ -43,6 +46,7 @@ var controller_device_id
 @onready var sprite: AnimatedSprite2D = $WizardSprite
 @onready var weapon_marker: Marker2D = %WeaponMarker
 @onready var reticle_marker: Marker2D = %ReticleMarker
+@onready var weapon_spawner: MultiplayerSpawner = $WeaponSpawner
 
 # Class for keeping track of multiple player state values.
 # Initialised immediately
@@ -53,6 +57,7 @@ class PlayerState:
 	}
 	var air_state: AirState # You can never be airborn and grounded at the same time. This structure ensures that.
 	var walled: bool
+	var hovering: bool
 	
 	var available_pickup: Pickup
 	var equipped_weapon: Weapon
@@ -60,6 +65,7 @@ class PlayerState:
 	func _init() -> void:
 		air_state = AirState.GROUNDED
 		walled = false
+		hovering = false
 
 	func is_grounded() -> bool:
 		return air_state == AirState.GROUNDED
@@ -69,7 +75,8 @@ var state = PlayerState.new()
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%HealthLabelDebug.text = str(health_component.health)
-	pass
+	$HoverEffect.animation_finished.connect(func(): $HoverEffect.play("default"))
+	energy_bar = get_node("/root/Main/ScoreCanvasLayer/HoverEnergyBar")
 
 func _enter_tree() -> void:
 	%IDLabelDebug.text = str(name)
@@ -95,6 +102,16 @@ func _physics_process(delta: float) -> void:
 
 	if is_on_wall_only():
 		state.walled = true
+	
+	if state.hovering:
+		$HoverEffect.show()
+		if not $HoverEffect.is_playing(): $HoverEffect.play("buildup")
+	else:
+		$HoverEffect.hide()
+		$HoverEffect.stop()
+	if hover_energy <= max_hover_energy:
+		hover_energy += 3
+	energy_bar.value = hover_energy
 
 	if not is_on_floor():
 		speed = speed + speed_increase_rate if speed < max_speed else max_speed
@@ -123,10 +140,13 @@ func get_horizontal_movement(delta: float):
 func handle_input():
 	#if Input.is_action_just_pressed(jump_control):
 		##sprite.play("crouch")
-
+	if Input.is_action_pressed(jump_control):
+		handle_hover_input()
+	
 	if Input.is_action_just_released(jump_control):
+		state.hovering = false
 		sprite.stop()
-		handle_jump_input(jump_control)
+		handle_jump_input()
 
 	if Input.is_action_pressed(throw_control):
 		throw.emit()
@@ -136,14 +156,15 @@ func handle_input():
 			equip.emit(state.available_pickup.weapon_scene)
 			
 
-func handle_jump_input(delta):
+# TODO: Hover should actually just replace jump I think? 
+# But then wall jumping would break. 
+func handle_jump_input():
 	if state.is_grounded():
-		jump(delta)
+		jump()
 	elif state.walled:
 		wall_jump()
 
-func jump(_delta):
-	#sprite.play("jump")
+func jump():
 	state.air_state = PlayerState.AirState.AIRBORN
 	velocity.y = jump_velocity - (speed * 0.5)
 
@@ -156,6 +177,19 @@ func wall_jump():
 		velocity.x = direction * speed
 		state.walled = false
 
+func handle_hover_input():
+	if state.air_state == PlayerState.AirState.GROUNDED: 
+		state.hovering = false
+		return
+	if hover_energy == 0: 
+		state.hovering = false
+		return
+	
+	state.hovering = true
+	if hover_energy > 0: hover_energy -= 10 
+	if velocity.y > -1000 and hover_energy > 0:
+		velocity.y -= (speed * 0.1) 
+
 func _on_animation_trigger_area_body_entered(_body: Node2D) -> void:
 	sprite.play("default")
 	
@@ -166,10 +200,7 @@ func _on_allow_equip(pickup: Pickup = null) -> void:
 
 func _on_equip(weapon_scene: PackedScene) -> void:
 	if is_multiplayer_authority():
-		var weapon: Weapon = weapon_scene.instantiate()
-		weapon.setup(self)
-		$Equipment.add_child.call_deferred(weapon)	
-		throw.connect(weapon._on_throw)
+		weapon_spawner.spawn({"player_name": name})
 		
 		# Tell the server to despawn the pickup after we have equipped it and forget about it
 		state.available_pickup.server_despawn.rpc_id(1)

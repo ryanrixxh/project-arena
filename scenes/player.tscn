@@ -5,8 +5,10 @@
 [ext_resource type="Script" uid="uid://jb258fphxmv2" path="res://scripts/player.gd" id="1_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://bqb7a34duokfn" path="res://assets/aseprite/wizard-2-big-Sheet.png" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
+[ext_resource type="Script" uid="uid://cla7vivyh1tt4" path="res://scripts/multiplayer/weapon_spawner.gd" id="2_ur7pv"]
 [ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="5_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://dlbfuwxja1nmk" path="res://assets/aseprite/aim_reticle.png" id="6_fjrip"]
+[ext_resource type="Texture2D" uid="uid://dlk1qff2e6dnp" path="res://assets/aseprite/hover-Sheet.png" id="8_smehm"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_fjrip"]
 properties/0/path = NodePath(".:position")
@@ -15,12 +17,24 @@ properties/0/replication_mode = 1
 properties/1/path = NodePath("Equipment/WeaponMarker:rotation")
 properties/1/spawn = false
 properties/1/replication_mode = 1
-properties/2/path = NodePath("WizardSprite:flip_h")
+properties/2/path = NodePath("Health:health")
 properties/2/spawn = true
-properties/2/replication_mode = 1
-properties/3/path = NodePath("Health:health")
+properties/2/replication_mode = 2
+properties/3/path = NodePath("HoverEffect:visible")
 properties/3/spawn = true
 properties/3/replication_mode = 1
+properties/4/path = NodePath("HoverEffect:animation")
+properties/4/spawn = true
+properties/4/replication_mode = 2
+properties/5/path = NodePath("HoverEffect:frame")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+properties/6/path = NodePath("WizardSprite:animation")
+properties/6/spawn = true
+properties/6/replication_mode = 2
+properties/7/path = NodePath("WizardSprite:frame")
+properties/7/spawn = true
+properties/7/replication_mode = 1
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("2_fjrip")
@@ -254,6 +268,96 @@ font_size = 33
 [sub_resource type="LabelSettings" id="LabelSettings_smehm"]
 font_size = 32
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_gl8cc"]
+atlas = ExtResource("8_smehm")
+region = Rect2(0, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_487ah"]
+atlas = ExtResource("8_smehm")
+region = Rect2(160, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_md1ol"]
+atlas = ExtResource("8_smehm")
+region = Rect2(320, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bj30b"]
+atlas = ExtResource("8_smehm")
+region = Rect2(480, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ke2ow"]
+atlas = ExtResource("8_smehm")
+region = Rect2(640, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujl30"]
+atlas = ExtResource("8_smehm")
+region = Rect2(800, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31cv2"]
+atlas = ExtResource("8_smehm")
+region = Rect2(960, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
+atlas = ExtResource("8_smehm")
+region = Rect2(1120, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
+atlas = ExtResource("8_smehm")
+region = Rect2(1280, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
+atlas = ExtResource("8_smehm")
+region = Rect2(1440, 0, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
+atlas = ExtResource("8_smehm")
+region = Rect2(1600, 0, 160, 160)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gl8cc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gl8cc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_487ah")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_md1ol")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bj30b")
+}],
+"loop": false,
+"name": &"buildup",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ke2ow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujl30")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31cv2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pf23h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt7fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqfne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnwbv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 30.0
+}]
+
 [node name="Player" type="CharacterBody2D" unique_id=1946755356]
 collision_layer = 13
 collision_mask = 13
@@ -270,6 +374,7 @@ unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
 spawn_path = NodePath("../Equipment")
 spawn_limit = 1
+script = ExtResource("2_ur7pv")
 
 [node name="WizardSprite" type="AnimatedSprite2D" parent="." unique_id=338670132]
 position = Vector2(0, 9.536743e-07)
@@ -443,8 +548,14 @@ layout_mode = 0
 offset_left = -28.0
 offset_top = -94.0
 offset_right = 12.0
-offset_bottom = -71.0
+offset_bottom = -49.0
 label_settings = SubResource("LabelSettings_smehm")
+
+[node name="HoverEffect" type="AnimatedSprite2D" parent="." unique_id=1296900378]
+position = Vector2(-2.9999998, 104)
+scale = Vector2(0.9820312, 0.57180476)
+sprite_frames = SubResource("SpriteFrames_gl8cc")
+animation = &"buildup"
 
 [connection signal="allow_equip" from="." to="." method="_on_allow_equip"]
 [connection signal="done_equipping" from="." to="." method="_on_done_equipping"]

@@ -109,7 +109,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		$HoverEffect.hide()
 		$HoverEffect.stop()
-	if hover_energy != max_hover_energy:
+	if hover_energy <= max_hover_energy:
 		hover_energy += 3
 	energy_bar.value = hover_energy
 

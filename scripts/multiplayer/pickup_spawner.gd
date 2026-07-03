@@ -13,6 +13,8 @@ func spawn_pickup(data):
 
 	# Configure unique name and starting data
 	pickup.name = str(data.id)
+	if data.spawn_rotation:
+		pickup.global_rotation = data.spawn_rotation
 
 	# Note: Physics impulses on RigidBodies must happen AFTER they enter the tree.
 	# We defer the impulse using a lambda so it fires on the next frame.

@@ -1,18 +1,10 @@
 # TODO: Get rid of this component & script. All weapons damage differently
+# Maybe we turn this into an autoload script
 class_name Damage extends Node
 
 @export var pickup_body: RigidBody2D
 @export var damage_multiplier: int
 @export var damage_minimum: int
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
 
 func calculate_damage() -> int:
 	var damage = (abs(pickup_body.linear_velocity[0]) + abs(pickup_body.linear_velocity[1])) * damage_multiplier / 10

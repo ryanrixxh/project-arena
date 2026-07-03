@@ -3,14 +3,12 @@ class_name Weapon extends RigidBody2D
 @onready var timer: Timer = $FiringTimer
 @onready var barrel_marker: Marker2D = %BarrelMarker
 @onready var sprite: Sprite2D = $WeaponSprite
-
-@export var pickup_address = "res://scenes/PoisonDagger/poison_dagger_pickup.tscn"
-@export var throw_force = 3000
-const weapon_scene: PackedScene = preload("res://scenes/PoisonDagger/poison_dagger_weapon.tscn")
+@export var throw_force := 1500
+@export var static_rotation := false
+@export var type := "boulder"
 
 const FOLLOW_SPEED = 10
 const POSITION_OFFSET = Vector2(10,10)
-var pickup_scene: PackedScene = load(pickup_address)
 
 
 var can_fire: bool = true
@@ -20,6 +18,10 @@ func _ready() -> void:
 	$MagicEffect.play("default")
 
 func _process(delta: float) -> void:
+	if static_rotation:
+		$WeaponSprite.global_rotation = 0
+		$MagicEffect.global_rotation = 0
+	
 	if player_holding:
 		global_rotation = player_holding.reticle_marker.global_rotation
 		var velocity = ((player_holding.reticle_marker.global_position + POSITION_OFFSET) - global_position) * delta * FOLLOW_SPEED
@@ -37,8 +39,9 @@ func server_spawn(id: int):
 		var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
 		var direction = (barrel_marker.global_position - global_position).normalized()
 		spawner.spawn({"id": id, 
-			"type": "poison_dagger",
-			"spawn_position": barrel_marker.global_position, 
+			"type": type,
+			"spawn_position": barrel_marker.global_position,
+			"spawn_rotation": global_rotation if not static_rotation else null,
 			"throw_force": throw_force, 
 			"throw_direction": direction})
 	

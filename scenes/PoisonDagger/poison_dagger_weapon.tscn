@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dmur5ybbcpuhf"]
 
-[ext_resource type="Script" uid="uid://dueq3ouc4ea5n" path="res://scripts/weapons/poison_dagger.gd" id="1_5d4a8"]
+[ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_5d4a8"]
 [ext_resource type="Texture2D" uid="uid://dgfjmjt5yxl12" path="res://assets/aseprite/pre-alpha-levitate-effect-sprite-sheet.png" id="3_u6nea"]
 [ext_resource type="Texture2D" uid="uid://ca8w5twxw8wpi" path="res://assets/aseprite/poison-dagger.png" id="4_5d4a8"]
 [ext_resource type="Script" uid="uid://be2446nbk7mr5" path="res://scripts/magic_effect.gd" id="4_i23wv"]
@@ -61,6 +61,8 @@ collision_layer = 2
 collision_mask = 2
 gravity_scale = 0.0
 script = ExtResource("1_5d4a8")
+throw_force = 3000
+type = "poison_dagger"
 metadata/name = "Boulder"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=615145170]

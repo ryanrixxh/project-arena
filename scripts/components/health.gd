@@ -36,6 +36,7 @@ func die():
 func _on_damaged(damage: int) -> void:
 	if invicible: return
 	
+	print("doing damage: ", damage)
 	health -= damage
 	check_health()
 	invicible = true

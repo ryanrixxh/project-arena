@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bl06tqvdfpa3h"]
 
 [ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="1_c7asx"]
+[ext_resource type="Script" uid="uid://bsgurfwmmwweo" path="res://scripts/pickups/poison_dagger.gd" id="1_ct1ns"]
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_logoe"]
-[ext_resource type="Script" uid="uid://cbkfrsu3q3345" path="res://scripts/components/damage.gd" id="3_jljdd"]
 [ext_resource type="Texture2D" uid="uid://ca8w5twxw8wpi" path="res://assets/aseprite/poison-dagger.png" id="4_64lcl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
@@ -37,6 +37,9 @@ mass = 8.166
 physics_material_override = SubResource("PhysicsMaterial_vsyep")
 contact_monitor = true
 max_contacts_reported = 1
+script = ExtResource("1_ct1ns")
+damage_multiplier = 3
+damage_minimum = 150
 
 [node name="CanEquipLight" type="PointLight2D" parent="." unique_id=422587244]
 unique_name_in_owner = true
@@ -70,13 +73,6 @@ cooldown_timer = NodePath("../CooldownTimer")
 weapon_scene_address = "res://scenes/PoisonDagger/poison_dagger_weapon.tscn"
 metadata/_custom_type_script = "uid://b6u63h087idg0"
 
-[node name="Damage" type="Node" parent="." unique_id=246605701 node_paths=PackedStringArray("pickup_body")]
-script = ExtResource("3_jljdd")
-pickup_body = NodePath("..")
-damage_multiplier = 4
-damage_minimum = 100
-metadata/_custom_type_script = "uid://cbkfrsu3q3345"
-
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
 light_mask = 0
 position = Vector2(-9.536743e-07, -1)
@@ -99,7 +95,7 @@ horizontal_alignment = 1
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
 replication_config = SubResource("SceneReplicationConfig_kqu22")
 
-[connection signal="body_entered" from="." to="Damage" method="_on_pickup_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]
 [connection signal="area_exited" from="PickupArea" to="Pickup" method="_on_pickup_area_area_exited"]
 [connection signal="timeout" from="CooldownTimer" to="Pickup" method="_on_cooldown_timer_timeout"]

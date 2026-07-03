@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://df01s271qlbxd"]
 
 [ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="1_lu1qc"]
+[ext_resource type="Script" uid="uid://c1x7sf2odbq8v" path="res://scripts/pickups/boulder.gd" id="1_ndmiu"]
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
 [ext_resource type="Texture2D" uid="uid://b0cabb0k173rp" path="res://assets/aseprite/boulder.png" id="2_kqu22"]
-[ext_resource type="Script" uid="uid://cbkfrsu3q3345" path="res://scripts/components/damage.gd" id="3_kqu22"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
@@ -37,6 +37,9 @@ mass = 8.166
 physics_material_override = SubResource("PhysicsMaterial_vsyep")
 contact_monitor = true
 max_contacts_reported = 1
+script = ExtResource("1_ndmiu")
+damage_multiplier = 10
+damage_minimum = 300
 
 [node name="CanEquipLight" type="PointLight2D" parent="." unique_id=422587244]
 unique_name_in_owner = true
@@ -67,15 +70,8 @@ pickup = NodePath("..")
 pickup_area = NodePath("../PickupArea")
 pickup_light = NodePath("../CanEquipLight")
 cooldown_timer = NodePath("../CooldownTimer")
-weapon_scene_address = "res://scenes/Weapon/weapon.tscn"
+weapon_scene_address = "res://scenes/Boulder/boulder_weapon.tscn"
 metadata/_custom_type_script = "uid://b6u63h087idg0"
-
-[node name="Damage" type="Node" parent="." unique_id=246605701 node_paths=PackedStringArray("pickup_body")]
-script = ExtResource("3_kqu22")
-pickup_body = NodePath("..")
-damage_multiplier = 12
-damage_minimum = 100
-metadata/_custom_type_script = "uid://cbkfrsu3q3345"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
 light_mask = 0
@@ -99,7 +95,6 @@ horizontal_alignment = 1
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
 replication_config = SubResource("SceneReplicationConfig_kqu22")
 
-[connection signal="body_entered" from="." to="Damage" method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]
 [connection signal="area_exited" from="PickupArea" to="Pickup" method="_on_pickup_area_area_exited"]
 [connection signal="timeout" from="CooldownTimer" to="Pickup" method="_on_cooldown_timer_timeout"]

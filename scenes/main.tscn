@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://bkhrd1lci42gy" path="res://assets/aseprite/pre-alpha-cave.png" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c3wlgb262wcu4" path="res://scripts/main.gd" id="1_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Boulder/boulder_pickup.tscn" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://d16a6o62y58ag" path="res://assets/aseprite/grass terrain.png" id="3_tipki"]
 [ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]

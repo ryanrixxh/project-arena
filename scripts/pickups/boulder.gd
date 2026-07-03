@@ -1,13 +1,10 @@
-# TODO: Get rid of this component & script. All weapons damage differently
-# Maybe we turn this into an autoload script
-class_name Damage extends Node
+extends RigidBody2D
 
-@export var pickup_body: RigidBody2D
 @export var damage_multiplier: int
 @export var damage_minimum: int
 
 func calculate_damage() -> int:
-	var damage = (abs(pickup_body.linear_velocity[0]) + abs(pickup_body.linear_velocity[1])) * damage_multiplier / 10
+	var damage = (abs(linear_velocity[0]) + abs(linear_velocity[1])) * damage_multiplier / 10
 	if damage < damage_minimum:
 		return 0
 	else:

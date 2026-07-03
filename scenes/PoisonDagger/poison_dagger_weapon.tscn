@@ -56,7 +56,7 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_uf51t"]
 radius = 54.037025
 
-[node name="PoisonDagger" type="RigidBody2D" unique_id=808686165]
+[node name="PoisonDaggerWeapon" type="RigidBody2D" unique_id=808686165]
 collision_layer = 2
 collision_mask = 2
 gravity_scale = 0.0

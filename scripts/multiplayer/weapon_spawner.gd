@@ -4,8 +4,8 @@ func _ready() -> void:
 	spawn_function = spawn_weapon
 
 func spawn_weapon(data):
-	# FIXME: Classic RPC object parsing. Gotta map it
-	var weapon = data.weapon_scene.instantiate()
+	var weapon_scene = load(data.weapon_addr)
+	var weapon = weapon_scene.instantiate()
 	var player_equipping: Player = get_tree().root.get_node("Main/" + data.player_name)
 	
 	weapon.player_holding = player_equipping

@@ -153,7 +153,7 @@ func handle_input():
 	
 	if Input.is_action_pressed(equip_control):
 		if state.available_pickup:
-			equip.emit(state.available_pickup.weapon_scene)
+			equip.emit(state.available_pickup.weapon_scene_address)
 			
 
 # TODO: Hover should actually just replace jump I think? 
@@ -198,9 +198,9 @@ func _on_animation_trigger_area_body_entered(_body: Node2D) -> void:
 func _on_allow_equip(pickup: Pickup = null) -> void:
 	state.available_pickup = pickup
 
-func _on_equip(weapon_scene: PackedScene) -> void:
+func _on_equip(weapon_scene_address: String) -> void:
 	if is_multiplayer_authority():
-		weapon_spawner.spawn({"player_name": name, "weapon_scene": weapon_scene})
+		weapon_spawner.spawn({"player_name": name, "weapon_addr": weapon_scene_address})
 		
 		# Tell the server to despawn the pickup after we have equipped it and forget about it
 		state.available_pickup.server_despawn.rpc_id(1)

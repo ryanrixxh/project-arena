@@ -55,10 +55,12 @@ class PlayerState:
 		GROUNDED,
 		AIRBORN
 	}
+	
 	var air_state: AirState # You can never be airborn and grounded at the same time. This structure ensures that.
 	var walled: bool
 	var hovering: bool
 	
+	#Pickups
 	var available_pickup: Pickup
 	var equipped_weapon
 
@@ -70,6 +72,7 @@ class PlayerState:
 	func is_grounded() -> bool:
 		return air_state == AirState.GROUNDED
 
+
 var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -77,6 +80,7 @@ func _ready() -> void:
 	%HealthLabelDebug.text = str(health_component.health)
 	$HoverEffect.animation_finished.connect(func(): $HoverEffect.play("default"))
 	energy_bar = get_node("/root/Main/ScoreCanvasLayer/HoverEnergyBar")
+	Timer.new()
 
 func _enter_tree() -> void:
 	%IDLabelDebug.text = str(name)
@@ -211,3 +215,20 @@ func _on_released() -> void:
 		$Equipment.remove_child(state.equipped_weapon)
 		state.equipped_weapon.call_deferred("queue_free")
 		state.equipped_weapon = null
+		
+
+# AILMENTS
+## Poison is a continuing status on the player, so we perform its logic here since the weapon that caused it may have already despawned
+## Called by pickups upon collision to inflict a poison status on the player. Creates a 1 second timer that recursively calls itself a given number of times to deal DOT.
+func poison(duration: int) -> void:
+	# TODO: Need to show a visual effect throughout the poison duration
+	var poison_timer = Timer.new()
+	self.add_child(poison_timer)
+	if duration > 0:
+		poison_timer.start(1)
+		poison_timer.timeout.connect(func(): 
+			health_component.health -= 5
+			health_component.check_health()
+			poison(duration - 1), CONNECT_ONE_SHOT)
+	else:
+		poison_timer.queue_free()

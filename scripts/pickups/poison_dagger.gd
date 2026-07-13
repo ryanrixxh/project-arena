@@ -2,6 +2,8 @@ extends RigidBody2D
 
 @export var damage_multiplier: int
 @export var damage_minimum: int
+@export var dot_ticks: int
+@export var tick_damage: int
 
 func calculate_damage() -> int:
 	# TODO: Rethink this. Its resulting in some really inconsistent damage numbers, which just isnt very fun.
@@ -18,7 +20,7 @@ func _on_pickup_body_entered(body: Node) -> void:
 	if (index != -1):
 		do_damage(calculate_damage(), body.get_child(index))
 	if body is Player:
-		body.poison(5)
+		body.poison(dot_ticks, tick_damage)
 		
 
 func do_damage(damage: int, health_component: Health) -> void:

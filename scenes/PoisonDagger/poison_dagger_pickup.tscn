@@ -40,6 +40,8 @@ max_contacts_reported = 1
 script = ExtResource("1_ct1ns")
 damage_multiplier = 3
 damage_minimum = 150
+dot_ticks = 10
+tick_damage = 15
 
 [node name="CanEquipLight" type="PointLight2D" parent="." unique_id=422587244]
 unique_name_in_owner = true

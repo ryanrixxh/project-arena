@@ -220,15 +220,20 @@ func _on_released() -> void:
 # AILMENTS
 ## Poison is a continuing status on the player, so we perform its logic here since the weapon that caused it may have already despawned
 ## Called by pickups upon collision to inflict a poison status on the player. Creates a 1 second timer that recursively calls itself a given number of times to deal DOT.
-func poison(duration: int) -> void:
+func poison(duration: int, damage: int) -> void:
 	# TODO: Need to show a visual effect throughout the poison duration
+	# TODO: This might be an optimisation issue recursively starting new timers? Not sure if it matters though
+	print(damage)
+	$WizardSprite.modulate = Color(0.0, 0.729, 0.169, 1.0)
 	var poison_timer = Timer.new()
 	self.add_child(poison_timer)
 	if duration > 0:
 		poison_timer.start(1)
-		poison_timer.timeout.connect(func(): 
-			health_component.health -= 5
-			health_component.check_health()
-			poison(duration - 1), CONNECT_ONE_SHOT)
+		poison_timer.timeout.connect(func():
+			if health_component.health > damage: # Poison cannot kill
+				health_component.health -= damage
+				health_component.check_health()
+			poison(duration - 1, damage), CONNECT_ONE_SHOT)
 	else:
 		poison_timer.queue_free()
+		$WizardSprite.modulate = Color(1,1,1,1)

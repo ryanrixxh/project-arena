@@ -366,15 +366,15 @@ script = ExtResource("1_qlg0r")
 metadata/_custom_type_script = "uid://jb258fphxmv2"
 metadata/current_weapon = NodePath("")
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=129066829]
-replication_config = SubResource("SceneReplicationConfig_fjrip")
-
 [node name="WeaponSpawner" type="MultiplayerSpawner" parent="." unique_id=1691348452]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://hucue7ygh848")
 spawn_path = NodePath("../Equipment")
 spawn_limit = 1
 script = ExtResource("2_ur7pv")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=129066829]
+replication_config = SubResource("SceneReplicationConfig_fjrip")
 
 [node name="WizardSprite" type="AnimatedSprite2D" parent="." unique_id=338670132]
 position = Vector2(0, 9.536743e-07)

@@ -37,6 +37,22 @@ shadow_offset = Vector2(0.72, 1)
 [node name="Main" type="Node2D" unique_id=922352442]
 script = ExtResource("1_o6xl0")
 
+[node name="PickupSpawner" type="MultiplayerSpawner" parent="." unique_id=1632642983]
+unique_name_in_owner = true
+spawn_path = NodePath("../Pickups")
+spawn_limit = 10
+script = ExtResource("4_tefeu")
+pickup_map = Dictionary[String, PackedScene]({
+"boulder": ExtResource("3_jyhfs"),
+"poison_dagger": ExtResource("6_85g3d")
+})
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")
+spawn_path = NodePath("..")
+script = ExtResource("5_tbgi4")
+
 [node name="Background" type="Sprite2D" parent="." unique_id=1564463435]
 position = Vector2(1754.4376, 989.37506)
 scale = Vector2(3.5865884, 3.5615742)
@@ -162,22 +178,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Pickups" type="Node2D" parent="." unique_id=927983828]
 position = Vector2(1755, 749)
-
-[node name="PickupSpawner" type="MultiplayerSpawner" parent="." unique_id=1632642983]
-unique_name_in_owner = true
-spawn_path = NodePath("../Pickups")
-spawn_limit = 10
-script = ExtResource("4_tefeu")
-pickup_map = Dictionary[String, PackedScene]({
-"boulder": ExtResource("3_jyhfs"),
-"poison_dagger": ExtResource("6_85g3d")
-})
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
-unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")
-spawn_path = NodePath("..")
-script = ExtResource("5_tbgi4")
 
 [node name="ScoreCanvasLayer" type="CanvasLayer" parent="." unique_id=604127493]
 layer = 10

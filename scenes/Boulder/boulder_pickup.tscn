@@ -8,16 +8,6 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_lu1qc"]
-radius = 39.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
-radius = 58.98616
-height = 125.995125
-
-[sub_resource type="LabelSettings" id="LabelSettings_kqu22"]
-font_size = 31
-
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kqu22"]
 properties/0/path = NodePath(".:position")
 properties/0/spawn = true
@@ -29,6 +19,16 @@ properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_lu1qc"]
+radius = 39.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
+radius = 58.98616
+height = 125.995125
+
+[sub_resource type="LabelSettings" id="LabelSettings_kqu22"]
+font_size = 31
+
 [node name="Boulder" type="RigidBody2D" unique_id=1888499280]
 z_index = 1
 collision_layer = 10
@@ -38,8 +38,10 @@ physics_material_override = SubResource("PhysicsMaterial_vsyep")
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_ndmiu")
-damage_multiplier = 10
-damage_minimum = 300
+damage = 330
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
+replication_config = SubResource("SceneReplicationConfig_kqu22")
 
 [node name="CanEquipLight" type="PointLight2D" parent="." unique_id=422587244]
 unique_name_in_owner = true
@@ -92,9 +94,7 @@ offset_bottom = -42.0
 label_settings = SubResource("LabelSettings_kqu22")
 horizontal_alignment = 1
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
-replication_config = SubResource("SceneReplicationConfig_kqu22")
-
+[connection signal="body_entered" from="." to="." method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]
 [connection signal="area_exited" from="PickupArea" to="Pickup" method="_on_pickup_area_area_exited"]
 [connection signal="timeout" from="CooldownTimer" to="Pickup" method="_on_cooldown_timer_timeout"]

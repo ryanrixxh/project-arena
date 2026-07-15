@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://dmur5ybbcpuhf"]
+
+[ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_5d4a8"]
+[ext_resource type="Texture2D" uid="uid://dgfjmjt5yxl12" path="res://assets/aseprite/pre-alpha-levitate-effect-sprite-sheet.png" id="3_u6nea"]
+[ext_resource type="Texture2D" uid="uid://ca8w5twxw8wpi" path="res://assets/aseprite/poison-dagger.png" id="4_5d4a8"]
+[ext_resource type="Script" uid="uid://be2446nbk7mr5" path="res://scripts/magic_effect.gd" id="4_i23wv"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4u1sj"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4u1sj"]
+atlas = ExtResource("3_u6nea")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0rb6"]
+atlas = ExtResource("3_u6nea")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbkki"]
+atlas = ExtResource("3_u6nea")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fga68"]
+atlas = ExtResource("3_u6nea")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtv7c"]
+atlas = ExtResource("3_u6nea")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tn26n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4u1sj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0rb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dbkki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fga68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtv7c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_uf51t"]
+radius = 54.037025
+
+[node name="PoisonDaggerWeapon" type="RigidBody2D" unique_id=808686165]
+collision_layer = 2
+collision_mask = 2
+gravity_scale = 0.0
+script = ExtResource("1_5d4a8")
+throw_force = 3000
+type = "poison_dagger"
+metadata/name = "Boulder"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=615145170]
+replication_config = SubResource("SceneReplicationConfig_4u1sj")
+
+[node name="MagicEffect" type="AnimatedSprite2D" parent="." unique_id=1514821363]
+position = Vector2(8, -13.000002)
+scale = Vector2(6.8203135, 7.226509)
+sprite_frames = SubResource("SpriteFrames_tn26n")
+frame_progress = 0.09358984
+script = ExtResource("4_i23wv")
+
+[node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
+position = Vector2(7.1525574e-07, -1.0000005)
+rotation = 3.1415925
+scale = Vector2(0.31869814, 0.3152309)
+texture = ExtResource("4_5d4a8")
+flip_h = true
+flip_v = true
+
+[node name="FiringTimer" type="Timer" parent="." unique_id=2082273181]
+process_callback = 0
+autostart = true
+
+[node name="BarrelMarker" type="Marker2D" parent="." unique_id=1471378519]
+unique_name_in_owner = true
+position = Vector2(90.94086, -0.28071976)
+rotation = 4.359054e-05
+scale = Vector2(1, 1.2399148)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=876896301]
+position = Vector2(0.5625, -0.18792725)
+shape = SubResource("CircleShape2D_uf51t")

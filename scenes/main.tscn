@@ -2,10 +2,11 @@
 
 [ext_resource type="Texture2D" uid="uid://bkhrd1lci42gy" path="res://assets/aseprite/pre-alpha-cave.png" id="1_jyhfs"]
 [ext_resource type="Script" uid="uid://c3wlgb262wcu4" path="res://scripts/main.gd" id="1_o6xl0"]
-[ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Weapon/pickup.tscn" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://df01s271qlbxd" path="res://scenes/Boulder/boulder_pickup.tscn" id="3_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://d16a6o62y58ag" path="res://assets/aseprite/grass terrain.png" id="3_tipki"]
 [ext_resource type="Script" uid="uid://band42ju5rbja" path="res://scripts/multiplayer/pickup_spawner.gd" id="4_tefeu"]
 [ext_resource type="Script" uid="uid://chnf53etwigd5" path="res://scripts/multiplayer/player_spawner.gd" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://bl06tqvdfpa3h" path="res://scenes/PoisonDagger/poison_dagger_pickup.tscn" id="6_85g3d"]
 [ext_resource type="Script" uid="uid://c6udxrrbucvta" path="res://scripts/spectate.gd" id="7_o6xl0"]
 [ext_resource type="PackedScene" path="res://scenes/ui/score_display.tscn" id="8_dnf3v"]
 
@@ -35,6 +36,22 @@ shadow_offset = Vector2(0.72, 1)
 
 [node name="Main" type="Node2D" unique_id=922352442]
 script = ExtResource("1_o6xl0")
+
+[node name="PickupSpawner" type="MultiplayerSpawner" parent="." unique_id=1632642983]
+unique_name_in_owner = true
+spawn_path = NodePath("../Pickups")
+spawn_limit = 10
+script = ExtResource("4_tefeu")
+pickup_map = Dictionary[String, PackedScene]({
+"boulder": ExtResource("3_jyhfs"),
+"poison_dagger": ExtResource("6_85g3d")
+})
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
+unique_name_in_owner = true
+_spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")
+spawn_path = NodePath("..")
+script = ExtResource("5_tbgi4")
 
 [node name="Background" type="Sprite2D" parent="." unique_id=1564463435]
 position = Vector2(1754.4376, 989.37506)
@@ -161,19 +178,6 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Pickups" type="Node2D" parent="." unique_id=927983828]
 position = Vector2(1755, 749)
-
-[node name="PickupSpawner" type="MultiplayerSpawner" parent="." unique_id=1632642983]
-unique_name_in_owner = true
-spawn_path = NodePath("../Pickups")
-spawn_limit = 10
-script = ExtResource("4_tefeu")
-network_pickup = ExtResource("3_jyhfs")
-
-[node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
-unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")
-spawn_path = NodePath("..")
-script = ExtResource("5_tbgi4")
 
 [node name="ScoreCanvasLayer" type="CanvasLayer" parent="." unique_id=604127493]
 layer = 10

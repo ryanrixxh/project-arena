@@ -7,14 +7,19 @@ class_name Pickup extends Node
 @export var pickup_area: Area2D
 @export var pickup_light: PointLight2D
 @export var cooldown_timer: Timer
-@export var weapon_scene_address: String = "res://scenes/Weapon/weapon.tscn"
+@export var weapon_scene_address: String
+var weapon_scene: PackedScene
 
-var weapon_scene: PackedScene = load(weapon_scene_address) # Can't preload this because its called from an export var
+# Can't preload this because its called from an export var
 var pickup_blocked = true
 var player_in_range = false
 
+func _ready() -> void:
+	weapon_scene = load(weapon_scene_address) 
+
 func _on_pickup_area_area_entered(area: Area2D) -> void:
 	# Only players should trigger pickup logic
+	if !area.owner.get_script(): return
 	if area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
 		return
 
@@ -30,7 +35,7 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 
 func _on_pickup_area_area_exited(area: Area2D) -> void:	
 	# Only players should trigger pickup logic
-	if !area.owner or area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
+	if !area.owner or !area.owner.get_script() or area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
 		return
 	
 	var player: Player = area.owner

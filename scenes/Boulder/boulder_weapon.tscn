@@ -56,11 +56,12 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Weapon" type="RigidBody2D" unique_id=808686165]
+[node name="BoulderWeapon" type="RigidBody2D" unique_id=808686165]
 collision_layer = 2
 collision_mask = 2
 gravity_scale = 0.0
 script = ExtResource("1_e2o24")
+static_rotation = true
 metadata/name = "Boulder"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=615145170]

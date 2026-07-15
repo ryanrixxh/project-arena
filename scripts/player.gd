@@ -55,12 +55,14 @@ class PlayerState:
 		GROUNDED,
 		AIRBORN
 	}
+	
 	var air_state: AirState # You can never be airborn and grounded at the same time. This structure ensures that.
 	var walled: bool
 	var hovering: bool
 	
+	#Pickups
 	var available_pickup: Pickup
-	var equipped_weapon: Weapon
+	var equipped_weapon
 
 	func _init() -> void:
 		air_state = AirState.GROUNDED
@@ -70,6 +72,7 @@ class PlayerState:
 	func is_grounded() -> bool:
 		return air_state == AirState.GROUNDED
 
+
 var state = PlayerState.new()
 
 # Called when the node enters the scene tree for the first time.
@@ -77,6 +80,7 @@ func _ready() -> void:
 	%HealthLabelDebug.text = str(health_component.health)
 	$HoverEffect.animation_finished.connect(func(): $HoverEffect.play("default"))
 	energy_bar = get_node("/root/Main/ScoreCanvasLayer/HoverEnergyBar")
+	Timer.new()
 
 func _enter_tree() -> void:
 	%IDLabelDebug.text = str(name)
@@ -153,7 +157,7 @@ func handle_input():
 	
 	if Input.is_action_pressed(equip_control):
 		if state.available_pickup:
-			equip.emit(state.available_pickup.weapon_scene)
+			equip.emit(state.available_pickup.weapon_scene_address)
 			
 
 # TODO: Hover should actually just replace jump I think? 
@@ -198,9 +202,9 @@ func _on_animation_trigger_area_body_entered(_body: Node2D) -> void:
 func _on_allow_equip(pickup: Pickup = null) -> void:
 	state.available_pickup = pickup
 
-func _on_equip(weapon_scene: PackedScene) -> void:
+func _on_equip(weapon_scene_address: String) -> void:
 	if is_multiplayer_authority():
-		weapon_spawner.spawn({"player_name": name})
+		weapon_spawner.spawn({"player_name": name, "weapon_addr": weapon_scene_address})
 		
 		# Tell the server to despawn the pickup after we have equipped it and forget about it
 		state.available_pickup.server_despawn.rpc_id(1)
@@ -211,3 +215,25 @@ func _on_released() -> void:
 		$Equipment.remove_child(state.equipped_weapon)
 		state.equipped_weapon.call_deferred("queue_free")
 		state.equipped_weapon = null
+		
+
+# AILMENTS
+## Poison is a continuing status on the player, so we perform its logic here since the weapon that caused it may have already despawned
+## Called by pickups upon collision to inflict a poison status on the player. Creates a 1 second timer that recursively calls itself a given number of times to deal DOT.
+func poison(duration: int, damage: int) -> void:
+	# TODO: Need to show a visual effect throughout the poison duration
+	# TODO: This might be an optimisation issue recursively starting new timers? Not sure if it matters though
+	print(damage)
+	$WizardSprite.modulate = Color(0.0, 0.729, 0.169, 1.0)
+	var poison_timer = Timer.new()
+	self.add_child(poison_timer)
+	if duration > 0:
+		poison_timer.start(1)
+		poison_timer.timeout.connect(func():
+			if health_component.health > damage: # Poison cannot kill
+				health_component.health -= damage
+				health_component.check_health()
+			poison(duration - 1, damage), CONNECT_ONE_SHOT)
+	else:
+		poison_timer.queue_free()
+		$WizardSprite.modulate = Color(1,1,1,1)

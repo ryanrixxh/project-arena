@@ -1,22 +1,12 @@
-[gd_scene format=3 uid="uid://df01s271qlbxd"]
+[gd_scene format=3 uid="uid://bl06tqvdfpa3h"]
 
-[ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="1_lu1qc"]
-[ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
-[ext_resource type="Texture2D" uid="uid://b0cabb0k173rp" path="res://assets/aseprite/boulder.png" id="2_kqu22"]
-[ext_resource type="Script" uid="uid://cbkfrsu3q3345" path="res://scripts/components/damage.gd" id="3_kqu22"]
+[ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="1_c7asx"]
+[ext_resource type="Script" uid="uid://bsgurfwmmwweo" path="res://scripts/pickups/poison_dagger.gd" id="1_ct1ns"]
+[ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_logoe"]
+[ext_resource type="Texture2D" uid="uid://ca8w5twxw8wpi" path="res://assets/aseprite/poison-dagger.png" id="4_64lcl"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_lu1qc"]
-radius = 39.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
-radius = 58.98616
-height = 125.995125
-
-[sub_resource type="LabelSettings" id="LabelSettings_kqu22"]
-font_size = 31
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kqu22"]
 properties/0/path = NodePath(".:position")
@@ -29,7 +19,17 @@ properties/2/path = NodePath(".:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[node name="Pickup" type="RigidBody2D" unique_id=1888499280]
+[sub_resource type="CircleShape2D" id="CircleShape2D_lu1qc"]
+radius = 39.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xasec"]
+radius = 49.999878
+height = 108.004295
+
+[sub_resource type="LabelSettings" id="LabelSettings_kqu22"]
+font_size = 31
+
+[node name="PoisonDagger" type="RigidBody2D" unique_id=1888499280]
 z_index = 1
 collision_layer = 10
 collision_mask = 10
@@ -37,6 +37,13 @@ mass = 8.166
 physics_material_override = SubResource("PhysicsMaterial_vsyep")
 contact_monitor = true
 max_contacts_reported = 1
+script = ExtResource("1_ct1ns")
+damage = 200
+dot_ticks = 10
+tick_damage = 15
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
+replication_config = SubResource("SceneReplicationConfig_kqu22")
 
 [node name="CanEquipLight" type="PointLight2D" parent="." unique_id=422587244]
 unique_name_in_owner = true
@@ -46,7 +53,7 @@ visibility_layer = 2
 position = Vector2(-0.50000167, 0.50000167)
 scale = Vector2(0.41015625, 0.41015625)
 color = Color(0.15686275, 1, 0.9019608, 1)
-texture = ExtResource("1_lu1qc")
+texture = ExtResource("1_c7asx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945410480]
 visible = false
@@ -57,30 +64,24 @@ collision_layer = 4
 collision_mask = 4
 
 [node name="PickupDetectionShape" type="CollisionShape2D" parent="PickupArea" unique_id=64364952]
-position = Vector2(0, -1.0000001)
+position = Vector2(2.3283067e-10, 1.1920929e-07)
 rotation = -1.5685139
 shape = SubResource("CapsuleShape2D_xasec")
 
 [node name="Pickup" type="Node" parent="." unique_id=36309700 node_paths=PackedStringArray("pickup", "pickup_area", "pickup_light", "cooldown_timer")]
-script = ExtResource("2_bn5xs")
+script = ExtResource("2_logoe")
 pickup = NodePath("..")
 pickup_area = NodePath("../PickupArea")
 pickup_light = NodePath("../CanEquipLight")
 cooldown_timer = NodePath("../CooldownTimer")
+weapon_scene_address = "res://scenes/PoisonDagger/poison_dagger_weapon.tscn"
 metadata/_custom_type_script = "uid://b6u63h087idg0"
-
-[node name="Damage" type="Node" parent="." unique_id=246605701 node_paths=PackedStringArray("pickup_body")]
-script = ExtResource("3_kqu22")
-pickup_body = NodePath("..")
-damage_multiplier = 12
-damage_minimum = 100
-metadata/_custom_type_script = "uid://cbkfrsu3q3345"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
 light_mask = 0
-position = Vector2(-1, -2)
-scale = Vector2(1.2924805, 1.2465705)
-texture = ExtResource("2_kqu22")
+position = Vector2(-9.536743e-07, -1)
+scale = Vector2(0.3107788, 0.2997397)
+texture = ExtResource("4_64lcl")
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=512764419]
 wait_time = 0.08
@@ -95,10 +96,7 @@ offset_bottom = -42.0
 label_settings = SubResource("LabelSettings_kqu22")
 horizontal_alignment = 1
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
-replication_config = SubResource("SceneReplicationConfig_kqu22")
-
-[connection signal="body_entered" from="." to="Damage" method="_on_pickup_body_entered"]
+[connection signal="body_entered" from="." to="." method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]
 [connection signal="area_exited" from="PickupArea" to="Pickup" method="_on_pickup_area_area_exited"]
 [connection signal="timeout" from="CooldownTimer" to="Pickup" method="_on_cooldown_timer_timeout"]

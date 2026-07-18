@@ -18,14 +18,21 @@ func _ready() -> void:
 	weapon_scene = load(weapon_scene_address) 
 
 func _on_pickup_area_area_entered(area: Area2D) -> void:
-	# Only players should trigger pickup logic
+	# If colliding with another base pickup, combine
+	if area.name == "PickupArea":
+		if get_parent().name < area.get_parent().name:
+			var combo := Combinator.combine(["boulder", "poison_dagger"]) # TODO: Change this to use the type variables of the base pickups
+			combo_spawn.rpc_id(1, randi() % 10000, combo)
+		server_despawn()
+	
+	# If colliding with a player, allow for pickup
 	if !area.owner.get_script(): return
 	if area.owner.get_script().get_global_name() != "Player" or pickup_blocked:
 		return
 
 	if (area.owner as Player).state.equipped_weapon and (area.owner as Player).state.equipped_weapon is Weapon:
 		return
-
+	
 	var player: Player = area.owner
 	player_in_range = true
 	toggle_light.rpc_id(player.get_multiplayer_authority())
@@ -52,6 +59,17 @@ func _on_pickup_area_area_exited(area: Area2D) -> void:
 func _on_cooldown_timer_timeout() -> void:
 	pickup_blocked = false
 
+@rpc("any_peer", "call_local", "reliable")
+func combo_spawn(id: int, combo: String):
+	if !multiplayer.is_server(): return
+	var spawner: MultiplayerSpawner = get_node("/root/Main/PickupSpawner")
+	spawner.call_deferred("spawn", {"id": id, 
+		"type": combo,
+		"spawn_position": pickup.global_position,
+		"spawn_rotation": 0,
+		"throw_force": 10, 
+		"throw_direction": Vector2(0,0)})
+
 ## Despawns 	
 @rpc("any_peer", "call_local", "reliable")
 func server_despawn():
@@ -65,3 +83,4 @@ func toggle_light():
 		pickup_light.show()
 	else:
 		pickup_light.hide()
+	

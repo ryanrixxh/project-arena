@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+@export var type: String = "poison_dagger"
 @export var damage: int
 @export var dot_ticks: int
 @export var tick_damage: int

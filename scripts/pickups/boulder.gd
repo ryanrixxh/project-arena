@@ -1,5 +1,6 @@
 extends RigidBody2D
 
+@export var type: String = "boulder"
 @export var damage: int
 
 func _on_pickup_body_entered(body: Node) -> void:

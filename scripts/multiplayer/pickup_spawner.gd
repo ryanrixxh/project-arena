@@ -3,7 +3,6 @@ extends MultiplayerSpawner
 #@export var boulder: PackedScene
 #@export var poison_dagger: PackedScene
 @export var pickup_map: Dictionary[String, PackedScene]
-var spawn_count: int = 0
 
 func _init() -> void:
 	spawn_function = spawn_pickup

@@ -2,7 +2,7 @@ class_name Weapon extends RigidBody2D
 
 @onready var timer: Timer = $FiringTimer
 @onready var barrel_marker: Marker2D = %BarrelMarker
-@onready var sprite: Sprite2D = $WeaponSprite
+@onready var sprite := $WeaponSprite
 @export var throw_force := 1500
 @export var static_rotation := false
 @export var type := "boulder"

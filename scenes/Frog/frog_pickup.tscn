@@ -1,11 +1,9 @@
 [gd_scene format=3 uid="uid://vyseyhtqtl1j"]
 
-[ext_resource type="Script" uid="uid://bsgurfwmmwweo" path="res://scripts/pickups/poison_dagger.gd" id="1_bkjq1"]
+[ext_resource type="Script" uid="uid://kq7d01pinu25" path="res://scripts/pickups/frog.gd" id="1_m7vd4"]
 [ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="2_l20vy"]
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="3_f2pmb"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
-bounce = 0.35
+[ext_resource type="Texture2D" uid="uid://cxwhuqadpfkke" path="res://assets/aseprite/toad-Sheet.png" id="4_m7vd4"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kqu22"]
 properties/0/path = NodePath(".:position")
@@ -25,7 +23,95 @@ radius = 39.0
 radius = 49.999878
 height = 108.004295
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_43jlw"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7vd4"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5e35"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3dxb6"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a1pg"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro1fh"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(1280, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jxahw"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48rbh"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(1920, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_48col"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(2240, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r32uk"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(1920, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxj87"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(1600, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fpm2l"]
+atlas = ExtResource("4_m7vd4")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_l5e35"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7vd4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5e35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3dxb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a1pg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro1fh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jxahw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48rbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_48col")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r32uk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxj87")
+}],
+"loop": false,
+"name": &"bounce",
+"speed": 30.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fpm2l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kqu22"]
 font_size = 31
@@ -34,11 +120,10 @@ font_size = 31
 z_index = 1
 collision_layer = 10
 collision_mask = 10
-mass = 8.166
-physics_material_override = SubResource("PhysicsMaterial_vsyep")
+lock_rotation = true
 contact_monitor = true
 max_contacts_reported = 1
-script = ExtResource("1_bkjq1")
+script = ExtResource("1_m7vd4")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=881023540]
 replication_config = SubResource("SceneReplicationConfig_kqu22")
@@ -54,7 +139,6 @@ color = Color(0.15686275, 1, 0.9019608, 1)
 texture = ExtResource("2_l20vy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945410480]
-visible = false
 shape = SubResource("CircleShape2D_lu1qc")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=729363975]
@@ -72,14 +156,15 @@ pickup = NodePath("..")
 pickup_area = NodePath("../PickupArea")
 pickup_light = NodePath("../CanEquipLight")
 cooldown_timer = NodePath("../CooldownTimer")
-weapon_scene_address = "res://scenes/PoisonDagger/poison_dagger_weapon.tscn"
+weapon_scene_address = "res://scenes/Frog/frog_weapon.tscn"
 metadata/_custom_type_script = "uid://b6u63h087idg0"
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=107015527]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=872687894]
 light_mask = 0
-position = Vector2(-5.9604645e-08, 2.9802322e-08)
-scale = Vector2(86.00001, 77.00001)
-texture = SubResource("PlaceholderTexture2D_43jlw")
+position = Vector2(0.9999999, -8)
+scale = Vector2(0.29553223, 0.31833366)
+sprite_frames = SubResource("SpriteFrames_l5e35")
+animation = &"bounce"
 
 [node name="CooldownTimer" type="Timer" parent="." unique_id=512764419]
 wait_time = 0.08
@@ -87,6 +172,7 @@ one_shot = true
 autostart = true
 
 [node name="IDLabelDebug" type="Label" parent="." unique_id=1120263109]
+visible = false
 offset_left = -91.0
 offset_top = -88.0
 offset_right = 92.0

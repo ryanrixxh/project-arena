@@ -21,7 +21,7 @@ func _on_pickup_area_area_entered(area: Area2D) -> void:
 	# If colliding with another base pickup, combine
 	if area.name == "PickupArea":
 		if get_parent().name < area.get_parent().name:
-			var combo := Combinator.combine(["boulder", "poison_dagger"]) # TODO: Change this to use the type variables of the base pickups
+			var combo := Combinator.combine([get_parent().type, area.get_parent().type]) # TODO: Change this to use the type variables of the base pickups
 			combo_spawn.rpc_id(1, randi() % 10000, combo)
 		server_despawn()
 	

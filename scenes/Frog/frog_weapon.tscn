@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bnanq4cae7br3" path="res://scripts/weapon.gd" id="1_kxoav"]
 [ext_resource type="Texture2D" uid="uid://dgfjmjt5yxl12" path="res://assets/aseprite/pre-alpha-levitate-effect-sprite-sheet.png" id="2_2qlu3"]
 [ext_resource type="Script" uid="uid://be2446nbk7mr5" path="res://scripts/magic_effect.gd" id="3_bht3y"]
+[ext_resource type="Texture2D" uid="uid://cxwhuqadpfkke" path="res://assets/aseprite/toad-Sheet.png" id="4_x78pf"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_4u1sj"]
 properties/0/path = NodePath(".:position")
@@ -52,7 +53,20 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_bj764"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_jtuoq"]
+atlas = ExtResource("4_x78pf")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bj764"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jtuoq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uf51t"]
 radius = 54.037025
@@ -60,10 +74,12 @@ radius = 54.037025
 [node name="FrogWeapon" type="RigidBody2D" unique_id=808686165]
 collision_layer = 2
 collision_mask = 2
-gravity_scale = 0.0
+mass = 30.0
+gravity_scale = 2.728
 script = ExtResource("1_kxoav")
-throw_force = 3000
-type = "poison_dagger"
+throw_force = 500
+static_rotation = true
+type = "frog"
 metadata/name = "Boulder"
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=615145170]
@@ -76,11 +92,11 @@ sprite_frames = SubResource("SpriteFrames_tn26n")
 frame_progress = 0.09358984
 script = ExtResource("3_bht3y")
 
-[node name="WeaponSprite" type="Sprite2D" parent="." unique_id=24669617]
-position = Vector2(0.9638605, -0.42168045)
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="." unique_id=394077638]
+position = Vector2(0.9999962, -4.000004)
 rotation = 3.1415925
-scale = Vector2(79.35506, 74.72506)
-texture = SubResource("PlaceholderTexture2D_bj764")
+scale = Vector2(0.37456, 0.35270613)
+sprite_frames = SubResource("SpriteFrames_bj764")
 flip_h = true
 flip_v = true
 

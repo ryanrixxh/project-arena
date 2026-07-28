@@ -19,13 +19,15 @@ func spawn_initial_pickups():
 					"spawn_position": Vector2(500, 200),
 					"spawn_rotation": null, 
 					"throw_force": 1000, 
-					"throw_direction": Vector2(1,1)})
+					"throw_direction": Vector2(1,1),
+					"from_player": false})
 	%PickupSpawner.spawn({"id": randi() % 10000,
 				"type": "poison_dagger", 
 				"spawn_position": Vector2(1100, 200), 
 				"spawn_rotation": null, 
 				"throw_force": 500, 
-				"throw_direction": Vector2(1,0)})
+				"throw_direction": Vector2(1,0),
+				"from_player": false})
 	
 	
 

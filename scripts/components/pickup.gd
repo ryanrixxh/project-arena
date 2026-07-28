@@ -68,7 +68,8 @@ func combo_spawn(id: int, combo: String):
 		"spawn_position": pickup.global_position,
 		"spawn_rotation": 0,
 		"throw_force": 10, 
-		"throw_direction": Vector2(0,0)})
+		"throw_direction": Vector2(0,0),
+		"from_player": false})
 
 ## Despawns 	
 @rpc("any_peer", "call_local", "reliable")

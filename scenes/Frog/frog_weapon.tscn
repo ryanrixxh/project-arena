@@ -71,13 +71,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_uf51t"]
 radius = 54.037025
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_x78pf"]
+radius = 208.11775
+
 [node name="FrogWeapon" type="RigidBody2D" unique_id=808686165]
 collision_layer = 2
 collision_mask = 2
 mass = 30.0
 gravity_scale = 2.728
 script = ExtResource("1_kxoav")
-throw_force = 500
+throw_force = 700
 static_rotation = true
 type = "frog"
 metadata/name = "Boulder"
@@ -113,3 +116,8 @@ scale = Vector2(1, 1.2399148)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=876896301]
 position = Vector2(0.5625, -0.18792725)
 shape = SubResource("CircleShape2D_uf51t")
+
+[node name="DamageArea" type="Area2D" parent="." unique_id=1882332852]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=702482569]
+shape = SubResource("CircleShape2D_x78pf")

@@ -43,5 +43,6 @@ func server_spawn(id: int):
 			"spawn_position": barrel_marker.global_position,
 			"spawn_rotation": global_rotation if not static_rotation else null,
 			"throw_force": throw_force, 
-			"throw_direction": direction})
+			"throw_direction": direction,
+			"from_player": true})
 	

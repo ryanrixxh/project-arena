@@ -1,5 +1,7 @@
 extends RigidBody2D
 
+var from_player: bool
+
 @export var type := "poison_dagger"
 @export var damage: int
 @export var dot_ticks: int

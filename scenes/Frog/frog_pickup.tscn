@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://phrc88hia5pj" path="res://assets/2d_lights_and_shadows_neutral_point_light.webp" id="2_l20vy"]
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="3_f2pmb"]
 [ext_resource type="Texture2D" uid="uid://cxwhuqadpfkke" path="res://assets/aseprite/toad-Sheet.png" id="4_m7vd4"]
+[ext_resource type="Texture2D" uid="uid://dpehmgi6ybkoy" path="res://assets/aseprite/frog-explosion-Sheet.png" id="5_fpm2l"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kqu22"]
 properties/0/path = NodePath(".:position")
@@ -119,6 +120,111 @@ font_size = 31
 [sub_resource type="CircleShape2D" id="CircleShape2D_m7vd4"]
 radius = 268.74524
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw4gv"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwhvj"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t73rp"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_doyek"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ry6sb"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgxya"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp8nm"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(1536, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkgp1"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(1792, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6aqm"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(2048, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3cjyb"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(2304, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bp7rw"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(2560, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_op8y8"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(2816, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dopt2"]
+atlas = ExtResource("5_fpm2l")
+region = Rect2(3072, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m7vd4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw4gv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vwhvj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t73rp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_doyek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ry6sb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vgxya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp8nm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkgp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6aqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3cjyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bp7rw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_op8y8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dopt2")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"explode",
+"speed": 30.0
+}]
+
 [node name="Frog" type="RigidBody2D" unique_id=1888499280]
 z_index = 1
 collision_layer = 10
@@ -189,6 +295,14 @@ horizontal_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageArea" unique_id=578303744]
 shape = SubResource("CircleShape2D_m7vd4")
 debug_color = Color(0.35513878, 0.61289597, 0.25042987, 0.41960785)
+
+[node name="FrogExplosion" type="AnimatedSprite2D" parent="DamageArea" unique_id=1534488433]
+position = Vector2(2.4999924, -4.999996)
+scale = Vector2(2.6132813, 2.40625)
+sprite_frames = SubResource("SpriteFrames_m7vd4")
+animation = &"explode"
+frame = 14
+frame_progress = 1.0
 
 [connection signal="body_entered" from="." to="." method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]

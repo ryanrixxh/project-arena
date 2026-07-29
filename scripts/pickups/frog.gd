@@ -19,6 +19,7 @@ func _ready() -> void:
 func _on_pickup_body_entered(body: Node) -> void:	
 	if current_jumps == max_jumps: return
 	$Sprite2D.play("bounce")
+	$DamageArea/FrogExplosion.play("explode")
 	await $Sprite2D.animation_finished
 	
 	# Get all players in the area of the frog when it collides and do damage to them

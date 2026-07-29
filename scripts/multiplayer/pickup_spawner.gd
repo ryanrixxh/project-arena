@@ -3,7 +3,6 @@ extends MultiplayerSpawner
 #@export var boulder: PackedScene
 #@export var poison_dagger: PackedScene
 @export var pickup_map: Dictionary[String, PackedScene]
-var spawn_count: int = 0
 
 func _init() -> void:
 	spawn_function = spawn_pickup
@@ -13,8 +12,10 @@ func spawn_pickup(data):
 
 	# Configure unique name and starting data
 	pickup.name = str(data.id)
+	pickup.from_player = data.from_player
 	if data.spawn_rotation:
 		pickup.global_rotation = data.spawn_rotation
+
 
 	# Note: Physics impulses on RigidBodies must happen AFTER they enter the tree.
 	# We defer the impulse using a lambda so it fires on the next frame.

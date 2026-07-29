@@ -1,5 +1,8 @@
 extends RigidBody2D
 
+var from_player: bool #TODO: Move to pickup component and use it from there instead?
+
+@export var type:= "boulder"
 @export var damage: int
 
 func _on_pickup_body_entered(body: Node) -> void:

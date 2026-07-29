@@ -23,6 +23,11 @@ config/icon="res://assets/icon.svg"
 
 Gamestate="*uid://df14sqm7sgxqq"
 LocalMultiplayerInput="*uid://f2sbh41v8qr8"
+Combinator="*uid://cuk7uskgyoqt"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 

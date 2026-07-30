@@ -12,12 +12,14 @@ var current_jumps := 0
 var	direction_scaler: int = 1
 
 func _ready() -> void:
+	if not from_player:
+		$ComboExplosion.play("explode")
 	current_jumps = 0
 	global_rotation = 0
 	set_travel_direction()
 	
 func _on_pickup_body_entered(body: Node) -> void:	
-	if current_jumps == max_jumps: return
+	if current_jumps == max_jumps or not from_player: return
 	$Sprite2D.play("bounce")
 	$DamageArea/FrogExplosion.play("explode")
 	await $Sprite2D.animation_finished

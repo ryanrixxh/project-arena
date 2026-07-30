@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c1x7sf2odbq8v" path="res://scripts/pickups/boulder.gd" id="1_ndmiu"]
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="2_bn5xs"]
 [ext_resource type="Texture2D" uid="uid://b0cabb0k173rp" path="res://assets/aseprite/boulder.png" id="2_kqu22"]
+[ext_resource type="Texture2D" uid="uid://mwqe1jvytj60" path="res://assets/aseprite/combo-explosion-Sheet.png" id="5_5mw6a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_vsyep"]
 bounce = 0.35
@@ -28,6 +29,111 @@ height = 125.995125
 
 [sub_resource type="LabelSettings" id="LabelSettings_kqu22"]
 font_size = 31
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nki4"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7txj"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ptru"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw48g"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcxgy"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hru4o"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_soslc"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(1536, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g03oe"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(1792, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd6uf"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(2048, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovoa8"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(2304, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej5jt"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(2560, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1m8r"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(2816, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnj0t"]
+atlas = ExtResource("5_5mw6a")
+region = Rect2(3072, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o6fwp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nki4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7txj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ptru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw48g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcxgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hru4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_soslc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g03oe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd6uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovoa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej5jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1m8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnj0t")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"explode",
+"speed": 30.0
+}]
 
 [node name="Boulder" type="RigidBody2D" unique_id=1888499280]
 z_index = 1
@@ -93,6 +199,10 @@ offset_right = 21.0
 offset_bottom = -42.0
 label_settings = SubResource("LabelSettings_kqu22")
 horizontal_alignment = 1
+
+[node name="ComboExplosion" type="AnimatedSprite2D" parent="." unique_id=1183123795]
+sprite_frames = SubResource("SpriteFrames_o6fwp")
+animation = &"explode"
 
 [connection signal="body_entered" from="." to="." method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]

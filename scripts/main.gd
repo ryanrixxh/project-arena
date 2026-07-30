@@ -1,6 +1,11 @@
 extends Node2D
 
 var pickup_count = 0
+var allowed_weapon_types = ["boulder", "poison_dagger"]
+var pickup_spawn_x_min: int
+var pickup_spawn_x_max: int
+var pickup_spawn_y: int
+
 
 # TODO: Dictionary of players to keep track of winners and losers
 # TODO: Spawn logic should be in here so then we can keep track of despawning it aswell
@@ -10,26 +15,37 @@ var spawn_positions
 
 func _ready() -> void:
 	spawn_positions = $SpawnPositions.get_children().map(func(marker: Marker2D): return marker.global_position)
+	pickup_spawn_x_min = $PickupSpawner/SpawnLine.get_point_position(0)[0]
+	pickup_spawn_x_max = $PickupSpawner/SpawnLine.get_point_position(1)[0]
+	pickup_spawn_y = $PickupSpawner/SpawnLine.get_point_position(1)[1]
 	spawn_initial_pickups()
+	$PickupSpawner/SpawnTimer.connect("timeout", spawn_random_pickup)
 	
 func spawn_initial_pickups():
 	if not multiplayer.is_server(): return
 	%PickupSpawner.spawn({"id": randi() % 10000,
 					"type": "boulder", 
-					"spawn_position": Vector2(500, 200),
+					"spawn_position": Vector2((randi() % pickup_spawn_x_max + pickup_spawn_x_min), pickup_spawn_y),
 					"spawn_rotation": null, 
-					"throw_force": 1000, 
-					"throw_direction": Vector2(1,1),
+					"throw_force": 300, 
+					"throw_direction": Vector2(1,0),
 					"from_player": false})
 	%PickupSpawner.spawn({"id": randi() % 10000,
 				"type": "poison_dagger", 
-				"spawn_position": Vector2(1100, 200), 
+				"spawn_position": Vector2((randi() % pickup_spawn_x_max + pickup_spawn_x_min), pickup_spawn_y), 
 				"spawn_rotation": null, 
-				"throw_force": 500, 
+				"throw_force": 300, 
 				"throw_direction": Vector2(1,0),
 				"from_player": false})
-	
-	
+
+func spawn_random_pickup():
+	%PickupSpawner.spawn({"id": randi() % 10000,
+				"type": allowed_weapon_types.pick_random(), 
+				"spawn_position": Vector2((randi() % pickup_spawn_x_max + pickup_spawn_x_min), pickup_spawn_y),
+				"spawn_rotation": null, 
+				"throw_force": 300, 
+				"throw_direction": Vector2(1,0),
+				"from_player": false})
 
 # ONLY CALLED ON REMOTE PEERS, NOT HOST
 func _on_player_spawner_spawned(player: Player) -> void:

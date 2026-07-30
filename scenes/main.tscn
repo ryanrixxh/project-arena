@@ -49,6 +49,14 @@ pickup_map = Dictionary[String, PackedScene]({
 "poison_dagger": ExtResource("6_85g3d")
 })
 
+[node name="SpawnLine" type="Line2D" parent="PickupSpawner" unique_id=735757252]
+points = PackedVector2Array(100, 100, 3400, 100)
+default_color = Color(1, 1, 1, 0)
+
+[node name="SpawnTimer" type="Timer" parent="PickupSpawner" unique_id=167655709]
+wait_time = 8.0
+autostart = true
+
 [node name="PlayerSpawner" type="MultiplayerSpawner" parent="." unique_id=6594216]
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("uid://ct17lf3jtevi4")

@@ -19,7 +19,11 @@ func _ready() -> void:
 	set_travel_direction()
 	
 func _on_pickup_body_entered(body: Node) -> void:	
+	if current_jumps == max_jumps and from_player:
+		$Pickup.server_despawn()
+		return
 	if current_jumps == max_jumps or not from_player: return
+	
 	$Sprite2D.play("bounce")
 	$DamageArea/FrogExplosion.play("explode")
 	await $Sprite2D.animation_finished

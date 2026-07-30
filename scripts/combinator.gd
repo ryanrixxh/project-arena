@@ -6,6 +6,6 @@ var combinations: Dictionary[PackedStringArray, String] = {
 	["boulder", "poison_dagger"]: "frog",
 }	
 	
-func combine(weapons: Array[String]) -> String:
+func combine(weapons: Array[String]) -> Variant:
 	weapons.sort()
 	return combinations.get(weapons)

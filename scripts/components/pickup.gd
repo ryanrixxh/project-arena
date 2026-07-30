@@ -18,12 +18,14 @@ func _ready() -> void:
 	weapon_scene = load(weapon_scene_address) 
 
 func _on_pickup_area_area_entered(area: Area2D) -> void:
+	var combo
 	# If colliding with another base pickup, combine
 	if area.name == "PickupArea":
-		if get_parent().name < area.get_parent().name:
-			var combo := Combinator.combine([get_parent().type, area.get_parent().type]) # TODO: Change this to use the type variables of the base pickups
+		combo = Combinator.combine([get_parent().type, area.get_parent().type])
+		if get_parent().name < area.get_parent().name and combo:
 			combo_spawn.rpc_id(1, randi() % 10000, combo)
-		server_despawn()
+		if combo:
+			server_despawn()
 	
 	# If colliding with a player, allow for pickup
 	if !area.owner.get_script(): return

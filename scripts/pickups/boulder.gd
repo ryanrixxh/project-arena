@@ -12,3 +12,4 @@ func _on_pickup_body_entered(body: Node) -> void:
 
 func do_damage(damage: int, health_component: Health) -> void:
 	health_component.damaged.emit(damage)
+	$Pickup.server_despawn()

@@ -35,8 +35,10 @@ func die():
 
 func _on_damaged(damage: int) -> void:
 	if invicible: return
+	if not is_multiplayer_authority(): return
 	
-	print("doing damage: ", damage)
+	# TODO: Structured logging?
+	print("doing damage: ", damage, " CLIENT: ", multiplayer.get_unique_id())
 	health -= damage
 	check_health()
 	invicible = true

@@ -25,4 +25,5 @@ func spawn_player(data) -> Player:
 				_ when "equip" in assignment:
 					player.equip_control = assignment
 	
+	print(player.get_multiplayer_authority())
 	return player

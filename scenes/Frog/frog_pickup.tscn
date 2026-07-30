@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://b6u63h087idg0" path="res://scripts/components/pickup.gd" id="3_f2pmb"]
 [ext_resource type="Texture2D" uid="uid://cxwhuqadpfkke" path="res://assets/aseprite/toad-Sheet.png" id="4_m7vd4"]
 [ext_resource type="Texture2D" uid="uid://dpehmgi6ybkoy" path="res://assets/aseprite/frog-explosion-Sheet.png" id="5_fpm2l"]
+[ext_resource type="Texture2D" uid="uid://mwqe1jvytj60" path="res://assets/aseprite/combo-explosion-Sheet.png" id="6_l5e35"]
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_kqu22"]
 properties/0/path = NodePath(".:position")
@@ -225,6 +226,111 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8nki4"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7txj"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3ptru"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kw48g"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wcxgy"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hru4o"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(1280, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_soslc"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(1536, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g03oe"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(1792, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd6uf"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(2048, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ovoa8"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(2304, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej5jt"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(2560, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1m8r"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(2816, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnj0t"]
+atlas = ExtResource("6_l5e35")
+region = Rect2(3072, 0, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3dxb6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8nki4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7txj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3ptru")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kw48g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wcxgy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hru4o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_soslc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g03oe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd6uf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ovoa8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej5jt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1m8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnj0t")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"explode",
+"speed": 30.0
+}]
+
 [node name="Frog" type="RigidBody2D" unique_id=1888499280]
 z_index = 1
 collision_layer = 10
@@ -303,6 +409,12 @@ sprite_frames = SubResource("SpriteFrames_m7vd4")
 animation = &"explode"
 frame = 14
 frame_progress = 1.0
+
+[node name="ComboExplosion" type="AnimatedSprite2D" parent="." unique_id=680560674]
+position = Vector2(6, -15.999999)
+scale = Vector2(2.109375, 2.2851563)
+sprite_frames = SubResource("SpriteFrames_3dxb6")
+animation = &"explode"
 
 [connection signal="body_entered" from="." to="." method="_on_pickup_body_entered"]
 [connection signal="area_entered" from="PickupArea" to="Pickup" method="_on_pickup_area_area_entered"]

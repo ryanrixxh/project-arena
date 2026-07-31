@@ -22,28 +22,16 @@ func _ready() -> void:
 	$PickupSpawner/SpawnTimer.connect("timeout", spawn_random_pickup)
 	
 func spawn_initial_pickups():
-	if not multiplayer.is_server(): return
-	%PickupSpawner.spawn({"id": randi() % 10000,
-					"type": "boulder", 
-					"spawn_position": Vector2((randi() % pickup_spawn_x_max + pickup_spawn_x_min), pickup_spawn_y),
-					"spawn_rotation": null, 
-					"throw_force": 300, 
-					"throw_direction": Vector2(1,0),
-					"from_player": false})
-	%PickupSpawner.spawn({"id": randi() % 10000,
-				"type": "poison_dagger", 
-				"spawn_position": Vector2((randi() % pickup_spawn_x_max + pickup_spawn_x_min), pickup_spawn_y), 
-				"spawn_rotation": null, 
-				"throw_force": 300, 
-				"throw_direction": Vector2(1,0),
-				"from_player": false})
+	spawn_random_pickup()
+	spawn_random_pickup()
 
 func spawn_random_pickup():
+	if not multiplayer.is_server(): return
 	%PickupSpawner.spawn({"id": randi() % 10000,
 				"type": allowed_weapon_types.pick_random(), 
 				"spawn_position": Vector2((randi() % pickup_spawn_x_max + pickup_spawn_x_min), pickup_spawn_y),
 				"spawn_rotation": null, 
-				"throw_force": 300, 
+				"throw_force": (randi() % 200) * -1 + (randi() % 200), 
 				"throw_direction": Vector2(1,0),
 				"from_player": false})
 

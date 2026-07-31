@@ -1,5 +1,8 @@
 extends Node
 
+# TODO: Networking. UDP Hole Punching with a fallback to regular UDP networking asking the player to port forward.
+# Maybe do the basic portforwarding first and implement hole punching later!
+
 const IP_ADDRESS = "localhost" #FIXME: This will need to change to be inputable
 const PORT = 10567
 const MAX_PEERS = 4

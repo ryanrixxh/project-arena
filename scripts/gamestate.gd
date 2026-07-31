@@ -51,9 +51,9 @@ func host():
 	multiplayer.multiplayer_peer = peer
 	register_player(multiplayer.get_unique_id())
 	
-func join():
+func join(ip_addr: String):
 	peer = ENetMultiplayerPeer.new()
-	peer.create_client(IP_ADDRESS, PORT)
+	peer.create_client(ip_addr, PORT)
 	multiplayer.multiplayer_peer = peer
 
 func player_connected(id: int):

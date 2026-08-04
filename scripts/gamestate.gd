@@ -80,12 +80,12 @@ func request_registration(local: bool = false, id = multiplayer.get_remote_sende
 
 
 func register_player(id: int):
-	var player_id = str(id)
+	var player_id = id
 	if player_ids.has(player_id):
 		return
 
 	player_ids.push_front(player_id)
-	win_tally[player_id] = 0
+	win_tally[str(player_id)] = 0
 	sync_player_state.rpc(player_ids, win_tally)
 
 @rpc("call_local", "reliable")
@@ -136,28 +136,29 @@ func start_game(start_source: StartSource):
 	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID + 
 	# however many secondary local players we have on that client
 	
-	
 	# TODO: Something about authority assignment is bricked here 
 	player_ids.sort()
+	# TODO: Sometimes this isnt getting sorted. An early return of some kind?
+	print("After sort: ", player_ids)
 	var latest_remote_index = null # Keep track of the most recent primary player, so that we can set secondary local player ids off of that one
 	for i in player_ids.size():
 		var authority
 		var local = false
 		if int(player_ids[i]) == int(player_ids[i-1]) + 1:
 			local = true
-			authority = player_ids[latest_remote_index].to_int()
+			authority = player_ids[latest_remote_index]
 		else:
-			authority = player_ids[i].to_int()
+			authority = player_ids[i]
 			latest_remote_index = i
 		
-		player_spawner.spawn({"id": player_ids[i].to_int(), "position": spawn_positions[i], "authority": authority, "local": local, "local_id": i - latest_remote_index})
+		player_spawner.spawn({"id": player_ids[i], "position": spawn_positions[i], "authority": authority, "local": local, "local_id": i - latest_remote_index})
 		
 
 ## Ends the round for all players. Called by whichever peer is the last to day when player count is tracked to one by their Main client.
 @rpc("any_peer", "call_local")
 func end_round(player: Player):
 	assert(multiplayer.is_server())
-	win_tally[player.name] += 1
+	win_tally[str(player.name)] += 1
 	score_changed.emit()
 	sync_score_tally.rpc(win_tally)
 	load_end_round.rpc(player.name, win_tally[player.name] >= winning_rounds_required)

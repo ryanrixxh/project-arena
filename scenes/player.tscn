@@ -3,9 +3,9 @@
 [ext_resource type="Texture2D" uid="uid://u2103av86j7o" path="res://assets/v2.png" id="1_dqkch"]
 [ext_resource type="Texture2D" uid="uid://g1ic8qq4kp2t" path="res://assets/2D squashed character-Sheet.png" id="1_qhqgy"]
 [ext_resource type="Script" uid="uid://jb258fphxmv2" path="res://scripts/player.gd" id="1_qlg0r"]
-[ext_resource type="Texture2D" uid="uid://bqb7a34duokfn" path="res://assets/aseprite/wizard-2-big-Sheet.png" id="2_fjrip"]
 [ext_resource type="Script" uid="uid://cv8cqwr8rhvse" path="res://scripts/equipment.gd" id="2_qhqgy"]
 [ext_resource type="Script" uid="uid://cla7vivyh1tt4" path="res://scripts/multiplayer/weapon_spawner.gd" id="2_ur7pv"]
+[ext_resource type="SpriteFrames" uid="uid://dxcqsdbefuhwx" path="res://assets/pink-animated-wizard.tres" id="3_ur7pv"]
 [ext_resource type="Script" uid="uid://5uig6yhhkjxp" path="res://scripts/components/health.gd" id="5_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://dlbfuwxja1nmk" path="res://assets/aseprite/aim_reticle.png" id="6_fjrip"]
 [ext_resource type="Texture2D" uid="uid://dlk1qff2e6dnp" path="res://assets/aseprite/hover-Sheet.png" id="8_smehm"]
@@ -41,101 +41,6 @@ properties/8/replication_mode = 2
 properties/9/path = NodePath("WizardSprite:modulate")
 properties/9/spawn = true
 properties/9/replication_mode = 2
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(96, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(192, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(288, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_l71n6"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(384, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(0, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(96, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(192, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(288, 0, 96, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
-atlas = ExtResource("2_fjrip")
-region = Rect2(384, 0, 96, 96)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_oprun"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_60mlk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i4ail")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a38lo")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ni07")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_l71n6")
-}],
-"loop": true,
-"name": &"airborn",
-"speed": 34.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f1ej7")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oprun")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a8ls1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qfm1y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fulsm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4r5pv")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 5.0
-}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_qlg0r"]
 outline_color = Color(0, 0, 0, 1)
@@ -385,9 +290,7 @@ replication_config = SubResource("SceneReplicationConfig_fjrip")
 [node name="WizardSprite" type="AnimatedSprite2D" parent="." unique_id=338670132]
 position = Vector2(0, 9.536743e-07)
 scale = Vector2(1.5401205, 1.4105778)
-sprite_frames = SubResource("SpriteFrames_oprun")
-animation = &"airborn"
-frame_progress = 0.38671392
+sprite_frames = ExtResource("3_ur7pv")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1320438639]
 layer = 2

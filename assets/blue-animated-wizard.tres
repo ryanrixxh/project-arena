@@ -1,0 +1,74 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://bxx5pl33xg5j6"]
+
+[ext_resource type="Texture2D" uid="uid://dvejbx447rqiw" path="res://assets/aseprite/wizard-2-big-Sheet-blue-export.png" id="1_0s2mx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhfpe"]
+atlas = ExtResource("1_0s2mx")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h52vy"]
+atlas = ExtResource("1_0s2mx")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hu1yi"]
+atlas = ExtResource("1_0s2mx")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tvga"]
+atlas = ExtResource("1_0s2mx")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2530"]
+atlas = ExtResource("1_0s2mx")
+region = Rect2(384, 0, 96, 96)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhfpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h52vy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hu1yi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tvga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2530")
+}],
+"loop": true,
+"name": &"airborn",
+"speed": 34.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhfpe")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhfpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h52vy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hu1yi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tvga")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2530")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]

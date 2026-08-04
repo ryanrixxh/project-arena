@@ -1,6 +1,81 @@
 [gd_scene format=3 uid="uid://cdvw5isuhi6i"]
 
 [ext_resource type="Script" uid="uid://cixcwt4lxk4vq" path="res://scripts/lobby.gd" id="1_o1atq"]
+[ext_resource type="Texture2D" uid="uid://cg3twi0m1vjef" path="res://assets/aseprite/orb-Sheet.png" id="2_5gu6x"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q60fs"]
+atlas = ExtResource("2_5gu6x")
+region = Rect2(0, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqcc7"]
+atlas = ExtResource("2_5gu6x")
+region = Rect2(288, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pc087"]
+atlas = ExtResource("2_5gu6x")
+region = Rect2(576, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_apkv3"]
+atlas = ExtResource("2_5gu6x")
+region = Rect2(864, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_omrgh"]
+atlas = ExtResource("2_5gu6x")
+region = Rect2(1152, 0, 288, 288)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncsg4"]
+atlas = ExtResource("2_5gu6x")
+region = Rect2(1440, 0, 288, 288)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_07nfq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q60fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqcc7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pc087")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apkv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omrgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncsg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncsg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncsg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncsg4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_omrgh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_apkv3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pc087")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqcc7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q60fs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [node name="Lobby" type="Control" unique_id=648370254]
 layout_mode = 3
@@ -89,22 +164,39 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -133.0
-offset_top = -33.0
-offset_right = 133.0
-offset_bottom = 33.0
+offset_top = -35.0
+offset_right = 137.0
+offset_bottom = 68.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="JoinFail" type="RichTextLabel" parent="JoinInputContainer" unique_id=319918953]
+visible = false
+layout_mode = 2
+bbcode_enabled = true
+text = "[color=red] Failed to join lobby"
+fit_content = true
+horizontal_alignment = 1
 
 [node name="JoinInput" type="LineEdit" parent="JoinInputContainer" unique_id=130126923]
 layout_mode = 2
 placeholder_text = "host ip address"
 alignment = 1
 
-[node name="Button" type="Button" parent="JoinInputContainer" unique_id=2013504696]
+[node name="GoBack" type="Button" parent="JoinInputContainer" unique_id=2013504696]
 layout_mode = 2
 text = "Go Back"
 
+[node name="LoadingOrb" type="AnimatedSprite2D" parent="JoinInputContainer" unique_id=1347275184]
+visible = false
+position = Vector2(139.99998, -71)
+scale = Vector2(0.21875, 0.21875)
+sprite_frames = SubResource("SpriteFrames_07nfq")
+autoplay = "default"
+frame_progress = 0.004897442
+
 [node name="Label" type="RichTextLabel" parent="." unique_id=1465655750]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -127,4 +219,5 @@ horizontal_alignment = 1
 [connection signal="pressed" from="StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="AddLocalPlayerButton" to="." method="_on_add_local_player_button_pressed"]
 [connection signal="text_submitted" from="JoinInputContainer/JoinInput" to="." method="_on_join_input_text_submitted"]
+[connection signal="pressed" from="JoinInputContainer/GoBack" to="." method="_on_go_back_pressed"]
 [connection signal="meta_clicked" from="Label" to="." method="_on_label_meta_clicked"]

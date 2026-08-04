@@ -4,7 +4,7 @@ extends Node
 # Maybe do the basic portforwarding first and implement hole punching later!
 
 const PORT = 10567
-const MAX_PEERS = 4
+const MAX_PLAYERS = 4
 
 const SERVER_AUTHORITY = 1
 const PEER_SYNC_INTERVAL = 0.5
@@ -31,22 +31,10 @@ func _ready() -> void:
 var peer: ENetMultiplayerPeer = null
 var peer_sync_elapsed = 0.0
 
-func _process(delta: float) -> void:
-	if not multiplayer.is_server() or peer == null:
-		return
-
-	peer_sync_elapsed += delta
-	if peer_sync_elapsed < PEER_SYNC_INTERVAL:
-		return
-
-	peer_sync_elapsed = 0.0
-	# FIXME: Registering on a loop seems strange. Is this due to connection issues / ping?
-	#register_connected_peers()
-
 func host():
 	print("Starting game server")
 	peer = ENetMultiplayerPeer.new()
-	peer.create_server(PORT, MAX_PEERS)
+	peer.create_server(PORT, MAX_PLAYERS - 1)
 	multiplayer.multiplayer_peer = peer
 	register_player(multiplayer.get_unique_id())
 	
@@ -59,6 +47,7 @@ func player_connected(id: int):
 	print(id, " connected.")
 	if multiplayer.is_server():
 		register_player(id)
+	print(multiplayer.get_peers().size())
 
 func register_connected_peers() -> void:
 	for id in multiplayer.get_peers():
@@ -68,6 +57,9 @@ func connected_to_server() -> void:
 	request_registration.rpc_id(SERVER_AUTHORITY)
 
 func local_join() -> void:
+	if player_ids.size() == MAX_PLAYERS:
+		print("Maximum number of peers reached. Cannot add more players")
+		return
 	local_players += 1
 	request_registration.rpc_id(1, true, multiplayer.get_unique_id() + local_players)
 
@@ -117,6 +109,7 @@ enum StartSource {
 }
 
 func start_game(start_source: StartSource):
+	# TODO: These asserts will crash the game if they are failed
 	assert(multiplayer.is_server())
 	assert(player_ids.size() <= 4)
 
@@ -132,7 +125,7 @@ func start_game(start_source: StartSource):
 	
 	# For each player:
 	# If they are the primary player for that given client, then set their spawned player name to that client ID
-	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID + 
+	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID
 	# however many secondary local players we have on that client
 	
 	player_ids.sort()

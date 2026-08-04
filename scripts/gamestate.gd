@@ -116,7 +116,6 @@ enum StartSource {
 	NEXTROUND
 }
 
-# TODO: Need to have a seperate start game / start round
 func start_game(start_source: StartSource):
 	assert(multiplayer.is_server())
 	assert(player_ids.size() <= 4)
@@ -136,10 +135,7 @@ func start_game(start_source: StartSource):
 	# If they are a local connection from that client but not the primary player, then set the spawned player name to the client ID + 
 	# however many secondary local players we have on that client
 	
-	# TODO: Something about authority assignment is bricked here 
 	player_ids.sort()
-	# TODO: Sometimes this isnt getting sorted. An early return of some kind?
-	print("After sort: ", player_ids)
 	var latest_remote_index = null # Keep track of the most recent primary player, so that we can set secondary local player ids off of that one
 	for i in player_ids.size():
 		var authority

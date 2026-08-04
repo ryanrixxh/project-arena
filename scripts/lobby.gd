@@ -27,8 +27,6 @@ func _on_host_button_pressed() -> void:
 func _on_join_button_pressed() -> void:
 	$ButtonContainer.hide()
 	$JoinInputContainer.show()
-	#Gamestate.join()
-	#show_lobby()
 
 func _on_start_game_button_pressed() -> void:
 	Gamestate.start_game(Gamestate.StartSource.LOBBY)
@@ -49,3 +47,7 @@ func _on_join_input_text_submitted(new_text: String) -> void:
 	$JoinInputContainer.hide()
 	await Gamestate.join(new_text)
 	show_lobby()
+
+func _on_label_meta_clicked(meta: Variant) -> void:
+	print(meta)
+	OS.shell_open(str(meta))

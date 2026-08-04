@@ -32,13 +32,11 @@ func check_health():
 func die():
 	get_parent().queue_free()
 
-
-func _on_damaged(damage: int) -> void:
+@rpc("call_local", "any_peer")
+func damage(damage: int):
 	if invicible: return
-	if not is_multiplayer_authority(): return
 	
-	# TODO: Structured logging?
-	print("doing damage: ", damage, " CLIENT: ", multiplayer.get_unique_id())
 	health -= damage
 	check_health()
 	invicible = true
+	return

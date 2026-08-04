@@ -1,6 +1,8 @@
 extends Node
 
-const IP_ADDRESS = "localhost" #FIXME: This will need to change to be inputable
+# TODO: Networking. UDP Hole Punching with a fallback to regular UDP networking asking the player to port forward.
+# Maybe do the basic portforwarding first and implement hole punching later!
+
 const PORT = 10567
 const MAX_PEERS = 4
 
@@ -48,9 +50,9 @@ func host():
 	multiplayer.multiplayer_peer = peer
 	register_player(multiplayer.get_unique_id())
 	
-func join():
+func join(ip_addr: String):
 	peer = ENetMultiplayerPeer.new()
-	peer.create_client(IP_ADDRESS, PORT)
+	peer.create_client(ip_addr, PORT)
 	multiplayer.multiplayer_peer = peer
 
 func player_connected(id: int):

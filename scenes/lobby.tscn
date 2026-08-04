@@ -18,10 +18,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -85.25
-offset_top = -84.125
-offset_right = 85.25
-offset_bottom = 84.125
+offset_left = -59.0
+offset_top = -43.0
+offset_right = 117.0
+offset_bottom = 23.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -80,7 +80,51 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Add Local Player"
 
+[node name="JoinInputContainer" type="VBoxContainer" parent="." unique_id=1051696076]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -133.0
+offset_top = -33.0
+offset_right = 133.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JoinInput" type="LineEdit" parent="JoinInputContainer" unique_id=130126923]
+layout_mode = 2
+placeholder_text = "host ip address"
+alignment = 1
+
+[node name="Button" type="Button" parent="JoinInputContainer" unique_id=2013504696]
+layout_mode = 2
+text = "Go Back"
+
+[node name="Label" type="RichTextLabel" parent="." unique_id=1465655750]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 188.0
+offset_top = -102.5
+offset_right = 445.0
+offset_bottom = 102.5
+grow_vertical = 2
+bbcode_enabled = true
+text = "Currently networking is pure Peer to Peer UDP.
+This means online play requires the host to forward the port: 
+[color=green]10567[/color]
+
+For more info on port forwarding [url=https://www.wikihow.com/Set-Up-Port-Forwarding-on-a-Router]click here.[/url]"
+horizontal_alignment = 1
+
 [connection signal="pressed" from="ButtonContainer/HostButton" to="." method="_on_host_button_pressed"]
 [connection signal="pressed" from="ButtonContainer/JoinButton" to="." method="_on_join_button_pressed"]
 [connection signal="pressed" from="StartGameButton" to="." method="_on_start_game_button_pressed"]
 [connection signal="pressed" from="AddLocalPlayerButton" to="." method="_on_add_local_player_button_pressed"]
+[connection signal="text_submitted" from="JoinInputContainer/JoinInput" to="." method="_on_join_input_text_submitted"]
+[connection signal="meta_clicked" from="Label" to="." method="_on_label_meta_clicked"]

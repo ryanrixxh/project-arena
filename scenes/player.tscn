@@ -38,6 +38,9 @@ properties/7/replication_mode = 1
 properties/8/path = NodePath("DebugLabels/HealthLabelDebug:text")
 properties/8/spawn = true
 properties/8/replication_mode = 2
+properties/9/path = NodePath("WizardSprite:modulate")
+properties/9/spawn = true
+properties/9/replication_mode = 2
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
 atlas = ExtResource("2_fjrip")

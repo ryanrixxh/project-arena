@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dtua5jbtdslge"]
+
+[ext_resource type="Script" uid="uid://d24f4yk2qyauv" path="res://scripts/main_menu.gd" id="1_ekxnf"]
+[ext_resource type="Texture2D" uid="uid://dd8qtjey5g8ss" path="res://assets/logo-digital.png" id="1_l6cm7"]
+
+[sub_resource type="SystemFont" id="SystemFont_l6cm7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ekxnf"]
+font = SubResource("SystemFont_l6cm7")
+font_size = 24
+shadow_color = Color(0, 0, 0, 0.5529412)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l6cm7"]
+font_size = 8
+
+[node name="MainMenu" type="Node2D" unique_id=1698324340]
+script = ExtResource("1_ekxnf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=165245818]
+
+[node name="LogoDigital" type="Sprite2D" parent="CanvasLayer" unique_id=1331629183]
+position = Vector2(573, 183)
+scale = Vector2(0.4125, 0.41249996)
+texture = ExtResource("1_l6cm7")
+
+[node name="EarlyBuildVersionTitle" type="Label" parent="CanvasLayer" unique_id=481691321]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -406.0
+offset_top = -29.0
+offset_right = 406.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Super Scuffed Very Early Pre-Alpha Family and Friends Playtest Edition"
+label_settings = SubResource("LabelSettings_ekxnf")
+
+[node name="StartGame" type="Button" parent="CanvasLayer" unique_id=1027981238]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = 198.0
+offset_right = 100.19354
+offset_bottom = 262.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start Game"
+
+[node name="EarlyBuildText" type="Label" parent="CanvasLayer" unique_id=699896382]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -208.0
+offset_top = 49.0
+offset_right = 203.9231
+offset_bottom = 168.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "This is a very early build of the game. If you are reading this you've been invited to play, and I want to personally thank you for taking the time to help test!
+
+As I don't want the game to make a poor first impression, please do not share this build publicly and do not showcase the game in any public settings (yet!). Please share any feedback you have either directly with me, or via the feedback submission system below!
+
+HAVE FUN!"
+label_settings = SubResource("LabelSettings_l6cm7")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="CanvasLayer/StartGame" to="." method="_on_start_game_pressed"]

@@ -1,7 +1,5 @@
 extends MultiplayerSpawner
 
-#@export var boulder: PackedScene
-#@export var poison_dagger: PackedScene
 @export var pickup_map: Dictionary[String, PackedScene]
 
 func _init() -> void:

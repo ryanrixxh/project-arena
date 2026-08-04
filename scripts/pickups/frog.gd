@@ -19,7 +19,8 @@ func _ready() -> void:
 	set_travel_direction()
 	
 func _on_pickup_body_entered(body: Node) -> void:	
-	if current_jumps == max_jumps or not from_player: return
+	if not from_player: return
+	
 	$Sprite2D.play("bounce")
 	$DamageArea/FrogExplosion.play("explode")
 	await $Sprite2D.animation_finished
@@ -29,7 +30,11 @@ func _on_pickup_body_entered(body: Node) -> void:
 	for player in collided_players:
 		var index = player.get_children().find_custom(func(child: Node): return child is Health) #FIXME: Having to perform a search every time we do damage is going to seriously hurt performance long run
 		if (index != -1):
-			do_damage(damage, player.get_child(index))
+			do_damage(player.get_child(index))
+	
+	if current_jumps == max_jumps and from_player:
+		$Pickup.call_deferred("server_despawn")
+		return
 	
 	# Jump again
 	set_travel_direction()
@@ -42,5 +47,5 @@ func set_travel_direction() -> void:
 	await get_tree().create_timer(0.2).timeout	
 	direction_scaler = -1 if linear_velocity.x < 0 else 1
 
-func do_damage(damage: int, health_component: Health) -> void:
-	health_component.damaged.emit(damage)
+func do_damage(health_component: Health) -> void:
+	health_component.damage.rpc_id(health_component.get_multiplayer_authority(), damage)
